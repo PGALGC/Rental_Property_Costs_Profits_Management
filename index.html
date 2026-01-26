@@ -1,0 +1,3846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Costs & Profits Management | 17 Schoolfields SG6 2TZ</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+        }
+        
+        :root {
+            --primary-color: #1e3a8a;
+            --secondary-color: #3b82f6;
+            --accent-color: #ef4444;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+            --border-color: #e2e8f0;
+            --header-bg: #f1f5f9;
+            --row-even: #f8fafc;
+            --row-odd: #ffffff;
+            --shadow-color: rgba(0,0,0,0.05);
+            --shadow-hover: rgba(0,0,0,0.08);
+        }
+        
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: all 0.2s ease;
+            min-height: 100vh;
+            font-size: 11px;
+            line-height: 1.3;
+        }
+        
+        /* Professional Themes */
+        .theme-blue {
+            --primary-color: #1e3a8a;
+            --secondary-color: #3b82f6;
+            --accent-color: #ef4444;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --header-bg: #f1f5f9;
+            --border-color: #e2e8f0;
+        }
+        
+        .theme-gray {
+            --primary-color: #374151;
+            --secondary-color: #6b7280;
+            --accent-color: #dc2626;
+            --bg-color: #f9fafb;
+            --card-bg: #ffffff;
+            --header-bg: #f3f4f6;
+            --border-color: #d1d5db;
+        }
+        
+        .theme-green {
+            --primary-color: #065f46;
+            --secondary-color: #059669;
+            --accent-color: #dc2626;
+            --bg-color: #f0fdf4;
+            --card-bg: #ffffff;
+            --header-bg: #dcfce7;
+            --border-color: #bbf7d0;
+        }
+        
+        .theme-indigo {
+            --primary-color: #3730a3;
+            --secondary-color: #6366f1;
+            --accent-color: #ec4899;
+            --bg-color: #f5f3ff;
+            --card-bg: #ffffff;
+            --header-bg: #ede9fe;
+            --border-color: #ddd6fe;
+        }
+        
+        .theme-amber {
+            --primary-color: #92400e;
+            --secondary-color: #f59e0b;
+            --accent-color: #dc2626;
+            --bg-color: #fffbeb;
+            --card-bg: #ffffff;
+            --header-bg: #fef3c7;
+            --border-color: #fde68a;
+        }
+        
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 8px;
+        }
+        
+        /* Professional Header */
+        .app-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            margin-bottom: 8px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .header-left h1 {
+            color: var(--primary-color);
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+        
+        .header-subtitle {
+            color: var(--secondary-color);
+            font-size: 10px;
+            font-weight: 400;
+        }
+        
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        /* Professional Controls */
+        .app-controls {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 5px 8px;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 10px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            white-space: nowrap;
+        }
+        
+        .btn:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px var(--shadow-hover);
+        }
+        
+        .btn-danger {
+            background-color: var(--accent-color);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--header-bg);
+            border-color: var(--secondary-color);
+        }
+        
+        .btn-success {
+            background-color: #059669;
+        }
+        
+        .btn-success:hover {
+            background-color: #047857;
+        }
+        
+        .btn-primary {
+            background-color: #3b82f6;
+        }
+        
+        .btn-primary:hover {
+            background-color: #2563eb;
+        }
+        
+        .btn-warning {
+            background-color: #d97706;
+        }
+        
+        .btn-warning:hover {
+            background-color: #b45309;
+        }
+        
+        .btn-sm {
+            padding: 3px 6px;
+            font-size: 9px;
+        }
+        
+        /* Theme Selector */
+        .theme-selector {
+            position: relative;
+        }
+        
+        .theme-btn {
+            background-color: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+        }
+        
+        .theme-dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: var(--card-bg);
+            box-shadow: 0 4px 12px var(--shadow-color);
+            border-radius: 6px;
+            z-index: 100;
+            min-width: 160px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .theme-dropdown.show {
+            display: block;
+            animation: fadeIn 0.15s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .theme-option {
+            padding: 10px 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid var(--border-color);
+            transition: background-color 0.2s;
+        }
+        
+        .theme-option:hover {
+            background-color: var(--header-bg);
+        }
+        
+        .theme-color {
+            width: 16px;
+            height: 16px;
+            border-radius: 3px;
+            flex-shrink: 0;
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+        
+        /* Professional Tabs */
+        .app-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 8px;
+            background-color: var(--card-bg);
+            border-radius: 4px 4px 0 0;
+            overflow: hidden;
+        }
+        
+        .tab {
+            padding: 8px 12px;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--text-color);
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+            flex: 1;
+            text-align: center;
+            font-size: 11px;
+        }
+        
+        .tab:hover {
+            background-color: var(--header-bg);
+        }
+        
+        .tab.active {
+            border-bottom-color: var(--secondary-color);
+            background-color: var(--header-bg);
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.2s ease;
+        }
+        
+        /* Compact Data Sheet */
+        .sheet-container {
+            overflow-x: auto;
+            box-shadow: 0 1px 4px var(--shadow-color);
+            border-radius: 4px;
+            background-color: var(--card-bg);
+            margin-bottom: 10px;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: auto;
+            min-width: 1200px;
+        }
+        
+        th {
+            background-color: var(--header-bg);
+            padding: 6px 4px;
+            text-align: left;
+            font-weight: 600;
+            color: var(--primary-color);
+            border-bottom: 1px solid var(--border-color);
+            font-size: 10px;
+            white-space: nowrap;
+            overflow: visible;
+            position: relative;
+            min-width: 60px;
+        }
+        
+        /* Editable header cell */
+        .editable-header {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            padding: 2px 4px;
+            border-radius: 3px;
+            transition: background-color 0.2s;
+            overflow: visible;
+        }
+        
+        .editable-header:hover {
+            background-color: color-mix(in srgb, var(--secondary-color) 10%, transparent);
+        }
+        
+        .editable-header.editing {
+            background-color: color-mix(in srgb, var(--secondary-color) 15%, transparent);
+        }
+        
+        .header-actions {
+            display: none;
+            gap: 3px;
+            margin-left: auto;
+        }
+        
+        .editable-header:hover .header-actions {
+            display: flex;
+        }
+        
+        .header-action-btn {
+            background: none;
+            border: none;
+            color: var(--text-color);
+            cursor: pointer;
+            font-size: 10px;
+            padding: 2px 4px;
+            border-radius: 2px;
+            opacity: 0.6;
+            transition: all 0.2s;
+        }
+        
+        .header-action-btn:hover {
+            opacity: 1;
+            background-color: var(--header-bg);
+        }
+        
+        .delete-header-btn:hover {
+            color: var(--accent-color);
+            background-color: color-mix(in srgb, var(--accent-color) 15%, transparent);
+        }
+        
+        .header-edit-input {
+            flex: 1;
+            padding: 4px 6px;
+            border: 1px solid var(--secondary-color);
+            border-radius: 3px;
+            font-size: 12px;
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            min-width: 60px;
+            width: 100%;
+        }
+        
+        .header-edit-input:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px color-mix(in srgb, var(--secondary-color) 25%, transparent);
+        }
+        
+        /* Column Widths */
+        th:nth-child(1) { width: 120px; min-width: 120px; }
+        th:nth-child(2) { width: 150px; min-width: 150px; }
+        th:nth-child(3) { width: 200px; min-width: 200px; }
+        th:nth-child(4) { width: 220px; min-width: 220px; }
+        th:nth-child(5) { width: 130px; min-width: 130px; }
+        th:nth-child(6) { width: 100px; min-width: 100px; }
+        th:nth-child(7) { width: 110px; min-width: 110px; }
+        th:nth-child(8) { width: 130px; min-width: 130px; }
+        th:nth-child(9) { width: 100px; min-width: 100px; }
+        th:nth-child(10) { width: 130px; min-width: 130px; }
+        th:nth-child(11) { width: 130px; min-width: 130px; }
+        th:nth-child(12) { width: 80px; min-width: 80px; }
+        
+        td {
+            padding: 4px;
+            border-bottom: 1px solid var(--border-color);
+            vertical-align: top;
+            font-size: 10px;
+            overflow: visible !important;
+            white-space: normal !important;
+            word-wrap: break-word;
+            max-width: none !important;
+        }
+        
+        td:nth-child(1) { width: 120px; min-width: 120px; }
+        td:nth-child(2) { width: 150px; min-width: 150px; }
+        td:nth-child(3) { width: 200px; min-width: 200px; }
+        td:nth-child(4) { width: 220px; min-width: 220px; }
+        td:nth-child(5) { width: 130px; min-width: 130px; }
+        td:nth-child(6) { width: 100px; min-width: 100px; }
+        td:nth-child(7) { width: 110px; min-width: 110px; }
+        td:nth-child(8) { width: 130px; min-width: 130px; }
+        td:nth-child(9) { width: 100px; min-width: 100px; }
+        td:nth-child(10) { width: 130px; min-width: 130px; }
+        td:nth-child(11) { width: 130px; min-width: 130px; }
+        td:nth-child(12) { width: 80px; min-width: 80px; }
+        
+        tr:nth-child(even) {
+            background-color: var(--row-even);
+        }
+        
+        tr:hover {
+            background-color: color-mix(in srgb, var(--secondary-color) 3%, transparent);
+        }
+        
+        /* FIXED: Editable cell styling for currency fields */
+        .editable-cell {
+            width: 100%;
+            border: 1px solid transparent;
+            padding: 4px 6px;
+            background-color: transparent;
+            font-size: 10px;
+            color: var(--text-color);
+            border-radius: 2px;
+            transition: border-color 0.2s;
+            box-sizing: border-box;
+            font-family: inherit;
+            min-height: 26px;
+            resize: vertical;
+            white-space: normal;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            overflow: visible;
+            display: block;
+        }
+        
+        /* FIXED: Currency field styling - removed absolute positioning */
+        .currency-input-wrapper {
+            position: relative;
+            width: 100%;
+        }
+        
+        .currency-input-wrapper input.editable-cell {
+            padding-left: 25px !important; /* Space for £ symbol */
+        }
+        
+        .currency-symbol-input {
+            position: absolute;
+            left: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--secondary-color);
+            font-weight: 500;
+            font-size: 12px;
+            z-index: 1;
+            pointer-events: none;
+        }
+        
+        /* Date inputs don't need currency symbol */
+        td:nth-child(1) .editable-cell {
+            padding-left: 8px !important;
+        }
+        
+        /* Non-currency text cells don't need currency symbol */
+        td:nth-child(2) .editable-cell,
+        td:nth-child(3) .editable-cell,
+        td:nth-child(4) .editable-cell {
+            padding-left: 8px !important;
+        }
+        
+        .editable-cell[type="date"] {
+            min-height: auto;
+            padding: 6px 8px;
+            font-size: 12px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        
+        input[type="date"] {
+            font-size: 12px;
+            padding: 6px;
+            width: 100%;
+        }
+        
+        .editable-cell[type="text"] {
+            width: 100%;
+            padding: 6px 8px;
+            font-size: 12px;
+        }
+        
+        .editable-cell:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            background-color: color-mix(in srgb, var(--secondary-color) 5%, transparent);
+            box-shadow: 0 0 0 2px color-mix(in srgb, var(--secondary-color) 15%, transparent);
+        }
+        
+        .summary-row {
+            background-color: color-mix(in srgb, var(--secondary-color) 8%, var(--card-bg)) !important;
+            font-weight: 600;
+            font-size: 12px;
+        }
+        
+        .summary-row td {
+            border-top: 1px solid var(--border-color);
+            padding: 10px 8px;
+        }
+        
+        .summary-cell {
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+        
+        /* Currency display in summary cells */
+        .summary-currency {
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+        
+        /* Right-align summary row currency cells */
+        .summary-row td:not(:first-child):not(:last-child) {
+            text-align: right;
+        }
+        
+        .summary-currency::before {
+            content: "£";
+            margin-right: 2px;
+            color: var(--secondary-color);
+        }
+        
+        .profit {
+            color: #059669;
+        }
+        
+        .loss {
+            color: #dc2626;
+        }
+        
+        .actions-cell {
+            display: flex;
+            gap: 3px;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .action-btn {
+            padding: 5px;
+            background-color: transparent;
+            color: var(--text-color);
+            width: 26px;
+            height: 26px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 3px;
+            font-size: 12px;
+        }
+        
+        .action-btn:hover {
+            background-color: var(--header-bg);
+        }
+        
+        .delete-btn:hover {
+            color: var(--accent-color);
+            background-color: color-mix(in srgb, var(--accent-color) 10%, transparent);
+        }
+        
+        /* Compact Personnel Grid */
+        .personnel-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 15px;
+        }
+        
+        .personnel-card {
+            background-color: var(--card-bg);
+            border-radius: 4px;
+            padding: 12px;
+            box-shadow: 0 1px 4px var(--shadow-color);
+            border-left: 3px solid var(--secondary-color);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .personnel-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px var(--shadow-hover);
+        }
+        
+        .personnel-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 13px;
+            font-weight: 600;
+        }
+        
+        .accountant-card {
+            border-left-color: #059669;
+        }
+        
+        .accountant-card h3 {
+            color: #065f46;
+        }
+        
+        .form-group {
+            margin-bottom: 8px;
+        }
+        
+        .form-group label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 2px;
+            color: var(--text-color);
+            font-size: 10px;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid var(--border-color);
+            border-radius: 3px;
+            font-size: 10px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: border-color 0.2s;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 2px color-mix(in srgb, var(--secondary-color) 15%, transparent);
+        }
+        
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(2px);
+        }
+        
+        .modal-overlay.show {
+            display: flex;
+            animation: fadeIn 0.15s ease;
+        }
+        
+        .modal {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 20px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+            border: 1px solid var(--border-color);
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+        
+        .modal-header h2 {
+            color: var(--primary-color);
+            font-size: 16px;
+            font-weight: 600;
+        }
+        
+        .close-modal {
+            background-color: transparent;
+            color: var(--text-color);
+            font-size: 20px;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+        
+        .close-modal:hover {
+            background-color: var(--header-bg);
+        }
+        
+        select {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 8px;
+            font-size: 12px;
+            width: 100%;
+        }
+        
+        select:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 2px color-mix(in srgb, var(--secondary-color) 15%, transparent);
+        }
+        
+        /* Professional Footer */
+        .app-footer {
+            text-align: center;
+            padding: 15px 0;
+            margin-top: 20px;
+            color: var(--text-color);
+            border-top: 1px solid var(--border-color);
+            font-size: 11px;
+            opacity: 0.7;
+        }
+        
+        /* Stats Bar */
+        .stats-bar {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+        }
+        
+        .stat-card {
+            background-color: var(--card-bg);
+            border-radius: 4px;
+            padding: 8px;
+            flex: 1;
+            min-width: 120px;
+            box-shadow: 0 1px 2px var(--shadow-color);
+            border-left: 2px solid var(--secondary-color);
+        }
+        
+        .stat-title {
+            font-size: 9px;
+            color: var(--text-color);
+            opacity: 0.7;
+            margin-bottom: 3px;
+        }
+        
+        .stat-value {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        
+        .stat-subtitle {
+            font-size: 8px;
+            color: var(--secondary-color);
+            margin-top: 2px;
+        }
+        
+        /* Info badge for excluded columns */
+        .info-badge {
+            display: inline-block;
+            background-color: var(--header-bg);
+            color: var(--secondary-color);
+            font-size: 10px;
+            padding: 1px 6px;
+            border-radius: 10px;
+            margin-left: 5px;
+            vertical-align: middle;
+        }
+        
+        /* File input styling */
+        .file-input-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+        }
+        
+        .file-input-wrapper input[type=file] {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+        
+        /* Import modal specific styling */
+        .import-instructions {
+            background-color: var(--header-bg);
+            border-radius: 6px;
+            padding: 12px;
+            margin-bottom: 15px;
+            font-size: 12px;
+            line-height: 1.4;
+        }
+        
+        .import-instructions h4 {
+            color: var(--primary-color);
+            margin-bottom: 8px;
+            font-size: 12px;
+        }
+        
+        .import-instructions ul {
+            padding-left: 20px;
+            margin: 8px 0;
+        }
+        
+        .import-instructions li {
+            margin-bottom: 4px;
+        }
+        
+        .import-file-area {
+            border: 2px dashed var(--border-color);
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .import-file-area:hover {
+            border-color: var(--secondary-color);
+            background-color: color-mix(in srgb, var(--secondary-color) 5%, transparent);
+        }
+        
+        .import-file-area.dragover {
+            border-color: var(--secondary-color);
+            background-color: color-mix(in srgb, var(--secondary-color) 10%, transparent);
+        }
+        
+        .import-file-icon {
+            font-size: 36px;
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+        }
+        
+        .import-file-text {
+            color: var(--text-color);
+            margin-bottom: 5px;
+        }
+        
+        .import-file-hint {
+            color: var(--secondary-color);
+            font-size: 11px;
+        }
+        
+        /* Report Preview Styles */
+        .report-preview {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            z-index: 2000;
+            overflow-y: auto;
+            overflow-x: auto;
+            padding: 10px;
+        }
+        
+        .report-preview.show {
+            display: block;
+        }
+        
+        .report-header {
+            text-align: center;
+            border-bottom: 2px solid #333;
+            padding-bottom: 8px;
+            margin-bottom: 12px;
+        }
+        
+        .report-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1e3a8a;
+            margin-bottom: 3px;
+        }
+        
+        .report-subtitle {
+            font-size: 11px;
+            color: #666;
+            margin-bottom: 3px;
+        }
+        
+        .report-period {
+            font-size: 10px;
+            color: #333;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+        
+        .report-section {
+            margin-bottom: 8px;
+            page-break-inside: avoid;
+        }
+        
+        .report-section-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #1e3a8a;
+            border-bottom: 1px solid #1e3a8a;
+            padding-bottom: 3px;
+            margin-bottom: 5px;
+        }
+        
+        .report-table {
+            width: 100%;
+            min-width: 1200px;
+            border-collapse: collapse;
+            margin-bottom: 5px;
+            font-size: 8px;
+            table-layout: fixed;
+        }
+        
+        .report-table th {
+            background-color: #f8fafc;
+            padding: 3px 2px;
+            text-align: left;
+            font-weight: 600;
+            color: #1e3a8a;
+            border: 1px solid #e2e8f0;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+        
+        .report-table td {
+            padding: 2px;
+            border: 1px solid #e2e8f0;
+            vertical-align: top;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+        
+        .report-table tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+        
+        /* Column widths for 11 columns in preview */
+        .report-table th:nth-child(1), .report-table td:nth-child(1) { width: 6%; }
+        .report-table th:nth-child(2), .report-table td:nth-child(2) { width: 7%; }
+        .report-table th:nth-child(3), .report-table td:nth-child(3) { width: 9%; }
+        .report-table th:nth-child(4), .report-table td:nth-child(4) { width: 15%; }
+        .report-table th:nth-child(5), .report-table td:nth-child(5) { width: 10%; }
+        .report-table th:nth-child(6), .report-table td:nth-child(6) { width: 8%; }
+        .report-table th:nth-child(7), .report-table td:nth-child(7) { width: 9%; }
+        .report-table th:nth-child(8), .report-table td:nth-child(8) { width: 10%; }
+        .report-table th:nth-child(9), .report-table td:nth-child(9) { width: 8%; }
+        .report-table th:nth-child(10), .report-table td:nth-child(10) { width: 9%; }
+        .report-table th:nth-child(11), .report-table td:nth-child(11) { width: 9%; }
+        
+        .financial-summary {
+            background-color: #f1f5f9;
+            border-radius: 4px;
+            padding: 8px;
+            margin-bottom: 8px;
+        }
+        
+        .financial-row {
+            display: flex !important;
+            padding: 3px 0;
+            border-bottom: 1px solid #e2e8f0;
+            justify-content: space-between;
+            align-items: baseline;
+        }
+        
+        .financial-row.total {
+            font-weight: 700;
+            font-size: 14px;
+            border-top: 2px solid #333;
+            margin-top: 8px;
+            padding-top: 12px;
+        }
+        
+        .financial-label {
+            color: #333;
+            text-align: left !important;
+            flex: 1;
+            min-width: 0;
+            font-size: 10px;
+        }
+        
+        .financial-value {
+            font-weight: 600;
+            text-align: right !important;
+            width: 120px !important;
+            flex-shrink: 0 !important;
+            white-space: nowrap;
+            font-size: 10px;
+        }
+        
+        .profit {
+            color: #059669;
+        }
+        
+        .loss {
+            color: #dc2626;
+        }
+        
+        .excluded {
+            color: #6b7280;
+            font-style: italic;
+        }
+        
+        .personnel-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .personnel-card-report {
+            background-color: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 4px;
+            padding: 8px;
+        }
+        
+        .personnel-card-report h4 {
+            color: #1e3a8a;
+            margin-bottom: 5px;
+            padding-bottom: 4px;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 11px;
+        }
+        
+        .personnel-detail {
+            margin-bottom: 3px;
+            display: flex;
+            font-size: 9px;
+        }
+        
+        .personnel-label {
+            font-weight: 600;
+            min-width: 100px;
+            color: #555;
+        }
+        
+        .personnel-value {
+            flex: 1;
+        }
+        
+        .report-footer {
+            margin-top: 15px;
+            padding-top: 8px;
+            border-top: 1px solid #ccc;
+            font-size: 8px;
+            color: #666;
+            text-align: center;
+        }
+        
+        .report-actions {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            gap: 5px;
+            z-index: 2001;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .app-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .header-right {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .app-controls {
+                justify-content: center;
+            }
+            
+            .btn {
+                flex: 1;
+                min-width: 120px;
+                justify-content: center;
+            }
+            
+            .personnel-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-bar {
+                flex-direction: column;
+            }
+            
+            .stat-card {
+                min-width: 100%;
+            }
+            
+            th:nth-child(1), td:nth-child(1) {
+                width: 110px !important;
+                min-width: 110px !important;
+            }
+            
+            th:nth-child(2), td:nth-child(2) {
+                width: 130px !important;
+                min-width: 130px !important;
+            }
+            
+            th:nth-child(3), td:nth-child(3) {
+                width: 160px !important;
+                min-width: 160px !important;
+            }
+            
+            th:nth-child(4), td:nth-child(4) {
+                width: 180px !important;
+                min-width: 180px !important;
+            }
+            
+            .report-actions {
+                position: relative;
+                top: 0;
+                right: 0;
+                justify-content: center;
+                margin-bottom: 20px;
+            }
+        }
+        
+        /* Print styles - Optimized for PDF with all columns visible */
+        @media print {
+            @page {
+                size: A4 landscape; /* A4 landscape */
+                margin: 5mm; /* Minimal margins to fit all columns */
+            }
+            
+            html {
+                zoom: 100% !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            
+            /* Hide main app, only show report */
+            .modal-overlay.show ~ .container,
+            .container {
+                display: none !important;
+            }
+            
+            .modal-overlay {
+                position: static !important;
+                background: transparent !important;
+                display: block !important;
+            }
+            
+            .report-preview.show {
+                display: block !important;
+                position: static !important;
+                max-width: 100% !important;
+                max-height: none !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                box-shadow: none !important;
+                overflow: visible !important;
+            }
+            
+            .report-content {
+                padding: 2px !important;
+                max-width: 100% !important;
+            }
+            
+            .report-actions {
+                display: none !important;
+            }
+            
+            /* Hide Notes for Accountant section in PDF */
+            #notesForAccountant {
+                display: none !important;
+            }
+            
+            /* Compact report sections */
+            .report-header {
+                margin-bottom: 2px !important;
+                padding-bottom: 2px !important;
+            }
+            
+            .report-section {
+                margin-bottom: 3px !important;
+                page-break-inside: avoid;
+            }
+            
+            .report-section-title {
+                font-size: 10px !important;
+                margin-bottom: 2px !important;
+                padding-bottom: 1px !important;
+            }
+            
+            .financial-summary {
+                padding: 3px !important;
+                margin-bottom: 3px !important;
+            }
+            
+            /* Table styling for PDF */
+            .report-table,
+            table {
+                width: 100% !important;
+                font-size: 6.5px !important;
+                border-collapse: collapse !important;
+                margin-bottom: 2px !important;
+                margin-top: 0 !important;
+                table-layout: fixed !important;
+            }
+            
+            .report-table td,
+            .report-table th,
+            td, th {
+                padding: 1px 2px !important;
+                font-size: 6.5px !important;
+                line-height: 1.1 !important;
+                white-space: nowrap !important;
+                overflow: hidden !important;
+                text-overflow: ellipsis !important;
+            }
+            
+            /* Fixed equal-width columns for 11 columns */
+            .report-table th,
+            .report-table td {
+                width: 9.09% !important; /* 100% / 11 columns = 9.09% each */
+            }
+            
+            /* Avoid breaking inside rows */
+            tr {
+                page-break-inside: avoid !important;
+            }
+            
+            /* Keep sections together */
+            h1, h2, h3, h4 {
+                page-break-after: avoid !important;
+                margin-top: 3px !important;
+                margin-bottom: 2px !important;
+                font-size: 11px !important;
+            }
+            
+            /* Compact financial rows */
+            .financial-row {
+                padding: 1px 0 !important;
+                margin-bottom: 0 !important;
+                font-size: 9px !important;
+            }
+            
+            .financial-row.total {
+                margin-top: 2px !important;
+                padding-top: 3px !important;
+                font-size: 10px !important;
+            }
+            
+            /* Personnel section compact */
+            .personnel-details {
+                gap: 3px !important;
+                margin-bottom: 3px !important;
+            }
+            
+            .personnel-card-report {
+                padding: 4px !important;
+            }
+            
+            .personnel-detail {
+                margin-bottom: 1px !important;
+                font-size: 8px !important;
+            }
+            
+            .report-footer {
+                margin-top: 2px !important;
+                padding-top: 1px !important;
+                font-size: 6px !important;
+            }
+            
+            body {
+                background-color: white !important;
+                color: black !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+        }
+    </style>
+</head>
+<body class="theme-blue">
+    <div class="container">
+        <!-- Professional Header -->
+        <header class="app-header">
+            <div class="header-left">
+                <h1>Costs & Profits Management</h1>
+                <div class="header-subtitle" id="headerSubtitle" style="cursor: pointer;" title="Click to edit">
+                    <span id="propertyAddress">17 Schoolfields, SG6 2TZ</span> | Period: <span id="periodDates">Apr 2025 - Apr 2026</span>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="theme-selector">
+                    <button class="btn btn-outline theme-btn" id="themeToggle">
+                        <i class="fas fa-palette"></i> Theme
+                    </button>
+                    <div class="theme-dropdown" id="themeDropdown">
+                        <div class="theme-option theme-blue" data-theme="theme-blue">
+                            <div class="theme-color" style="background: #3b82f6;"></div>
+                            <span>Blue (Default)</span>
+                        </div>
+                        <div class="theme-option theme-gray" data-theme="theme-gray">
+                            <div class="theme-color" style="background: #6b7280;"></div>
+                            <span>Gray</span>
+                        </div>
+                        <div class="theme-option theme-green" data-theme="theme-green">
+                            <div class="theme-color" style="background: #059669;"></div>
+                            <span>Green</span>
+                        </div>
+                        <div class="theme-option theme-indigo" data-theme="theme-indigo">
+                            <div class="theme-color" style="background: #6366f1;"></div>
+                            <span>Indigo</span>
+                        </div>
+                        <div class="theme-option theme-amber" data-theme="theme-amber">
+                            <div class="theme-color" style="background: #f59e0b;"></div>
+                            <span>Amber</span>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-warning" id="generateReportBtn">
+                    <i class="fas fa-file-alt"></i> Generate Report
+                </button>
+                <button class="btn btn-outline" onclick="window.print()">
+                    <i class="fas fa-print"></i> Print
+                </button>
+            </div>
+        </header>
+        
+        <!-- Stats Bar -->
+        <div class="stats-bar" id="statsBar">
+            <!-- Stats will be populated by JavaScript -->
+        </div>
+        
+        <!-- Professional Controls -->
+        <div class="app-controls">
+            <button class="btn" id="addRowBtn">
+                <i class="fas fa-plus"></i> Add Row
+            </button>
+            <button class="btn btn-outline" id="addColumnBtn">
+                <i class="fas fa-columns"></i> Add Column
+            </button>
+            <button class="btn btn-outline" id="sortDateBtn">
+                <i class="fas fa-sort-amount-down"></i> Sort by Date
+            </button>
+            <button class="btn btn-outline" id="importBtn">
+                <i class="fas fa-file-import"></i> Import
+            </button>
+            <button class="btn btn-outline" id="exportBtn">
+                <i class="fas fa-file-export"></i> Export CSV
+            </button>
+            <button class="btn btn-success" id="backupBtn">
+                <i class="fas fa-download"></i> Backup JSON
+            </button>
+            <button class="btn btn-primary" id="restoreBtn">
+                <i class="fas fa-upload"></i> Restore JSON
+            </button>
+            <button class="btn btn-danger" id="clearAllBtn">
+                <i class="fas fa-trash"></i> Clear All
+            </button>
+        </div>
+        
+        <!-- Tabs -->
+        <div class="app-tabs">
+            <div class="tab active" data-tab="costs-profits">
+                <i class="fas fa-table"></i> Costs & Profits
+            </div>
+            <div class="tab" data-tab="personnel">
+                <i class="fas fa-users"></i> Personnel
+            </div>
+            <div class="tab" data-tab="summary">
+                <i class="fas fa-chart-bar"></i> Summary
+            </div>
+        </div>
+        
+        <!-- Costs & Profits Tab -->
+        <div class="tab-content active" id="costs-profits">
+            <div class="sheet-container">
+                <table id="dataTable">
+                    <thead>
+                        <tr id="tableHeader">
+                            <!-- Headers will be populated by JavaScript -->
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <!-- Rows will be populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- Personnel Tab -->
+        <div class="tab-content" id="personnel">
+            <div class="personnel-grid" id="personnelGrid">
+                <!-- Personnel cards will be populated by JavaScript -->
+            </div>
+        </div>
+        
+        <!-- Summary Tab -->
+        <div class="tab-content" id="summary">
+            <div class="sheet-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Company</th>
+                            <th>Description</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody id="summaryTable">
+                        <!-- Summary rows will be populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- Add Column Modal -->
+        <div class="modal-overlay" id="addColumnModal">
+            <div class="modal">
+                <div class="modal-header">
+                    <h2>Add New Column</h2>
+                    <button class="close-modal" id="closeColumnModal">&times;</button>
+                </div>
+                <div style="padding: 10px 0;">
+                    <div style="display: flex; gap: 15px; margin-bottom: 15px;">
+                        <div style="flex: 1;">
+                            <label style="display: block; font-weight: 500; margin-bottom: 5px; font-size: 12px;">Column Name:</label>
+                            <input type="text" id="columnName" placeholder="e.g., Legal Fees" style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 12px;">
+                        </div>
+                        <div style="flex: 1;">
+                            <label style="display: block; font-weight: 500; margin-bottom: 5px; font-size: 12px;">Column Type:</label>
+                            <select id="columnType" style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 12px;">
+                                <option value="text">Text</option>
+                                <option value="number">Number</option>
+                                <option value="currency">Currency</option>
+                                <option value="date">Date</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 15px; margin-bottom: 20px;">
+                        <div style="flex: 1;">
+                            <label style="display: block; font-weight: 500; margin-bottom: 5px; font-size: 12px;">Insert After:</label>
+                            <select id="columnPosition" style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 12px;">
+                                <!-- Options will be populated by JavaScript -->
+                            </select>
+                        </div>
+                        <div style="flex: 1;">
+                            <label style="display: block; font-weight: 500; margin-bottom: 5px; font-size: 12px;">Default Value:</label>
+                            <input type="text" id="defaultValue" placeholder="Optional" style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 12px;">
+                        </div>
+                    </div>
+                    <button class="btn" id="saveColumnBtn" style="width: 100%;">
+                        <i class="fas fa-save"></i> Add Column
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Import Data Modal -->
+        <div class="modal-overlay" id="importModal">
+            <div class="modal">
+                <div class="modal-header">
+                    <h2>Import Data</h2>
+                    <button class="close-modal" id="closeImportModal">&times;</button>
+                </div>
+                <div style="padding: 10px 0;">
+                    <div class="import-instructions">
+                        <h4>Import Instructions:</h4>
+                        <p>Import data from a CSV file exported from this system or compatible spreadsheet software.</p>
+                        <ul>
+                            <li>File must be in CSV format</li>
+                            <li>First row should contain column headers</li>
+                            <li>Date format: YYYY-MM-DD</li>
+                            <li>Currency values should be numbers only (no £ symbol)</li>
+                            <li>Existing data will be replaced</li>
+                        </ul>
+                        <p><strong>Note:</strong> Import will replace all current table data. Make sure to export your current data first if needed.</p>
+                    </div>
+                    
+                    <div class="import-file-area" id="importFileArea">
+                        <div class="import-file-icon">
+                            <i class="fas fa-file-upload"></i>
+                        </div>
+                        <div class="import-file-text">
+                            <strong>Click to select file</strong> or drag and drop here
+                        </div>
+                        <div class="import-file-hint">
+                            Supports CSV files (max 10MB)
+                        </div>
+                        <input type="file" id="csvFileInput" accept=".csv" style="display: none;">
+                    </div>
+                    
+                    <div style="margin-top: 20px;">
+                        <label style="display: block; font-weight: 500; margin-bottom: 8px; font-size: 12px;">Import Mode:</label>
+                        <select id="importMode" style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 12px; margin-bottom: 15px;">
+                            <option value="replace">Replace All Data</option>
+                            <option value="append">Append to Existing Data</option>
+                        </select>
+                        
+                        <div style="display: flex; gap: 10px; margin-top: 20px;">
+                            <button class="btn btn-success" id="processImportBtn" style="flex: 2;">
+                                <i class="fas fa-upload"></i> Import Data
+                            </button>
+                            <button class="btn btn-outline" id="cancelImportBtn" style="flex: 1;">
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Professional Report Preview -->
+    <div class="report-preview" id="reportPreview">
+        <div class="report-actions">
+            <button class="btn btn-success" id="printReportBtn">
+                <i class="fas fa-print"></i> Print Report
+            </button>
+            <button class="btn btn-outline" id="closeReportBtn">
+                <i class="fas fa-times"></i> Close
+            </button>
+        </div>
+        
+        <div class="report-header">
+            <h1 class="report-title">Costs & Profits Management</h1>
+            <div class="report-subtitle">Financial Report for Accountant</div>
+            <div class="report-period">Period: Apr 2025 - Apr 2026 | Generated: <span id="reportDate"></span></div>
+            <div class="report-subtitle">17 Schoolfields, SG6 2TZ</div>
+        </div>
+        
+        <div class="report-section">
+            <h2 class="report-section-title">Executive Summary</h2>
+            <div class="financial-summary" id="executiveSummary">
+                <!-- Executive summary will be populated by JavaScript -->
+            </div>
+        </div>
+        
+        <div class="report-section">
+            <h2 class="report-section-title">Transaction Details</h2>
+            <div class="report-table-container">
+                <table class="report-table" id="reportTransactionTable">
+                    <!-- Transaction table will be populated by JavaScript -->
+                </table>
+            </div>
+        </div>
+        
+        <div class="report-section">
+            <h2 class="report-section-title">Personnel Details</h2>
+            <div class="personnel-details" id="reportPersonnel">
+                <!-- Personnel details will be populated by JavaScript -->
+            </div>
+        </div>
+        
+        <div class="report-section" id="notesForAccountant">
+            <h2 class="report-section-title">Notes for Accountant</h2>
+            <div style="background-color: #f8fafc; border-radius: 6px; padding: 20px; border-left: 4px solid #3b82f6;">
+                <p><strong>Important Notes:</strong></p>
+                <ul style="margin: 10px 0 10px 20px;">
+                    <li>HRMC payments (Kamal HRMC and Meena HRMC) are excluded from profit/loss calculations as they represent tax payments rather than operational expenses</li>
+                    <li>Rental income is recorded gross of any management fees</li>
+                    <li>All currency values are in GBP (£)</li>
+                    <li>Dates are recorded in YYYY-MM-DD format</li>
+                </ul>
+                <p><strong>Calculation Basis:</strong></p>
+                <p>Net Profit = (Rental Income + Other Income) - (Repairs & Maintenance + Insurance + Management Fees)</p>
+                <p>HRMC payments are tracked separately for tax accounting purposes</p>
+            </div>
+        </div>
+        
+        <div class="report-footer">
+            <p>Costs & Profits Management System | Professional Financial Report v1.0</p>
+            <p>This report is generated for accounting purposes. All figures should be verified with original documentation.</p>
+            <p>Generated on: <span id="reportTimestamp"></span></p>
+        </div>
+    </div>
+    
+    <footer class="app-footer">
+        <p>Costs & Profits Management System v1.0 | Professional Edition | 17 Schoolfields SG6 2TZ</p>
+    </footer>
+
+    <script>
+        // EMPTY DATA STRUCTURE - Professional layout
+        const EMPTY_DATA = {
+            headers: [
+                { id: 'date', name: 'Date', type: 'date', editable: true },
+                { id: 'invoice', name: 'Invoice', type: 'text', editable: true },
+                { id: 'company', name: 'Company', type: 'text', editable: true },
+                { id: 'description', name: 'Description', type: 'text', editable: true },
+                { id: 'repairs', name: 'Repairs & Maintenance', type: 'currency', editable: true },
+                { id: 'insurance', name: 'Insurance', type: 'currency', editable: true },
+                { id: 'keyo', name: 'Keyo Estates', type: 'currency', editable: true },
+                { id: 'rent', name: 'Rental Income', type: 'currency', editable: true },
+                { id: 'other', name: 'Other Income', type: 'currency', editable: true },
+                { id: 'kamal', name: 'Kamal HRMC <span class="info-badge">Excluded</span>', type: 'currency', editable: true, excludedFromCalcs: true },
+                { id: 'meena', name: 'Meena HRMC <span class="info-badge">Excluded</span>', type: 'currency', editable: true, excludedFromCalcs: true },
+                { id: 'actions', name: 'Actions', type: 'actions', editable: false }
+            ],
+            rows: [],
+            summaryRows: [
+                { 
+                    id: 'summary-rental', 
+                    description: 'Rental Income Total',
+                    isSummary: true 
+                },
+                { 
+                    id: 'summary-repairs', 
+                    description: 'Total Expenses',
+                    isSummary: true 
+                },
+                { 
+                    id: 'summary-total', 
+                    description: 'Net Profit/Loss',
+                    isSummary: true 
+                }
+            ]
+        };
+
+        const EMPTY_PERSONNEL_DATA = [
+            {
+                id: 1,
+                name: "",
+                dob: "",
+                address1: "",
+                address2: "",
+                town: "",
+                county: "",
+                postcode: "",
+                phone: "",
+                email: "",
+                nationalInsurance: "",
+                utr: ""
+            },
+            {
+                id: 2,
+                name: "",
+                dob: "",
+                address1: "",
+                address2: "",
+                town: "",
+                county: "",
+                postcode: "",
+                phone: "",
+                email: "",
+                nationalInsurance: "",
+                utr: ""
+            },
+            {
+                id: 3,
+                name: "",
+                companyName: "",
+                address1: "",
+                address2: "",
+                town: "",
+                county: "",
+                postcode: "",
+                phone: "",
+                email: "",
+                accountNumber: ""
+            }
+        ];
+
+        // State management
+        let appData = deepClone(EMPTY_DATA);
+        let personnel = deepClone(EMPTY_PERSONNEL_DATA);
+        let nextRowId = 1;
+        let editingHeaderId = null;
+        let selectedFile = null;
+        let propertyInfo = {
+            address: '17 Schoolfields, SG6 2TZ',
+            period: 'Apr 2025 - Apr 2026'
+        };
+
+        // Helper function for deep cloning
+        function deepClone(obj) {
+            return JSON.parse(JSON.stringify(obj));
+        }
+
+        // Save data to localStorage
+        function saveDataToStorage() {
+            try {
+                const dataToSave = {
+                    appData: appData,
+                    personnel: personnel,
+                    nextRowId: nextRowId,
+                    propertyInfo: propertyInfo,
+                    savedAt: new Date().toISOString()
+                };
+                localStorage.setItem('costsProfitsData', JSON.stringify(dataToSave));
+                
+                localStorage.setItem('appData', JSON.stringify(appData));
+                localStorage.setItem('personnelData', JSON.stringify(personnel));
+                localStorage.setItem('nextRowId', nextRowId.toString());
+                localStorage.setItem('propertyInfo', JSON.stringify(propertyInfo));
+                
+                console.log('Data saved to localStorage');
+            } catch (error) {
+                console.error('Error saving data to localStorage:', error);
+            }
+        }
+
+        // Load data from localStorage
+        function loadDataFromStorage() {
+            try {
+                const savedData = localStorage.getItem('costsProfitsData');
+                if (savedData) {
+                    const parsedData = JSON.parse(savedData);
+                    appData = parsedData.appData || deepClone(EMPTY_DATA);
+                    personnel = parsedData.personnel || deepClone(EMPTY_PERSONNEL_DATA);
+                    nextRowId = parsedData.nextRowId || 1;
+                    propertyInfo = parsedData.propertyInfo || { address: '17 Schoolfields, SG6 2TZ', period: 'Apr 2025 - Apr 2026' };
+                    console.log('Data loaded from main storage key');
+                    return;
+                }
+                
+                const savedAppData = localStorage.getItem('appData');
+                const savedPersonnel = localStorage.getItem('personnelData');
+                const savedNextRowId = localStorage.getItem('nextRowId');
+                const savedPropertyInfo = localStorage.getItem('propertyInfo');
+                
+                if (savedAppData) {
+                    appData = JSON.parse(savedAppData);
+                }
+                
+                if (savedPersonnel) {
+                    personnel = JSON.parse(savedPersonnel);
+                }
+                
+                if (savedNextRowId) {
+                    nextRowId = parseInt(savedNextRowId) || 1;
+                }
+                
+                if (savedPropertyInfo) {
+                    propertyInfo = JSON.parse(savedPropertyInfo);
+                }
+                
+                console.log('Data loaded from individual storage keys');
+            } catch (error) {
+                console.error('Error loading data from localStorage:', error);
+                appData = deepClone(EMPTY_DATA);
+                personnel = deepClone(EMPTY_PERSONNEL_DATA);
+                nextRowId = 1;
+            }
+            
+            // Update header with loaded property info
+            updatePropertyHeader();
+        }
+
+        // Auto-save function
+        function autoSave() {
+            saveDataToStorage();
+        }
+
+        // DOM elements
+        const tableHeader = document.getElementById('tableHeader');
+        const tableBody = document.getElementById('tableBody');
+        const personnelGrid = document.getElementById('personnelGrid');
+        const statsBar = document.getElementById('statsBar');
+        const themeToggle = document.getElementById('themeToggle');
+        const themeDropdown = document.getElementById('themeDropdown');
+        const addRowBtn = document.getElementById('addRowBtn');
+        const addColumnBtn = document.getElementById('addColumnBtn');
+        const sortDateBtn = document.getElementById('sortDateBtn');
+        const importBtn = document.getElementById('importBtn');
+        const exportBtn = document.getElementById('exportBtn');
+        const clearDataBtn = document.getElementById('clearAllBtn');
+        const tabs = document.querySelectorAll('.tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+        const addColumnModal = document.getElementById('addColumnModal');
+        const closeColumnModal = document.getElementById('closeColumnModal');
+        const saveColumnBtn = document.getElementById('saveColumnBtn');
+        const columnPosition = document.getElementById('columnPosition');
+        const importModal = document.getElementById('importModal');
+        const closeImportModal = document.getElementById('closeImportModal');
+        const cancelImportBtn = document.getElementById('cancelImportBtn');
+        const processImportBtn = document.getElementById('processImportBtn');
+        const importFileArea = document.getElementById('importFileArea');
+        const csvFileInput = document.getElementById('csvFileInput');
+        const importMode = document.getElementById('importMode');
+        const generateReportBtn = document.getElementById('generateReportBtn');
+        const reportPreview = document.getElementById('reportPreview');
+        const closeReportBtn = document.getElementById('closeReportBtn');
+        const printReportBtn = document.getElementById('printReportBtn');
+        const reportDate = document.getElementById('reportDate');
+        const reportTimestamp = document.getElementById('reportTimestamp');
+
+        // Update property header display
+        function updatePropertyHeader() {
+            document.getElementById('propertyAddress').textContent = propertyInfo.address;
+            document.getElementById('periodDates').textContent = propertyInfo.period;
+        }
+        
+        // Make property info editable
+        function editPropertyInfo() {
+            const newAddress = prompt('Enter property address:', propertyInfo.address);
+            if (newAddress !== null && newAddress.trim() !== '') {
+                propertyInfo.address = newAddress.trim();
+            }
+            
+            const newPeriod = prompt('Enter period (e.g., Apr 2025 - Apr 2026):', propertyInfo.period);
+            if (newPeriod !== null && newPeriod.trim() !== '') {
+                propertyInfo.period = newPeriod.trim();
+            }
+            
+            updatePropertyHeader();
+            autoSave();
+        }
+        
+        // Initialize the app
+        function initApp() {
+            loadDataFromStorage();
+            
+            renderTable();
+            renderPersonnel();
+            renderStatsBar();
+            renderSummaryTab();
+            populateColumnPositionOptions();
+            attachEventListeners();
+            updateSummaryRows();
+            
+            // Add click handler for property info editing
+            document.getElementById('headerSubtitle').addEventListener('click', editPropertyInfo);
+            
+            if (appData.rows.length > 0) {
+                console.log(`Loaded ${appData.rows.length} rows from saved data`);
+            }
+        }
+
+        // Generate autocomplete datalists for text fields
+        function generateDataLists() {
+            // Remove existing datalists
+            document.querySelectorAll('datalist[id^="datalist-"]').forEach(dl => dl.remove());
+            
+            const fields = ['invoice', 'company', 'description'];
+            
+            fields.forEach(fieldId => {
+                const datalist = document.createElement('datalist');
+                datalist.id = `datalist-${fieldId}`;
+                
+                // Get unique values from existing rows
+                const uniqueValues = new Set();
+                appData.rows.forEach(row => {
+                    const value = row[fieldId];
+                    if (value && value.toString().trim() !== '') {
+                        uniqueValues.add(value.toString().trim());
+                    }
+                });
+                
+                // Sort alphabetically and add as options
+                Array.from(uniqueValues).sort().forEach(value => {
+                    const option = document.createElement('option');
+                    option.value = value;
+                    datalist.appendChild(option);
+                });
+                
+                document.body.appendChild(datalist);
+            });
+        }
+        
+        // Render the table with headers and rows - FIXED for currency display
+        function renderTable() {
+            tableHeader.innerHTML = '';
+            tableBody.innerHTML = '';
+            
+            // Generate autocomplete datalists
+            generateDataLists();
+            
+            // Render headers
+            appData.headers.forEach(header => {
+                const th = document.createElement('th');
+                th.dataset.id = header.id;
+                
+                const headerContainer = document.createElement('div');
+                headerContainer.className = 'editable-header';
+                headerContainer.dataset.headerId = header.id;
+                
+                if (header.id === editingHeaderId) {
+                    const input = document.createElement('input');
+                    input.type = 'text';
+                    input.className = 'header-edit-input';
+                    input.value = header.name.replace(/<[^>]*>/g, '');
+                    input.dataset.headerId = header.id;
+                    
+                    const saveBtn = document.createElement('button');
+                    saveBtn.className = 'header-action-btn';
+                    saveBtn.innerHTML = '<i class="fas fa-check"></i>';
+                    saveBtn.title = 'Save';
+                    saveBtn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        saveHeaderEdit(header.id, input.value);
+                    });
+                    
+                    const cancelBtn = document.createElement('button');
+                    cancelBtn.className = 'header-action-btn';
+                    cancelBtn.innerHTML = '<i class="fas fa-times"></i>';
+                    cancelBtn.title = 'Cancel';
+                    cancelBtn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        editingHeaderId = null;
+                        renderTable();
+                    });
+                    
+                    headerContainer.appendChild(input);
+                    headerContainer.appendChild(saveBtn);
+                    headerContainer.appendChild(cancelBtn);
+                    headerContainer.classList.add('editing');
+                    
+                    setTimeout(() => {
+                        input.focus();
+                        input.select();
+                    }, 10);
+                    
+                    input.addEventListener('keypress', function(e) {
+                        if (e.key === 'Enter') {
+                            saveHeaderEdit(header.id, input.value);
+                        }
+                        if (e.key === 'Escape') {
+                            editingHeaderId = null;
+                            renderTable();
+                        }
+                    });
+                    
+                    input.addEventListener('blur', function() {
+                        setTimeout(() => {
+                            if (editingHeaderId === header.id) {
+                                saveHeaderEdit(header.id, input.value);
+                            }
+                        }, 200);
+                    });
+                } else {
+                    const headerText = document.createElement('span');
+                    headerText.innerHTML = header.name;
+                    headerText.style.flex = '1';
+                    headerText.style.overflow = 'visible';
+                    headerText.style.whiteSpace = 'normal';
+                    
+                    const actionsDiv = document.createElement('div');
+                    actionsDiv.className = 'header-actions';
+                    
+                    if (header.id !== 'actions') {
+                        const editBtn = document.createElement('button');
+                        editBtn.className = 'header-action-btn';
+                        editBtn.innerHTML = '<i class="fas fa-edit"></i>';
+                        editBtn.title = 'Edit Column Name';
+                        editBtn.addEventListener('click', function(e) {
+                            e.stopPropagation();
+                            editingHeaderId = header.id;
+                            renderTable();
+                        });
+                        
+                        const deleteBtn = document.createElement('button');
+                        deleteBtn.className = 'header-action-btn delete-header-btn';
+                        deleteBtn.innerHTML = '<i class="fas fa-trash"></i>';
+                        deleteBtn.title = 'Delete Column';
+                        deleteBtn.addEventListener('click', function(e) {
+                            e.stopPropagation();
+                            deleteColumn(header.id);
+                        });
+                        
+                        actionsDiv.appendChild(editBtn);
+                        actionsDiv.appendChild(deleteBtn);
+                    }
+                    
+                    headerContainer.appendChild(headerText);
+                    headerContainer.appendChild(actionsDiv);
+                    
+                    headerContainer.addEventListener('dblclick', function() {
+                        if (header.id !== 'actions') {
+                            editingHeaderId = header.id;
+                            renderTable();
+                        }
+                    });
+                }
+                
+                th.appendChild(headerContainer);
+                tableHeader.appendChild(th);
+            });
+            
+            // Render data rows - FIXED for currency symbol display
+            appData.rows.forEach(row => {
+                const tr = document.createElement('tr');
+                tr.dataset.id = row.id;
+                
+                appData.headers.forEach(header => {
+                    const td = document.createElement('td');
+                    
+                    if (header.id === 'actions') {
+                        td.classList.add('actions-cell');
+                        td.innerHTML = `
+                            <button class="action-btn delete-btn" title="Delete Row">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        `;
+                    } else {
+                        let input;
+                        
+                        // Use input for all fields (including company and description for autocomplete)
+                        input = document.createElement('input');
+                        input.type = header.type === 'date' ? 'date' : 'text';
+                        
+                        input.className = 'editable-cell';
+                        input.placeholder = 'Enter data';
+                        
+                        // Add autocomplete for text fields (invoice, company, description)
+                        if (header.id === 'invoice' || header.id === 'company' || header.id === 'description') {
+                            const datalistId = `datalist-${header.id}`;
+                            input.setAttribute('list', datalistId);
+                            input.setAttribute('autocomplete', 'off'); // Disable browser autocomplete
+                        }
+                        
+                        // Set value - format currency values with £ symbol for display
+                        let displayValue = row[header.id] || '';
+                        if (header.type === 'currency' && displayValue && !isNaN(parseFloat(displayValue))) {
+                            // Store numeric value in data attribute
+                            input.dataset.numericValue = parseFloat(displayValue).toFixed(2);
+                            // Display with £ symbol
+                            displayValue = `£${parseFloat(displayValue).toFixed(2)}`;
+                        }
+                        
+                        input.value = displayValue;
+                        input.dataset.field = header.id;
+                        input.dataset.rowId = row.id;
+                        
+                        // Add currency symbol wrapper for currency fields
+                        if (header.type === 'currency') {
+                            const wrapper = document.createElement('div');
+                            wrapper.className = 'currency-input-wrapper';
+                            
+                            const symbolSpan = document.createElement('span');
+                            symbolSpan.className = 'currency-symbol-input';
+                            symbolSpan.textContent = '£';
+                            
+                            wrapper.appendChild(symbolSpan);
+                            wrapper.appendChild(input);
+                            td.appendChild(wrapper);
+                        } else {
+                            td.appendChild(input);
+                        }
+                    }
+                    
+                    tr.appendChild(td);
+                });
+                
+                tableBody.appendChild(tr);
+            });
+            
+            // Render summary rows - FIXED to show £ symbol in correct columns
+            renderSummaryRows();
+            
+            attachCellEventListeners();
+            attachRowActionListeners();
+        }
+
+        // NEW FUNCTION: Render just the summary rows - FIXED for proper column alignment
+        function renderSummaryRows() {
+            // Remove existing summary rows
+            const existingSummaryRows = document.querySelectorAll('.summary-row');
+            existingSummaryRows.forEach(row => row.remove());
+            
+            // Add summary rows
+            appData.summaryRows.forEach(summaryRow => {
+                const tr = document.createElement('tr');
+                tr.dataset.id = summaryRow.id;
+                tr.className = 'summary-row';
+                
+                appData.headers.forEach(header => {
+                    const td = document.createElement('td');
+                    
+                    if (header.id === 'actions') {
+                        td.innerHTML = '<i class="fas fa-calculator"></i>';
+                    } else if (header.id === 'description') {
+                        td.textContent = summaryRow.description || '';
+                        td.className = 'summary-cell';
+                    } else {
+                        let value = '';
+                        let displayValue = '';
+                        
+                        if (summaryRow.id === 'summary-rental') {
+                            // Rental Income Total - show in repairs column (first numeric column)
+                            if (header.id === 'repairs') {
+                                const total = parseFloat(calculateColumnTotal('rent')) || 0;
+                                value = total.toFixed(2);
+                                // Only show if there's a non-zero value
+                                if (total !== 0) {
+                                    td.innerHTML = `<span class="summary-currency">${value}</span>`;
+                                    td.style.textAlign = 'right';
+                                } else {
+                                    td.textContent = '';
+                                }
+                            } else {
+                                td.textContent = '';
+                            }
+                        } else if (summaryRow.id === 'summary-repairs') {
+                            // Total Expenses - show single total in repairs column
+                            if (header.id === 'repairs') {
+                                const repairsTotal = parseFloat(calculateColumnTotal('repairs')) || 0;
+                                const insuranceTotal = parseFloat(calculateColumnTotal('insurance')) || 0;
+                                const keyoTotal = parseFloat(calculateColumnTotal('keyo')) || 0;
+                                const total = repairsTotal + insuranceTotal + keyoTotal;
+                                value = total.toFixed(2);
+                                if (total !== 0) {
+                                    td.innerHTML = `<span class="summary-currency">${value}</span>`;
+                                    td.style.textAlign = 'right';
+                                } else {
+                                    td.textContent = '';
+                                }
+                            } else {
+                                td.textContent = '';
+                            }
+                        } else if (summaryRow.id === 'summary-total') {
+                            // Net Profit/Loss - show in repairs column
+                            if (header.id === 'repairs') {
+                                const rentalIncome = parseFloat(calculateColumnTotal('rent')) || 0;
+                                const otherIncome = parseFloat(calculateColumnTotal('other')) || 0;
+                                const repairsTotal = parseFloat(calculateColumnTotal('repairs')) || 0;
+                                const insuranceTotal = parseFloat(calculateColumnTotal('insurance')) || 0;
+                                const keyoTotal = parseFloat(calculateColumnTotal('keyo')) || 0;
+                                
+                                const net = (rentalIncome + otherIncome) - (repairsTotal + insuranceTotal + keyoTotal);
+                                value = net.toFixed(2);
+                                const colorClass = net >= 0 ? 'profit' : 'loss';
+                                td.innerHTML = `<span class="summary-currency ${colorClass}">${value}</span>`;
+                                td.style.textAlign = 'right';
+                            } else {
+                                td.textContent = '';
+                            }
+                        } else {
+                            td.textContent = '';
+                        }
+                    }
+                    
+                    tr.appendChild(td);
+                });
+                
+                tableBody.appendChild(tr);
+            });
+        }
+
+        // Save header edit
+        function saveHeaderEdit(headerId, newName) {
+            const header = appData.headers.find(h => h.id === headerId);
+            if (header && header.id !== 'actions') {
+                if (headerId === 'kamal' || headerId === 'meena') {
+                    header.name = `${newName} <span class="info-badge">Excluded</span>`;
+                } else {
+                    header.name = newName;
+                }
+                editingHeaderId = null;
+                renderTable();
+                populateColumnPositionOptions();
+                autoSave();
+            }
+        }
+
+        // Delete a column
+        function deleteColumn(columnId) {
+            const essentialColumns = ['date', 'invoice', 'company', 'description', 'actions'];
+            if (essentialColumns.includes(columnId)) {
+                alert('This column cannot be deleted as it is essential for the table functionality.');
+                return;
+            }
+            
+            if (confirm(`Delete column "${appData.headers.find(h => h.id === columnId)?.name.replace(/<[^>]*>/g, '')}"? All data in this column will be permanently deleted.`)) {
+                const headerIndex = appData.headers.findIndex(h => h.id === columnId);
+                if (headerIndex !== -1) {
+                    appData.headers.splice(headerIndex, 1);
+                }
+                
+                appData.rows.forEach(row => {
+                    delete row[columnId];
+                });
+                
+                appData.summaryRows.forEach(summaryRow => {
+                    delete summaryRow[columnId];
+                });
+                
+                editingHeaderId = null;
+                renderTable();
+                renderStatsBar();
+                renderSummaryTab();
+                populateColumnPositionOptions();
+                autoSave();
+            }
+        }
+
+        // Render stats bar - UPDATED to show £ symbol
+        function renderStatsBar() {
+            const totalIncome = parseFloat(calculateColumnTotal('rent')) + parseFloat(calculateColumnTotal('other'));
+            const totalExpenses = parseFloat(calculateColumnTotal('repairs')) + parseFloat(calculateColumnTotal('insurance')) + 
+                                  parseFloat(calculateColumnTotal('keyo'));
+            const netProfit = totalIncome - totalExpenses;
+            const totalRows = appData.rows.length;
+            
+            statsBar.innerHTML = `
+                <div class="stat-card">
+                    <div class="stat-title">Total Income</div>
+                    <div class="stat-value">${totalIncome > 0 ? '£' + totalIncome.toFixed(2) : '£0.00'}</div>
+                    <div class="stat-subtitle">Rental + Other Income</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-title">Total Expenses</div>
+                    <div class="stat-value">${totalExpenses > 0 ? '£' + totalExpenses.toFixed(2) : '£0.00'}</div>
+                    <div class="stat-subtitle">Excluding HRMC payments</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-title">Net Profit</div>
+                    <div class="stat-value" style="color: ${netProfit >= 0 ? '#059669' : '#dc2626'}">${netProfit !== 0 ? '£' + netProfit.toFixed(2) : '£0.00'}</div>
+                    <div class="stat-subtitle">Excluding HRMC payments</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-title">Entries</div>
+                    <div class="stat-value">${totalRows}</div>
+                    <div class="stat-subtitle">Data records</div>
+                </div>
+            `;
+        }
+
+        // Render summary tab - UPDATED to show company and description details
+        function renderSummaryTab() {
+            const summaryTable = document.getElementById('summaryTable');
+            
+            const totalIncome = parseFloat(calculateColumnTotal('rent')) + parseFloat(calculateColumnTotal('other'));
+            const totalExpenses = parseFloat(calculateColumnTotal('repairs')) + parseFloat(calculateColumnTotal('insurance')) + 
+                                  parseFloat(calculateColumnTotal('keyo'));
+            
+            let html = '';
+            
+            // INCOME SECTION - Show rows with rental income
+            html += `<tr><td colspan="4" style="background-color: var(--header-bg); font-weight: 600; padding: 6px;">RENTAL INCOME</td></tr>`;
+            const rentalRows = appData.rows.filter(row => parseFloat(row.rent) > 0);
+            const totalRentalIncome = parseFloat(calculateColumnTotal('rent'));
+            if (rentalRows.length > 0) {
+                rentalRows.forEach(row => {
+                    html += `
+                        <tr>
+                            <td style="font-size: 10px;">${row.date || '-'}</td>
+                            <td style="font-size: 10px;">${row.company || '-'}</td>
+                            <td style="font-size: 10px;">${row.description || '-'}</td>
+                            <td style="font-weight: 500; font-size: 10px;">£${parseFloat(row.rent).toFixed(2)}</td>
+                        </tr>
+                    `;
+                });
+                html += `
+                    <tr style="background-color: color-mix(in srgb, var(--primary-color) 10%, transparent);">
+                        <td colspan="3" style="font-weight: 600; padding: 6px; font-size: 10px;">Total Rental Income</td>
+                        <td style="font-weight: 600; padding: 6px; font-size: 10px;">£${totalRentalIncome.toFixed(2)}</td>
+                    </tr>
+                `;
+            } else {
+                html += `<tr><td colspan="4" style="text-align: center; color: var(--secondary-color); padding: 6px; font-size: 10px;">No rental income</td></tr>`;
+            }
+            
+            // OTHER INCOME SECTION
+            html += `<tr><td colspan="4" style="background-color: var(--header-bg); font-weight: 600; padding: 6px;">OTHER INCOME</td></tr>`;
+            const otherIncomeRows = appData.rows.filter(row => parseFloat(row.other) > 0);
+            const totalOtherIncome = parseFloat(calculateColumnTotal('other'));
+            if (otherIncomeRows.length > 0) {
+                otherIncomeRows.forEach(row => {
+                    html += `
+                        <tr>
+                            <td style="font-size: 10px;">${row.date || '-'}</td>
+                            <td style="font-size: 10px;">${row.company || '-'}</td>
+                            <td style="font-size: 10px;">${row.description || '-'}</td>
+                            <td style="font-weight: 500; font-size: 10px;">£${parseFloat(row.other).toFixed(2)}</td>
+                        </tr>
+                    `;
+                });
+                html += `
+                    <tr style="background-color: color-mix(in srgb, var(--primary-color) 10%, transparent);">
+                        <td colspan="3" style="font-weight: 600; padding: 6px; font-size: 10px;">Total Other Income</td>
+                        <td style="font-weight: 600; padding: 6px; font-size: 10px;">£${totalOtherIncome.toFixed(2)}</td>
+                    </tr>
+                `;
+            } else {
+                html += `<tr><td colspan="4" style="text-align: center; color: var(--secondary-color); padding: 6px; font-size: 10px;">No other income</td></tr>`;
+            }
+            
+            // EXPENSES SECTION - Show rows with expenses
+            html += `<tr><td colspan="4" style="background-color: var(--header-bg); font-weight: 600; padding: 6px;">EXPENSES</td></tr>`;
+            const expenseRows = appData.rows.filter(row => 
+                parseFloat(row.repairs) > 0 || parseFloat(row.insurance) > 0 || parseFloat(row.keyo) > 0
+            );
+            if (expenseRows.length > 0) {
+                expenseRows.forEach(row => {
+                    const expenseAmount = (parseFloat(row.repairs) || 0) + (parseFloat(row.insurance) || 0) + (parseFloat(row.keyo) || 0);
+                    if (expenseAmount > 0) {
+                        html += `
+                            <tr>
+                                <td style="font-size: 10px;">${row.date || '-'}</td>
+                                <td style="font-size: 10px;">${row.company || '-'}</td>
+                                <td style="font-size: 10px;">${row.description || '-'}</td>
+                                <td style="font-weight: 500; font-size: 10px;">£${expenseAmount.toFixed(2)}</td>
+                            </tr>
+                        `;
+                    }
+                });
+                html += `
+                    <tr style="background-color: color-mix(in srgb, var(--primary-color) 10%, transparent);">
+                        <td colspan="3" style="font-weight: 600; padding: 6px; font-size: 10px;">Total Expenses</td>
+                        <td style="font-weight: 600; padding: 6px; font-size: 10px;">£${totalExpenses.toFixed(2)}</td>
+                    </tr>
+                `;
+            } else {
+                html += `<tr><td colspan="4" style="text-align: center; color: var(--secondary-color); padding: 6px; font-size: 10px;">No expenses</td></tr>`;
+            }
+            
+            // HRMC PAYMENTS SECTION (Excluded from calculations)
+            html += `<tr><td colspan="4" style="background-color: color-mix(in srgb, var(--accent-color) 10%, transparent); font-weight: 600; padding: 6px; color: var(--accent-color);">HRMC PAYMENTS (Excluded from Calculations)</td></tr>`;
+            const kamalRows = appData.rows.filter(row => parseFloat(row.kamal) > 0);
+            const meenaRows = appData.rows.filter(row => parseFloat(row.meena) > 0);
+            const totalHRMC = parseFloat(calculateColumnTotal('kamal')) + parseFloat(calculateColumnTotal('meena'));
+            
+            if (kamalRows.length > 0 || meenaRows.length > 0) {
+                kamalRows.forEach(row => {
+                    html += `
+                        <tr>
+                            <td style="font-size: 10px;">${row.date || '-'}</td>
+                            <td style="font-size: 10px;">${row.company || 'Kamal HRMC'}</td>
+                            <td style="font-size: 10px;">${row.description || '-'}</td>
+                            <td style="font-weight: 500; font-size: 10px; color: var(--accent-color);">£${parseFloat(row.kamal).toFixed(2)}</td>
+                        </tr>
+                    `;
+                });
+                meenaRows.forEach(row => {
+                    html += `
+                        <tr>
+                            <td style="font-size: 10px;">${row.date || '-'}</td>
+                            <td style="font-size: 10px;">${row.company || 'Meena HRMC'}</td>
+                            <td style="font-size: 10px;">${row.description || '-'}</td>
+                            <td style="font-weight: 500; font-size: 10px; color: var(--accent-color);">£${parseFloat(row.meena).toFixed(2)}</td>
+                        </tr>
+                    `;
+                });
+                html += `
+                    <tr style="background-color: color-mix(in srgb, var(--accent-color) 20%, transparent);">
+                        <td colspan="3" style="font-weight: 600; padding: 6px; font-size: 10px; color: var(--accent-color);">Total HRMC Payments</td>
+                        <td style="font-weight: 600; padding: 6px; font-size: 10px; color: var(--accent-color);">£${totalHRMC.toFixed(2)}</td>
+                    </tr>
+                `;
+            } else {
+                html += `<tr><td colspan="4" style="text-align: center; color: var(--secondary-color); padding: 6px; font-size: 10px;">No HRMC payments</td></tr>`;
+            }
+            
+            // TOTALS SECTION
+            html += `<tr><td colspan="4" style="border-top: 2px solid var(--border-color);"></td></tr>`;
+            html += `
+                <tr class="summary-row">
+                    <td colspan="3" style="font-size: 11px;"><strong>Total Income</strong></td>
+                    <td style="font-size: 11px;"><strong>${totalIncome > 0 ? '£' + totalIncome.toFixed(2) : '£0.00'}</strong></td>
+                </tr>
+                <tr class="summary-row">
+                    <td colspan="3" style="font-size: 11px;"><strong>Total Expenses</strong></td>
+                    <td style="font-size: 11px;"><strong>${totalExpenses > 0 ? '£' + totalExpenses.toFixed(2) : '£0.00'}</strong></td>
+                </tr>
+                <tr class="summary-row">
+                    <td colspan="3" style="font-size: 11px;"><strong>Net Profit/Loss</strong></td>
+                    <td style="font-size: 11px;"><strong style="color: ${totalIncome - totalExpenses >= 0 ? '#059669' : '#dc2626'}">${(totalIncome - totalExpenses) !== 0 ? '£' + (totalIncome - totalExpenses).toFixed(2) : '£0.00'}</strong></td>
+                </tr>
+                <tr class="summary-row">
+                    <td colspan="3" style="font-size: 11px; color: var(--accent-color);"><strong>Total HRMC Payments (Excluded)</strong></td>
+                    <td style="font-size: 11px; color: var(--accent-color);"><strong>${totalHRMC > 0 ? '£' + totalHRMC.toFixed(2) : '£0.00'}</strong></td>
+                </tr>
+            `;
+            
+            summaryTable.innerHTML = html;
+        }
+
+        // Calculate total for a column
+        function calculateColumnTotal(columnId) {
+            let total = 0;
+            appData.rows.forEach(row => {
+                const value = parseFloat(row[columnId]) || 0;
+                total += value;
+            });
+            return total.toFixed(2);
+        }
+
+        // Update summary rows and stats - UPDATED to update summary rows
+        function updateSummaryRows() {
+            // Update the summary rows at the bottom of the table
+            renderSummaryRows();
+            
+            // Update the stats bar
+            renderStatsBar();
+            
+            // Update the summary tab
+            renderSummaryTab();
+        }
+
+        // Render personnel profiles
+        function renderPersonnel() {
+            personnelGrid.innerHTML = '';
+            
+            personnel.forEach(person => {
+                const card = document.createElement('div');
+                card.className = 'personnel-card';
+                card.dataset.id = person.id;
+                
+                if (person.id === 3) {
+                    card.classList.add('accountant-card');
+                }
+                
+                if (person.id === 3) {
+                    card.innerHTML = `
+                        <h3>${person.name || 'Accountant Details'}</h3>
+                        <div class="form-group">
+                            <label>Accountant Name:</label>
+                            <input type="text" class="personnel-input" data-field="name" value="${person.name}" placeholder="Accountant's full name">
+                        </div>
+                        <div class="form-group">
+                            <label>Company Name:</label>
+                            <input type="text" class="personnel-input" data-field="companyName" value="${person.companyName}" placeholder="Accounting firm name">
+                        </div>
+                        <div style="display: flex; gap: 10px;">
+                            <div class="form-group" style="flex: 1;">
+                                <label>Address Line 1:</label>
+                                <input type="text" class="personnel-input" data-field="address1" value="${person.address1}" placeholder="Street address">
+                            </div>
+                            <div class="form-group" style="flex: 1;">
+                                <label>Address Line 2:</label>
+                                <input type="text" class="personnel-input" data-field="address2" value="${person.address2}" placeholder="Apt, suite, etc.">
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 10px;">
+                            <div class="form-group" style="flex: 1;">
+                                <label>Town/City:</label>
+                                <input type="text" class="personnel-input" data-field="town" value="${person.town}" placeholder="Town or city">
+                            </div>
+                            <div class="form-group" style="flex: 1;">
+                                <label>County:</label>
+                                <input type="text" class="personnel-input" data-field="county" value="${person.county}" placeholder="County">
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 10px;">
+                            <div class="form-group" style="flex: 1;">
+                                <label>Postcode:</label>
+                                <input type="text" class="personnel-input" data-field="postcode" value="${person.postcode}" placeholder="Postal code">
+                            </div>
+                            <div class="form-group" style="flex: 1;">
+                                <label>Phone:</label>
+                                <input type="text" class="personnel-input" data-field="phone" value="${person.phone}" placeholder="Phone number">
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 10px;">
+                            <div class="form-group" style="flex: 1;">
+                                <label>Email:</label>
+                                <input type="email" class="personnel-input" data-field="email" value="${person.email}" placeholder="Email address">
+                            </div>
+                            <div class="form-group" style="flex: 1;">
+                                <label>Account Number:</label>
+                                <input type="text" class="personnel-input" data-field="accountNumber" value="${person.accountNumber}" placeholder="Bank account number">
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    card.innerHTML = `
+                        <h3>${person.name || 'Personnel Profile'}</h3>
+                        <div style="display: flex; gap: 10px;">
+                            <div class="form-group" style="flex: 1;">
+                                <label>Name:</label>
+                                <input type="text" class="personnel-input" data-field="name" value="${person.name}" placeholder="Full name">
+                            </div>
+                            <div class="form-group" style="flex: 1;">
+                                <label>Date of Birth:</label>
+                                <input type="date" class="personnel-input" data-field="dob" value="${person.dob || ''}" placeholder="DOB">
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 10px;">
+                            <div class="form-group" style="flex: 1;">
+                                <label>Address Line 1:</label>
+                                <input type="text" class="personnel-input" data-field="address1" value="${person.address1}" placeholder="Street address">
+                            </div>
+                            <div class="form-group" style="flex: 1;">
+                                <label>Address Line 2:</label>
+                                <input type="text" class="personnel-input" data-field="address2" value="${person.address2}" placeholder="Apt, suite, etc.">
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 10px;">
+                            <div class="form-group" style="flex: 1;">
+                                <label>Town/City:</label>
+                                <input type="text" class="personnel-input" data-field="town" value="${person.town}" placeholder="Town or city">
+                            </div>
+                            <div class="form-group" style="flex: 1;">
+                                <label>County:</label>
+                                <input type="text" class="personnel-input" data-field="county" value="${person.county}" placeholder="County">
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 10px;">
+                            <div class="form-group" style="flex: 1;">
+                                <label>Postcode:</label>
+                                <input type="text" class="personnel-input" data-field="postcode" value="${person.postcode}" placeholder="Postal code">
+                            </div>
+                            <div class="form-group" style="flex: 1;">
+                                <label>Phone:</label>
+                                <input type="text" class="personnel-input" data-field="phone" value="${person.phone}" placeholder="Phone number">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Email:</label>
+                            <input type="email" class="personnel-input" data-field="email" value="${person.email}" placeholder="Email address">
+                        </div>
+                        <div style="display: flex; gap: 10px;">
+                            <div class="form-group" style="flex: 1;">
+                                <label>National Insurance No:</label>
+                                <input type="text" class="personnel-input" data-field="nationalInsurance" value="${person.nationalInsurance}" placeholder="e.g., AB123456C">
+                            </div>
+                            <div class="form-group" style="flex: 1;">
+                                <label>UTR (Tax Reference):</label>
+                                <input type="text" class="personnel-input" data-field="utr" value="${person.utr}" placeholder="10-digit UTR number">
+                            </div>
+                        </div>
+                    `;
+                }
+                
+                personnelGrid.appendChild(card);
+            });
+            
+            attachPersonnelEventListeners();
+        }
+
+        // Attach event listeners to editable cells - FIXED for currency symbol overlapping
+        function attachCellEventListeners() {
+            const inputs = document.querySelectorAll('.editable-cell');
+            inputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    // When focusing on currency field, show numeric value without £
+                    const field = this.dataset.field;
+                    const header = appData.headers.find(h => h.id === field);
+                    
+                    if (header && header.type === 'currency') {
+                        const numericValue = this.dataset.numericValue || '';
+                        // Remove £ symbol when focused
+                        if (this.value.startsWith('£')) {
+                            this.value = numericValue;
+                        }
+                    }
+                });
+                
+                input.addEventListener('input', function() {
+                    // Update in real-time as user types
+                    const rowId = this.dataset.rowId;
+                    const field = this.dataset.field;
+                    const value = this.value;
+                    
+                    const row = appData.rows.find(r => r.id.toString() === rowId);
+                    if (row) {
+                        const header = appData.headers.find(h => h.id === field);
+                        
+                        if (header?.type === 'currency') {
+                            // Clean the value - remove any non-numeric characters except decimal point
+                            let cleanedValue = value.replace(/[^0-9.]/g, '');
+                            if (cleanedValue && !isNaN(parseFloat(cleanedValue))) {
+                                const numericValue = parseFloat(cleanedValue).toFixed(2);
+                                row[field] = numericValue;
+                                // Store numeric value in data attribute
+                                this.dataset.numericValue = numericValue;
+                            } else {
+                                row[field] = '';
+                                this.dataset.numericValue = '';
+                            }
+                            
+                            // Update summary rows immediately
+                            updateSummaryRows();
+                        }
+                    }
+                });
+                
+                input.addEventListener('blur', function() {
+                    const rowId = this.dataset.rowId;
+                    const field = this.dataset.field;
+                    let value = this.value;
+                    
+                    const row = appData.rows.find(r => r.id.toString() === rowId);
+                    if (row) {
+                        const header = appData.headers.find(h => h.id === field);
+                        
+                        if (header?.type === 'currency') {
+                            // Clean the value - remove any non-numeric characters except decimal point
+                            value = value.replace(/[^0-9.]/g, '');
+                            if (value && !isNaN(parseFloat(value))) {
+                                const numericValue = parseFloat(value).toFixed(2);
+                                row[field] = numericValue;
+                                // Store numeric value in data attribute
+                                this.dataset.numericValue = numericValue;
+                                // Display with £ symbol
+                                this.value = `£${numericValue}`;
+                            } else {
+                                row[field] = '';
+                                this.dataset.numericValue = '';
+                                this.value = '';
+                            }
+                        } else {
+                            row[field] = value;
+                        }
+                        
+                        updateSummaryRows();
+                        autoSave();
+                    }
+                });
+                
+                // Update on Enter key - with immediate update
+                input.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                        e.preventDefault();
+                        const rowId = this.dataset.rowId;
+                        const field = this.dataset.field;
+                        let value = this.value;
+                        
+                        const row = appData.rows.find(r => r.id.toString() === rowId);
+                        if (row) {
+                            const header = appData.headers.find(h => h.id === field);
+                            
+                            if (header?.type === 'currency') {
+                                // Clean the value
+                                value = value.replace(/[^0-9.]/g, '');
+                                if (value && !isNaN(parseFloat(value))) {
+                                    const numericValue = parseFloat(value).toFixed(2);
+                                    row[field] = numericValue;
+                                    this.dataset.numericValue = numericValue;
+                                    this.value = `£${numericValue}`;
+                                } else {
+                                    row[field] = '';
+                                    this.dataset.numericValue = '';
+                                    this.value = '';
+                                }
+                            } else {
+                                row[field] = value;
+                            }
+                            
+                            // Update summary rows immediately
+                            updateSummaryRows();
+                            autoSave();
+                            
+                            // Move to next cell
+                            const currentCell = this.closest('td');
+                            const currentRow = currentCell.closest('tr');
+                            const currentIndex = Array.from(currentRow.cells).indexOf(currentCell);
+                            const nextCell = currentRow.cells[currentIndex + 1];
+                            
+                            if (nextCell) {
+                                const nextInput = nextCell.querySelector('.editable-cell');
+                                if (nextInput) {
+                                    nextInput.focus();
+                                }
+                            }
+                        }
+                    }
+                });
+                
+                // Handle paste for currency fields
+                input.addEventListener('paste', function(e) {
+                    const field = this.dataset.field;
+                    const header = appData.headers.find(h => h.id === field);
+                    
+                    if (header?.type === 'currency') {
+                        e.preventDefault();
+                        const pastedText = e.clipboardData.getData('text');
+                        // Clean the pasted text
+                        const cleaned = pastedText.replace(/[^0-9.]/g, '');
+                        if (cleaned && !isNaN(parseFloat(cleaned))) {
+                            const numericValue = parseFloat(cleaned).toFixed(2);
+                            this.value = numericValue;
+                            
+                            // Update data immediately
+                            const rowId = this.dataset.rowId;
+                            const row = appData.rows.find(r => r.id.toString() === rowId);
+                            if (row) {
+                                row[field] = numericValue;
+                                this.dataset.numericValue = numericValue;
+                                updateSummaryRows();
+                            }
+                        }
+                    }
+                });
+            });
+        }
+
+        // Attach event listeners to row action buttons
+        function attachRowActionListeners() {
+            document.querySelectorAll('.delete-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const rowId = this.closest('tr').dataset.id;
+                    if (confirm('Delete this row?')) {
+                        deleteRow(rowId);
+                    }
+                });
+            });
+        }
+
+        // Attach event listeners to personnel inputs
+        function attachPersonnelEventListeners() {
+            document.querySelectorAll('.personnel-input').forEach(input => {
+                input.addEventListener('blur', function() {
+                    const card = this.closest('.personnel-card');
+                    const personId = parseInt(card.dataset.id);
+                    const field = this.dataset.field;
+                    const value = this.value;
+                    
+                    const person = personnel.find(p => p.id === personId);
+                    if (person) {
+                        person[field] = value;
+                        if (field === 'name' && value) {
+                            if (personId === 3) {
+                                card.querySelector('h3').textContent = value || 'Accountant Details';
+                            } else {
+                                card.querySelector('h3').textContent = value || 'Personnel Profile';
+                            }
+                        }
+                        autoSave();
+                    }
+                });
+                
+                // Update on Enter key
+                input.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        this.blur();
+                    }
+                });
+            });
+        }
+
+        // Generate professional report
+        function generateProfessionalReport() {
+            if (appData.rows.length === 0 && !hasPersonnelData()) {
+                alert('No data available to generate report.');
+                return;
+            }
+            
+            const now = new Date();
+            const formattedDate = now.toLocaleDateString('en-GB', { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+            
+            reportDate.textContent = formattedDate;
+            reportTimestamp.textContent = now.toLocaleString('en-GB');
+            
+            // Calculate financial totals
+            const totalRent = parseFloat(calculateColumnTotal('rent')) || 0;
+            const totalOther = parseFloat(calculateColumnTotal('other')) || 0;
+            const totalRepairs = parseFloat(calculateColumnTotal('repairs')) || 0;
+            const totalInsurance = parseFloat(calculateColumnTotal('insurance')) || 0;
+            const totalKeyo = parseFloat(calculateColumnTotal('keyo')) || 0;
+            const totalKamal = parseFloat(calculateColumnTotal('kamal')) || 0;
+            const totalMeena = parseFloat(calculateColumnTotal('meena')) || 0;
+            
+            const totalIncome = totalRent + totalOther;
+            const totalExpenses = totalRepairs + totalInsurance + totalKeyo;
+            const netProfit = totalIncome - totalExpenses;
+            const totalHrmc = totalKamal + totalMeena;
+            
+            // Executive Summary
+            const executiveSummary = document.getElementById('executiveSummary');
+            let summaryHtml = '';
+            
+            if (totalIncome === 0 && totalExpenses === 0) {
+                summaryHtml = '<p style="text-align: center; color: #666; font-style: italic;">No financial data available for this period.</p>';
+            } else {
+                summaryHtml = `
+                    <div class="financial-row" style="display: table; width: 100%; table-layout: fixed;">
+                        <div class="financial-label" style="display: table-cell; text-align: left; width: 70%;">Total Rental Income:</div>
+                        <div class="financial-value" style="display: table-cell; text-align: right; width: 30%;">£${totalRent.toFixed(2)}</div>
+                    </div>
+                    <div class="financial-row" style="display: table; width: 100%; table-layout: fixed;">
+                        <div class="financial-label" style="display: table-cell; text-align: left; width: 70%;">Total Other Income:</div>
+                        <div class="financial-value" style="display: table-cell; text-align: right; width: 30%;">£${totalOther.toFixed(2)}</div>
+                    </div>
+                    <div class="financial-row total" style="display: table; width: 100%; table-layout: fixed;">
+                        <div class="financial-label" style="display: table-cell; text-align: left; width: 70%;">Total Income:</div>
+                        <div class="financial-value" style="display: table-cell; text-align: right; width: 30%;">£${totalIncome.toFixed(2)}</div>
+                    </div>
+                    
+                    <div style="height: 8px;"></div>
+                    
+                    <div class="financial-row" style="display: table; width: 100%; table-layout: fixed;">
+                        <div class="financial-label" style="display: table-cell; text-align: left; width: 70%;">Repairs & Maintenance:</div>
+                        <div class="financial-value" style="display: table-cell; text-align: right; width: 30%;">£${totalRepairs.toFixed(2)}</div>
+                    </div>
+                    <div class="financial-row" style="display: table; width: 100%; table-layout: fixed;">
+                        <div class="financial-label" style="display: table-cell; text-align: left; width: 70%;">Insurance:</div>
+                        <div class="financial-value" style="display: table-cell; text-align: right; width: 30%;">£${totalInsurance.toFixed(2)}</div>
+                    </div>
+                    <div class="financial-row" style="display: table; width: 100%; table-layout: fixed;">
+                        <div class="financial-label" style="display: table-cell; text-align: left; width: 70%;">Management Fees:</div>
+                        <div class="financial-value" style="display: table-cell; text-align: right; width: 30%;">£${totalKeyo.toFixed(2)}</div>
+                    </div>
+                    <div class="financial-row total" style="display: table; width: 100%; table-layout: fixed;">
+                        <div class="financial-label" style="display: table-cell; text-align: left; width: 70%;">Total Operating Expenses:</div>
+                        <div class="financial-value" style="display: table-cell; text-align: right; width: 30%;">£${totalExpenses.toFixed(2)}</div>
+                    </div>
+                    
+                    <div style="height: 8px;"></div>
+                    
+                    <div class="financial-row total" style="display: table; width: 100%; table-layout: fixed; background-color: ${netProfit >= 0 ? '#d1fae5' : '#fee2e2'}; padding: 8px; border-radius: 4px;">
+                        <div class="financial-label" style="display: table-cell; text-align: left; width: 70%;">Net Profit/Loss (Excl. HRMC):</div>
+                        <div class="financial-value ${netProfit >= 0 ? 'profit' : 'loss'}" style="display: table-cell; text-align: right; width: 30%; font-size: 16px;">£${netProfit.toFixed(2)}</div>
+                    </div>
+                    
+                    <div style="height: 8px;"></div>
+                    
+                    <div class="financial-row excluded" style="display: table; width: 100%; table-layout: fixed;">
+                        <div class="financial-label" style="display: table-cell; text-align: left; width: 70%;">Kamal HRMC (Excluded):</div>
+                        <div class="financial-value" style="display: table-cell; text-align: right; width: 30%;">£${totalKamal.toFixed(2)}</div>
+                    </div>
+                    <div class="financial-row excluded" style="display: table; width: 100%; table-layout: fixed;">
+                        <div class="financial-label" style="display: table-cell; text-align: left; width: 70%;">Meena HRMC (Excluded):</div>
+                        <div class="financial-value" style="display: table-cell; text-align: right; width: 30%;">£${totalMeena.toFixed(2)}</div>
+                    </div>
+                    <div class="financial-row excluded total" style="display: table; width: 100%; table-layout: fixed;">
+                        <div class="financial-label" style="display: table-cell; text-align: left; width: 70%;">Total HRMC Payments:</div>
+                        <div class="financial-value" style="display: table-cell; text-align: right; width: 30%;">£${totalHrmc.toFixed(2)}</div>
+                    </div>
+                `;
+            }
+            
+            executiveSummary.innerHTML = summaryHtml;
+            
+            // Transaction Details - Show ALL columns including custom ones
+            const transactionTable = document.getElementById('reportTransactionTable');
+            if (appData.rows.length > 0) {
+                // Build header row dynamically from all headers except 'actions'
+                let tableHtml = '<thead><tr>';
+                const displayHeaders = appData.headers.filter(h => h.id !== 'actions');
+                
+                displayHeaders.forEach(header => {
+                    // Clean header name - preserve text but remove HTML tags
+                    // Extract text content from HTML (including badge text)
+                    const tempDiv = document.createElement('div');
+                    tempDiv.innerHTML = header.name;
+                    const fullText = tempDiv.textContent.trim();
+                    
+                    // For excluded columns, split the name and "Excluded" on separate lines
+                    if (header.excludedFromCalcs) {
+                        // Remove "Excluded" from the name to put it on a separate line
+                        const cleanName = fullText.replace(/\s*Excluded\s*$/i, '').trim();
+                        tableHtml += `<th>${cleanName}<br><span class="excluded" style="font-size: 0.85em; font-style: italic;">Excluded</span></th>`;
+                    } else {
+                        tableHtml += `<th>${fullText}</th>`;
+                    }
+                });
+                tableHtml += '</tr></thead><tbody>';
+                
+                // Sort rows by date
+                const sortedRows = [...appData.rows].sort((a, b) => {
+                    return new Date(a.date || 0) - new Date(b.date || 0);
+                });
+                
+                // Build data rows
+                sortedRows.forEach(row => {
+                    tableHtml += '<tr>';
+                    
+                    displayHeaders.forEach(header => {
+                        const value = row[header.id] || '';
+                        let displayValue = '';
+                        
+                        // Format currency columns
+                        if (header.type === 'currency' && value) {
+                            displayValue = '£' + parseFloat(value).toFixed(2);
+                            // Add excluded styling for HRMC columns
+                            if (header.excludedFromCalcs) {
+                                tableHtml += `<td class="excluded">${displayValue}</td>`;
+                            } else {
+                                tableHtml += `<td>${displayValue}</td>`;
+                            }
+                        } else {
+                            tableHtml += `<td>${value}</td>`;
+                        }
+                    });
+                    
+                    tableHtml += '</tr>';
+                });
+                
+                // Add totals row
+                tableHtml += '<tr style="background-color: #f1f5f9; font-weight: 600;">';
+                
+                displayHeaders.forEach((header, index) => {
+                    if (index === 0) {
+                        // First column shows "TOTALS:" label
+                        const nonCurrencyCols = displayHeaders.filter(h => h.type !== 'currency').length;
+                        tableHtml += `<td colspan="${nonCurrencyCols}" style="text-align: right;">TOTALS:</td>`;
+                        // Skip the rest of non-currency columns
+                        return;
+                    }
+                    
+                    // Only show totals for currency columns
+                    if (header.type === 'currency') {
+                        const total = parseFloat(calculateColumnTotal(header.id)) || 0;
+                        const displayTotal = '£' + total.toFixed(2);
+                        
+                        if (header.excludedFromCalcs) {
+                            tableHtml += `<td class="excluded">${displayTotal}</td>`;
+                        } else {
+                            tableHtml += `<td>${displayTotal}</td>`;
+                        }
+                    } else if (index >= displayHeaders.filter(h => h.type !== 'currency').length) {
+                        // Skip non-currency columns already covered by colspan
+                    }
+                });
+                
+                tableHtml += '</tr></tbody>';
+                transactionTable.innerHTML = tableHtml;
+            } else {
+                const colCount = appData.headers.filter(h => h.id !== 'actions').length;
+                transactionTable.innerHTML = `
+                    <tr>
+                        <td colspan="${colCount}" style="text-align: center; padding: 40px; color: #666; font-style: italic;">
+                            No transaction data available for this period.
+                        </td>
+                    </tr>
+                `;
+            }
+            
+            // Personnel Details - Show ALL fields from Personnel tab
+            const reportPersonnel = document.getElementById('reportPersonnel');
+            let personnelHtml = '';
+            
+            if (hasPersonnelData()) {
+                personnel.forEach(person => {
+                    if (person.id === 3) {
+                        // Accountant card
+                        if (person.name || person.companyName) {
+                            personnelHtml += `
+                                <div class="personnel-card-report">
+                                    <h4>Accountant Details</h4>
+                                    <div class="personnel-detail">
+                                        <div class="personnel-label">Accountant Name:</div>
+                                        <div class="personnel-value">${person.name || 'Not specified'}</div>
+                                    </div>
+                                    <div class="personnel-detail">
+                                        <div class="personnel-label">Company Name:</div>
+                                        <div class="personnel-value">${person.companyName || 'Not specified'}</div>
+                                    </div>
+                                    <div class="personnel-detail">
+                                        <div class="personnel-label">Address Line 1:</div>
+                                        <div class="personnel-value">${person.address1 || 'Not specified'}</div>
+                                    </div>
+                                    <div class="personnel-detail">
+                                        <div class="personnel-label">Address Line 2:</div>
+                                        <div class="personnel-value">${person.address2 || 'Not specified'}</div>
+                                    </div>
+                                    <div class="personnel-detail">
+                                        <div class="personnel-label">Town/City:</div>
+                                        <div class="personnel-value">${person.town || 'Not specified'}</div>
+                                    </div>
+                                    <div class="personnel-detail">
+                                        <div class="personnel-label">County:</div>
+                                        <div class="personnel-value">${person.county || 'Not specified'}</div>
+                                    </div>
+                                    <div class="personnel-detail">
+                                        <div class="personnel-label">Postcode:</div>
+                                        <div class="personnel-value">${person.postcode || 'Not specified'}</div>
+                                    </div>
+                                    <div class="personnel-detail">
+                                        <div class="personnel-label">Phone:</div>
+                                        <div class="personnel-value">${person.phone || 'Not specified'}</div>
+                                    </div>
+                                    <div class="personnel-detail">
+                                        <div class="personnel-label">Email:</div>
+                                        <div class="personnel-value">${person.email || 'Not specified'}</div>
+                                    </div>
+                                    <div class="personnel-detail">
+                                        <div class="personnel-label">Account Number:</div>
+                                        <div class="personnel-value">${person.accountNumber || 'Not specified'}</div>
+                                    </div>
+                                </div>
+                            `;
+                        }
+                    } else {
+                        // Personnel cards (Person 1 & 2)
+                        if (person.name) {
+                            personnelHtml += `
+                                <div class="personnel-card-report">
+                                    <h4>${person.name}</h4>
+                                    <div class="personnel-detail">
+                                        <div class="personnel-label">Date of Birth:</div>
+                                        <div class="personnel-value">${person.dob ? formatDate(person.dob) : 'Not specified'}</div>
+                                    </div>
+                                    <div class="personnel-detail">
+                                        <div class="personnel-label">Address Line 1:</div>
+                                        <div class="personnel-value">${person.address1 || 'Not specified'}</div>
+                                    </div>
+                                    <div class="personnel-detail">
+                                        <div class="personnel-label">Address Line 2:</div>
+                                        <div class="personnel-value">${person.address2 || 'Not specified'}</div>
+                                    </div>
+                                    <div class="personnel-detail">
+                                        <div class="personnel-label">Town/City:</div>
+                                        <div class="personnel-value">${person.town || 'Not specified'}</div>
+                                    </div>
+                                    <div class="personnel-detail">
+                                        <div class="personnel-label">County:</div>
+                                        <div class="personnel-value">${person.county || 'Not specified'}</div>
+                                    </div>
+                                    <div class="personnel-detail">
+                                        <div class="personnel-label">Postcode:</div>
+                                        <div class="personnel-value">${person.postcode || 'Not specified'}</div>
+                                    </div>
+                                    <div class="personnel-detail">
+                                        <div class="personnel-label">Phone:</div>
+                                        <div class="personnel-value">${person.phone || 'Not specified'}</div>
+                                    </div>
+                                    <div class="personnel-detail">
+                                        <div class="personnel-label">Email:</div>
+                                        <div class="personnel-value">${person.email || 'Not specified'}</div>
+                                    </div>
+                                    <div class="personnel-detail">
+                                        <div class="personnel-label">National Insurance No:</div>
+                                        <div class="personnel-value">${person.nationalInsurance || 'Not specified'}</div>
+                                    </div>
+                                    <div class="personnel-detail">
+                                        <div class="personnel-label">UTR (Tax Reference):</div>
+                                        <div class="personnel-value">${person.utr || 'Not specified'}</div>
+                                    </div>
+                                </div>
+                            `;
+                        }
+                    }
+                });
+                
+                if (!personnelHtml) {
+                    personnelHtml = '<p style="grid-column: 1 / -1; text-align: center; color: #666; font-style: italic;">No personnel data available.</p>';
+                }
+            } else {
+                personnelHtml = '<p style="grid-column: 1 / -1; text-align: center; color: #666; font-style: italic;">No personnel data available.</p>';
+            }
+            
+            reportPersonnel.innerHTML = personnelHtml;
+            
+            // Show the report
+            reportPreview.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Helper function to format address
+        function formatAddress(person) {
+            const parts = [];
+            if (person.address1) parts.push(person.address1);
+            if (person.address2) parts.push(person.address2);
+            if (person.town) parts.push(person.town);
+            if (person.county) parts.push(person.county);
+            if (person.postcode) parts.push(person.postcode);
+            
+            return parts.length > 0 ? parts.join(', ') : 'Not specified';
+        }
+        
+        // Helper function to format date
+        function formatDate(dateString) {
+            if (!dateString) return 'Not specified';
+            
+            // If date is in YYYY-MM-DD format, convert to DD/MM/YYYY
+            const date = new Date(dateString);
+            if (isNaN(date.getTime())) return dateString; // Return as-is if invalid
+            
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const year = date.getFullYear();
+            
+            return `${day}/${month}/${year}`;
+        }
+
+        // Check if personnel data exists
+        function hasPersonnelData() {
+            return personnel.some(person => 
+                (person.name && person.name.trim() !== '') ||
+                (person.id === 3 && (person.name || person.companyName))
+            );
+        }
+
+        // Attach all event listeners
+        function attachEventListeners() {
+            // Theme toggle
+            themeToggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                themeDropdown.classList.toggle('show');
+            });
+            
+            document.querySelectorAll('.theme-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    const theme = this.dataset.theme;
+                    document.body.className = theme;
+                    themeDropdown.classList.remove('show');
+                    localStorage.setItem('selectedTheme', theme);
+                });
+            });
+            
+            document.addEventListener('click', function(event) {
+                if (!themeToggle.contains(event.target) && !themeDropdown.contains(event.target)) {
+                    themeDropdown.classList.remove('show');
+                }
+            });
+            
+            // Tab switching
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const tabId = this.dataset.tab;
+                    
+                    tabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    tabContents.forEach(content => {
+                        content.classList.remove('active');
+                        if (content.id === tabId) {
+                            content.classList.add('active');
+                        }
+                    });
+                });
+            });
+            
+            // Add row button
+            addRowBtn.addEventListener('click', addNewRow);
+            
+            // Add column button
+            addColumnBtn.addEventListener('click', function() {
+                addColumnModal.classList.add('show');
+            });
+            
+            // Close add column modal
+            closeColumnModal.addEventListener('click', function() {
+                addColumnModal.classList.remove('show');
+            });
+            
+            addColumnModal.addEventListener('click', function(e) {
+                if (e.target === addColumnModal) {
+                    addColumnModal.classList.remove('show');
+                }
+            });
+            
+            // Save column button
+            saveColumnBtn.addEventListener('click', function() {
+                addNewColumn();
+                autoSave();
+            });
+            
+            // Sort by date button
+            sortDateBtn.addEventListener('click', function() {
+                sortByDate();
+                autoSave();
+            });
+            
+            // Import button
+            importBtn.addEventListener('click', function() {
+                importModal.classList.add('show');
+                selectedFile = null;
+                updateImportFileArea();
+            });
+            
+            // Close import modal
+            closeImportModal.addEventListener('click', function() {
+                importModal.classList.remove('show');
+                selectedFile = null;
+            });
+            
+            // Cancel import button
+            cancelImportBtn.addEventListener('click', function() {
+                importModal.classList.remove('show');
+                selectedFile = null;
+            });
+            
+            importModal.addEventListener('click', function(e) {
+                if (e.target === importModal) {
+                    importModal.classList.remove('show');
+                    selectedFile = null;
+                }
+            });
+            
+            // Process import button
+            processImportBtn.addEventListener('click', function() {
+                processImport();
+                autoSave();
+            });
+            
+            // File input click
+            importFileArea.addEventListener('click', function() {
+                csvFileInput.click();
+            });
+            
+            // File input change
+            csvFileInput.addEventListener('change', function(e) {
+                if (e.target.files.length > 0) {
+                    selectedFile = e.target.files[0];
+                    updateImportFileArea();
+                }
+            });
+            
+            // Drag and drop functionality
+            importFileArea.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                importFileArea.classList.add('dragover');
+            });
+            
+            importFileArea.addEventListener('dragleave', function() {
+                importFileArea.classList.remove('dragover');
+            });
+            
+            importFileArea.addEventListener('drop', function(e) {
+                e.preventDefault();
+                importFileArea.classList.remove('dragover');
+                
+                if (e.dataTransfer.files.length > 0) {
+                    const file = e.dataTransfer.files[0];
+                    if (file.type === 'text/csv' || file.name.endsWith('.csv')) {
+                        selectedFile = file;
+                        updateImportFileArea();
+                    } else {
+                        alert('Please select a CSV file.');
+                    }
+                }
+            });
+            
+            // Export button (CSV)
+            exportBtn.addEventListener('click', exportData);
+            
+            // Backup JSON button
+            document.getElementById('backupBtn').addEventListener('click', backupToJSON);
+            
+            // Restore JSON button
+            document.getElementById('restoreBtn').addEventListener('click', restoreFromJSON);
+            
+            // Generate Report button
+            generateReportBtn.addEventListener('click', generateProfessionalReport);
+            
+            // Close Report button
+            closeReportBtn.addEventListener('click', function() {
+                reportPreview.classList.remove('show');
+                document.body.style.overflow = 'auto';
+            });
+            
+            // Print Report button
+            printReportBtn.addEventListener('click', function() {
+                window.print();
+            });
+            
+            // Clear All Data button
+            clearDataBtn.addEventListener('click', function() {
+                if (confirm('Clear all data? This cannot be undone.')) {
+                    appData = deepClone(EMPTY_DATA);
+                    personnel = deepClone(EMPTY_PERSONNEL_DATA);
+                    nextRowId = 1;
+                    editingHeaderId = null;
+                    
+                    addColumnModal.classList.remove('show');
+                    importModal.classList.remove('show');
+                    reportPreview.classList.remove('show');
+                    
+                    renderTable();
+                    renderPersonnel();
+                    renderStatsBar();
+                    renderSummaryTab();
+                    populateColumnPositionOptions();
+                    
+                    localStorage.removeItem('costsProfitsData');
+                    localStorage.removeItem('appData');
+                    localStorage.removeItem('personnelData');
+                    localStorage.removeItem('nextRowId');
+                    
+                    alert('All data cleared.');
+                }
+            });
+            
+            // Save before page unload
+            window.addEventListener('beforeunload', function() {
+                saveDataToStorage();
+            });
+            
+            // Auto-save periodically
+            setInterval(function() {
+                if (appData.rows.length > 0) {
+                    saveDataToStorage();
+                }
+            }, 30000);
+        }
+
+        // Update import file area display
+        function updateImportFileArea() {
+            if (selectedFile) {
+                importFileArea.innerHTML = `
+                    <div class="import-file-icon">
+                        <i class="fas fa-file-csv" style="color: #059669;"></i>
+                    </div>
+                    <div class="import-file-text">
+                        <strong>${selectedFile.name}</strong>
+                    </div>
+                    <div class="import-file-hint">
+                        ${(selectedFile.size / 1024).toFixed(1)} KB • Ready to import
+                    </div>
+                `;
+                processImportBtn.disabled = false;
+            } else {
+                importFileArea.innerHTML = `
+                    <div class="import-file-icon">
+                        <i class="fas fa-file-upload"></i>
+                    </div>
+                    <div class="import-file-text">
+                        <strong>Click to select file</strong> or drag and drop here
+                    </div>
+                    <div class="import-file-hint">
+                        Supports CSV files (max 10MB)
+                    </div>
+                `;
+                processImportBtn.disabled = true;
+            }
+        }
+
+        // Process import from CSV file
+        function processImport() {
+            if (!selectedFile) {
+                alert('Please select a CSV file to import.');
+                return;
+            }
+            
+            const reader = new FileReader();
+            const mode = importMode.value;
+            
+            reader.onload = function(e) {
+                try {
+                    const csvContent = e.target.result;
+                    const rows = csvContent.split('\n').filter(row => row.trim() !== '');
+                    
+                    if (rows.length < 1) {
+                        alert('CSV file is empty.');
+                        return;
+                    }
+                    
+                    // Find the TRANSACTION DETAILS section
+                    let headerRowIndex = -1;
+                    for (let i = 0; i < rows.length; i++) {
+                        if (rows[i].includes('Date,Invoice No.,Company,Description')) {
+                            headerRowIndex = i;
+                            break;
+                        }
+                    }
+                    
+                    // If formatted export not found, try simple CSV format
+                    if (headerRowIndex === -1) {
+                        headerRowIndex = 0;
+                    }
+                    
+                    const headers = parseCSVRow(rows[headerRowIndex]);
+                    const importedRows = [];
+                    
+                    for (let i = headerRowIndex + 1; i < rows.length; i++) {
+                        const rowData = parseCSVRow(rows[i]);
+                        
+                        // Skip if this is a TOTALS row or section header
+                        if (rowData[0] && (rowData[0].includes('TOTALS') || rowData[0].includes('PERSONNEL') || rowData[0] === '')) {
+                            break;
+                        }
+                        
+                        if (rowData.length === headers.length && rowData[0]) {
+                            const rowObj = {};
+                            headers.forEach((header, index) => {
+                                const cleanHeader = header.replace(/£/g, '').trim();
+                                const value = rowData[index] ? rowData[index].replace(/£/g, '').trim() : '';
+                                rowObj[cleanHeader.toLowerCase().replace(/[^a-z0-9]/g, '_')] = value;
+                            });
+                            importedRows.push(rowObj);
+                        }
+                    }
+                    
+                    if (importedRows.length === 0) {
+                        alert('No valid transaction data found in CSV file.');
+                        return;
+                    }
+                    
+                    if (mode === 'replace') {
+                        appData.rows = [];
+                        nextRowId = 1;
+                        
+                        importedRows.forEach(rowData => {
+                            const newRow = {
+                                id: nextRowId++,
+                                date: rowData.date || '',
+                                invoice: rowData.invoice_no_ || rowData.invoice || '',
+                                company: rowData.company || '',
+                                description: rowData.description || '',
+                                repairs: rowData.repairs___maintenance || rowData.repairs || '',
+                                other: rowData.other_income || rowData.other || '',
+                                insurance: rowData.insurance || '',
+                                keyo: rowData.keyo_estates || rowData.keyo || '',
+                                rent: rowData.rental_income || rowData.rent || '',
+                                kamal: rowData.kamal_hrmc || rowData.kamal || '',
+                                meena: rowData.meena_hrmc || rowData.meena || ''
+                            };
+                            
+                            appData.headers.forEach(header => {
+                                if (header.id !== 'actions' && !newRow.hasOwnProperty(header.id)) {
+                                    const headerKey = header.name.toLowerCase().replace(/[^a-z0-9]/g, '_');
+                                    newRow[header.id] = rowData[headerKey] || '';
+                                }
+                            });
+                            
+                            appData.rows.push(newRow);
+                        });
+                    } else {
+                        importedRows.forEach(rowData => {
+                            const newRow = {
+                                id: nextRowId++,
+                                date: rowData.date || '',
+                                invoice: rowData.invoice_no_ || rowData.invoice || '',
+                                company: rowData.company || '',
+                                description: rowData.description || '',
+                                repairs: rowData.repairs___maintenance || rowData.repairs || '',
+                                other: rowData.other_income || rowData.other || '',
+                                insurance: rowData.insurance || '',
+                                keyo: rowData.keyo_estates || rowData.keyo || '',
+                                rent: rowData.rental_income || rowData.rent || '',
+                                kamal: rowData.kamal_hrmc || rowData.kamal || '',
+                                meena: rowData.meena_hrmc || rowData.meena || ''
+                            };
+                            
+                            appData.headers.forEach(header => {
+                                if (header.id !== 'actions' && !newRow.hasOwnProperty(header.id)) {
+                                    const headerKey = header.name.toLowerCase().replace(/[^a-z0-9]/g, '_');
+                                    newRow[header.id] = rowData[headerKey] || '';
+                                }
+                            });
+                            
+                            appData.rows.push(newRow);
+                        });
+                    }
+                    
+                    renderTable();
+                    renderStatsBar();
+                    renderSummaryTab();
+                    
+                    importModal.classList.remove('show');
+                    selectedFile = null;
+                    
+                    alert(`Successfully imported ${importedRows.length} rows of data.`);
+                    
+                } catch (error) {
+                    console.error('Import error:', error);
+                    alert('Error importing CSV file. Please check the file format.');
+                }
+            };
+            
+            reader.onerror = function() {
+                alert('Error reading file. Please try again.');
+            };
+            
+            reader.readAsText(selectedFile);
+        }
+
+        // Parse CSV row handling quoted values
+        function parseCSVRow(row) {
+            const result = [];
+            let current = '';
+            let inQuotes = false;
+            
+            for (let i = 0; i < row.length; i++) {
+                const char = row[i];
+                
+                if (char === '"') {
+                    if (i + 1 < row.length && row[i + 1] === '"') {
+                        current += '"';
+                        i++;
+                    } else {
+                        inQuotes = !inQuotes;
+                    }
+                } else if (char === ',' && !inQuotes) {
+                    result.push(current);
+                    current = '';
+                } else {
+                    current += char;
+                }
+            }
+            
+            result.push(current);
+            return result.map(value => value.trim());
+        }
+
+        // Add a new row to the table
+        function addNewRow() {
+            const newRow = {
+                id: nextRowId++,
+                date: '',
+                invoice: '',
+                company: '',
+                description: '',
+                repairs: '',
+                other: '',
+                insurance: '',
+                keyo: '',
+                rent: '',
+                kamal: '',
+                meena: ''
+            };
+            
+            appData.headers.forEach(header => {
+                if (header.id !== 'actions' && !newRow.hasOwnProperty(header.id)) {
+                    newRow[header.id] = '';
+                }
+            });
+            
+            appData.rows.push(newRow);
+            updateSummaryRows();
+            renderTable();
+            autoSave();
+        }
+
+        // Delete a row from the table
+        function deleteRow(rowId) {
+            const index = appData.rows.findIndex(row => row.id.toString() === rowId);
+            if (index !== -1) {
+                appData.rows.splice(index, 1);
+                updateSummaryRows();
+                renderTable();
+                autoSave();
+            }
+        }
+
+        // Populate column position options
+        function populateColumnPositionOptions() {
+            columnPosition.innerHTML = '';
+            
+            appData.headers.forEach((header, index) => {
+                if (header.id !== 'actions') {
+                    const option = document.createElement('option');
+                    option.value = index;
+                    option.textContent = `After: ${header.name.replace(/<[^>]*>/g, '')}`;
+                    columnPosition.appendChild(option);
+                }
+            });
+            
+            const option = document.createElement('option');
+            option.value = appData.headers.length - 1;
+            option.textContent = 'At the end (before Actions)';
+            columnPosition.appendChild(option);
+        }
+
+        // Add a new column to the table
+        function addNewColumn() {
+            const columnName = document.getElementById('columnName').value;
+            const columnType = document.getElementById('columnType').value;
+            const columnPositionIndex = parseInt(columnPosition.value);
+            const defaultValue = document.getElementById('defaultValue').value;
+            
+            if (!columnName.trim()) {
+                alert('Please enter a column name');
+                return;
+            }
+            
+            const columnId = columnName.toLowerCase().replace(/[^a-z0-9]/g, '_');
+            const newHeader = {
+                id: columnId,
+                name: columnName,
+                type: columnType,
+                editable: true
+            };
+            
+            const insertIndex = columnPositionIndex + 1;
+            appData.headers.splice(insertIndex, 0, newHeader);
+            
+            appData.rows.forEach(row => {
+                row[columnId] = defaultValue || '';
+            });
+            
+            appData.summaryRows.forEach(summaryRow => {
+                summaryRow[columnId] = '';
+            });
+            
+            document.getElementById('columnName').value = '';
+            document.getElementById('defaultValue').value = '';
+            
+            addColumnModal.classList.remove('show');
+            
+            renderTable();
+            populateColumnPositionOptions();
+        }
+
+        // Sort rows by date
+        function sortByDate() {
+            appData.rows.sort((a, b) => {
+                const dateA = new Date(a.date || 0);
+                const dateB = new Date(b.date || 0);
+                return dateA - dateB;
+            });
+            
+            renderTable();
+        }
+
+        // Export data as CSV
+        function exportData() {
+            if (appData.rows.length === 0 && !hasPersonnelData()) {
+                alert('No data to export.');
+                return;
+            }
+            
+            const now = new Date();
+            const formattedDate = now.toLocaleDateString('en-GB', { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+            
+            // Calculate financial totals
+            const totalRent = parseFloat(calculateColumnTotal('rent')) || 0;
+            const totalOther = parseFloat(calculateColumnTotal('other')) || 0;
+            const totalRepairs = parseFloat(calculateColumnTotal('repairs')) || 0;
+            const totalInsurance = parseFloat(calculateColumnTotal('insurance')) || 0;
+            const totalKeyo = parseFloat(calculateColumnTotal('keyo')) || 0;
+            const totalKamal = parseFloat(calculateColumnTotal('kamal')) || 0;
+            const totalMeena = parseFloat(calculateColumnTotal('meena')) || 0;
+            
+            const totalIncome = totalRent + totalOther;
+            const totalExpenses = totalRepairs + totalInsurance + totalKeyo;
+            const netProfit = totalIncome - totalExpenses;
+            const totalHrmc = totalKamal + totalMeena;
+            
+            let csvContent = [];
+            
+            // Header
+            csvContent.push('Costs & Profits Management Report');
+            csvContent.push(propertyInfo.address + ' | Period: ' + propertyInfo.period);
+            csvContent.push('Generated: ' + formattedDate);
+            csvContent.push('');
+            
+            // Executive Summary
+            csvContent.push('EXECUTIVE SUMMARY');
+            csvContent.push('');
+            if (totalIncome > 0 || totalExpenses > 0) {
+                csvContent.push('Total Rental Income,£' + totalRent.toFixed(2));
+                csvContent.push('Total Other Income,£' + totalOther.toFixed(2));
+                csvContent.push('Total Income,£' + totalIncome.toFixed(2));
+                csvContent.push('');
+                csvContent.push('Repairs & Maintenance,£' + totalRepairs.toFixed(2));
+                csvContent.push('Insurance,£' + totalInsurance.toFixed(2));
+                csvContent.push('Management Fees,£' + totalKeyo.toFixed(2));
+                csvContent.push('Total Operating Expenses,£' + totalExpenses.toFixed(2));
+                csvContent.push('');
+                csvContent.push('Net Profit/Loss (Excl. HRMC),£' + netProfit.toFixed(2));
+                csvContent.push('');
+                csvContent.push('Kamal HRMC (Excluded),£' + totalKamal.toFixed(2));
+                csvContent.push('Meena HRMC (Excluded),£' + totalMeena.toFixed(2));
+                csvContent.push('Total HRMC Payments,£' + totalHrmc.toFixed(2));
+            } else {
+                csvContent.push('No financial data available for this period.');
+            }
+            csvContent.push('');
+            csvContent.push('');
+            
+            // Transaction Details
+            csvContent.push('TRANSACTION DETAILS');
+            csvContent.push('');
+            if (appData.rows.length > 0) {
+                const sortedRows = [...appData.rows].sort((a, b) => {
+                    return new Date(a.date || 0) - new Date(b.date || 0);
+                });
+                
+                csvContent.push('Date,Invoice No.,Company,Description,Repairs & Maintenance,Other Income,Insurance,Keyo Estates,Rental Income,Kamal HRMC,Meena HRMC');
+                
+                sortedRows.forEach(row => {
+                    const date = row.date || '';
+                    const invoice = row.invoice || '';
+                    const company = (row.company || '').includes(',') ? '"' + row.company + '"' : (row.company || '');
+                    const description = (row.description || '').includes(',') ? '"' + row.description + '"' : (row.description || '');
+                    const repairs = row.repairs ? '£' + parseFloat(row.repairs).toFixed(2) : '';
+                    const other = row.other ? '£' + parseFloat(row.other).toFixed(2) : '';
+                    const insurance = row.insurance ? '£' + parseFloat(row.insurance).toFixed(2) : '';
+                    const keyo = row.keyo ? '£' + parseFloat(row.keyo).toFixed(2) : '';
+                    const rent = row.rent ? '£' + parseFloat(row.rent).toFixed(2) : '';
+                    const kamal = row.kamal ? '£' + parseFloat(row.kamal).toFixed(2) : '';
+                    const meena = row.meena ? '£' + parseFloat(row.meena).toFixed(2) : '';
+                    
+                    csvContent.push([date, invoice, company, description, repairs, other, insurance, keyo, rent, kamal, meena].join(','));
+                });
+                
+                csvContent.push('TOTALS,,,£' + totalRepairs.toFixed(2) + ',£' + totalOther.toFixed(2) + ',£' + totalInsurance.toFixed(2) + ',£' + totalKeyo.toFixed(2) + ',£' + totalRent.toFixed(2) + ',£' + totalKamal.toFixed(2) + ',£' + totalMeena.toFixed(2));
+            } else {
+                csvContent.push('No transaction data available for this period.');
+            }
+            csvContent.push('');
+            csvContent.push('');
+            
+            // Personnel Details
+            csvContent.push('PERSONNEL DETAILS');
+            csvContent.push('');
+            if (hasPersonnelData()) {
+                personnel.forEach(person => {
+                    if (person.id === 3) {
+                        if (person.name || person.companyName) {
+                            csvContent.push('Accountant Details');
+                            csvContent.push('Name,' + (person.name || 'Not specified'));
+                            csvContent.push('Company,' + (person.companyName || 'Not specified'));
+                            csvContent.push('Address,"' + formatAddress(person) + '"');
+                            csvContent.push('Phone,' + (person.phone || 'Not specified'));
+                            csvContent.push('Email,' + (person.email || 'Not specified'));
+                            if (person.accountNumber) {
+                                csvContent.push('Account No,' + person.accountNumber);
+                            }
+                            csvContent.push('');
+                        }
+                    } else {
+                        if (person.name) {
+                            csvContent.push(person.name);
+                            csvContent.push('Address,"' + formatAddress(person) + '"');
+                            csvContent.push('Phone,' + (person.phone || 'Not specified'));
+                            csvContent.push('Email,' + (person.email || 'Not specified'));
+                            if (person.nationalInsurance) {
+                                csvContent.push('National Insurance,' + person.nationalInsurance);
+                            }
+                            if (person.utr) {
+                                csvContent.push('UTR,' + person.utr);
+                            }
+                            if (person.dob) {
+                                csvContent.push('DOB,' + person.dob);
+                            }
+                            csvContent.push('');
+                        }
+                    }
+                });
+            } else {
+                csvContent.push('No personnel data available.');
+            }
+            
+            const csvString = '\ufeff' + csvContent.join('\n');
+            const blob = new Blob([csvString], { type: 'text/csv;charset=utf-8;' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `costs-profits-${new Date().toISOString().split('T')[0]}.csv`;
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }
+
+        // Backup all data to JSON
+        function backupToJSON() {
+            const backupData = {
+                version: '1.0',
+                timestamp: new Date().toISOString(),
+                appData: appData,
+                personnel: personnel,
+                nextRowId: nextRowId,
+                propertyInfo: propertyInfo
+            };
+            
+            const jsonString = JSON.stringify(backupData, null, 2);
+            const blob = new Blob([jsonString], { type: 'application/json' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `costs-profits-backup-${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }
+        
+        // Restore all data from JSON
+        function restoreFromJSON() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'application/json,.json';
+            
+            input.onchange = function(e) {
+                const file = e.target.files[0];
+                if (!file) return;
+                
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    try {
+                        const backupData = JSON.parse(event.target.result);
+                        
+                        // Validate backup data structure
+                        if (!backupData.appData || !backupData.personnel || !backupData.propertyInfo) {
+                            alert('Invalid backup file format.');
+                            return;
+                        }
+                        
+                        // Restore data
+                        appData = backupData.appData;
+                        personnel = backupData.personnel;
+                        nextRowId = backupData.nextRowId || 1;
+                        propertyInfo = backupData.propertyInfo;
+                        
+                        // Save to localStorage
+                        autoSave();
+                        
+                        // Refresh UI
+                        renderTable();
+                        renderPersonnel();
+                        renderStatsBar();
+                        renderSummaryTab();
+                        populateColumnPositionOptions();
+                        updatePropertyHeader();
+                        
+                        alert('Data restored successfully!');
+                    } catch (error) {
+                        console.error('Restore error:', error);
+                        alert('Error restoring backup file: ' + error.message);
+                    }
+                };
+                reader.readAsText(file);
+            };
+            
+            input.click();
+        }
+
+        // Load saved theme from localStorage
+        function loadSavedTheme() {
+            const savedTheme = localStorage.getItem('selectedTheme');
+            if (savedTheme) {
+                document.body.className = savedTheme;
+            }
+        }
+
+        // Initialize the app when the DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSavedTheme();
+            initApp();
+        });
+    </script>
+</body>
+</html>
