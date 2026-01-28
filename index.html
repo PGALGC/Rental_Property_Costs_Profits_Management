@@ -1220,7 +1220,8 @@
         }
         
         .company-form-group input,
-        .company-form-group select {
+        .company-form-group select,
+        .company-form-group textarea {
             width: 100%;
             padding: 5px;
             border: 1px solid var(--border-color);
@@ -1232,7 +1233,8 @@
         }
         
         .company-form-group input:focus,
-        .company-form-group select:focus {
+        .company-form-group select:focus,
+        .company-form-group textarea:focus {
             outline: none;
             border-color: var(--secondary-color);
             box-shadow: 0 0 0 2px color-mix(in srgb, var(--secondary-color) 15%, transparent);
@@ -1241,6 +1243,11 @@
         .company-form-group input[type="password"] {
             font-family: 'Courier New', monospace;
             letter-spacing: 1px;
+        }
+        
+        .company-form-group textarea {
+            resize: vertical;
+            min-height: 60px;
         }
         
         .currency-wrapper {
@@ -1931,7 +1938,7 @@
             }
         ];
 
-        // NEW: Empty company information data structure
+        // UPDATED: Empty company information data structure with new fields
         const EMPTY_COMPANY_DATA = [
             {
                 id: 1,
@@ -1939,6 +1946,9 @@
                 companyName: "",
                 accountNumber: "",
                 contactName: "",
+                personTitle: "",
+                sortCode: "",
+                refInvoiceNo: "",
                 address1: "",
                 address2: "",
                 town: "",
@@ -1950,7 +1960,9 @@
                 website: "",
                 username: "",
                 password: "",
-                paymentAmount: ""
+                paymentAmount: "",
+                paymentFrequency: "",
+                comments: ""
             }
         ];
 
@@ -2387,7 +2399,7 @@
             attachRowActionListeners();
         }
 
-        // NEW FUNCTION: Render company information grid
+        // UPDATED: Render company information grid with new fields
         function renderCompanyGrid() {
             companyGrid.innerHTML = '';
             
@@ -2421,12 +2433,12 @@
                             <label>Type of Company:</label>
                             <select class="company-input" data-field="type" data-id="${company.id}">
                                 <option value="">Select Type</option>
-                                <option value="Broadband" ${company.type === 'Supplier' ? 'selected' : ''}>Broadband</option>
+                                <option value="Broadband" ${company.type === 'Broadband' ? 'selected' : ''}>Broadband</option>
                                 <option value="Service Provider" ${company.type === 'Service Provider' ? 'selected' : ''}>Service Provider</option>
-                                <option value="Council Tax" ${company.type === 'Contractor' ? 'selected' : ''}>Council Tax</option>
+                                <option value="Council Tax" ${company.type === 'Council Tax' ? 'selected' : ''}>Council Tax</option>
                                 <option value="Utilities" ${company.type === 'Utilities' ? 'selected' : ''}>Utilities</option>
                                 <option value="Insurance" ${company.type === 'Insurance' ? 'selected' : ''}>Insurance</option>
-                                <option value="Management Company" ${company.type === 'Financial' ? 'selected' : ''}>Management Company</option>
+                                <option value="Management Company" ${company.type === 'Management Company' ? 'selected' : ''}>Management Company</option>
                                 <option value="Government" ${company.type === 'Government' ? 'selected' : ''}>HMRC</option>
                                 <option value="Other" ${company.type === 'Other' ? 'selected' : ''}>Other</option>
                             </select>
@@ -2448,6 +2460,24 @@
                             <label>Contact Name:</label>
                             <input type="text" class="company-input" data-field="contactName" data-id="${company.id}" 
                                    value="${company.contactName || ''}" placeholder="Contact person">
+                        </div>
+                        
+                        <div class="company-form-group">
+                            <label>Person Title/Job Role:</label>
+                            <input type="text" class="company-input" data-field="personTitle" data-id="${company.id}" 
+                                   value="${company.personTitle || ''}" placeholder="e.g., Manager, Director">
+                        </div>
+                        
+                        <div class="company-form-group">
+                            <label>Sort Code:</label>
+                            <input type="text" class="company-input" data-field="sortCode" data-id="${company.id}" 
+                                   value="${company.sortCode || ''}" placeholder="e.g., 12-34-56">
+                        </div>
+                        
+                        <div class="company-form-group">
+                            <label>Ref/Invoice No:</label>
+                            <input type="text" class="company-input" data-field="refInvoiceNo" data-id="${company.id}" 
+                                   value="${company.refInvoiceNo || ''}" placeholder="Reference or invoice number">
                         </div>
                         
                         <div class="company-form-group full-width">
@@ -2517,12 +2547,29 @@
                         </div>
                         
                         <div class="company-form-group">
-                            <label>W/M/Q/Y Payments: £</label>
+                            <label>W/M/Q/Y Payments:</label>
+                            <select class="company-input" data-field="paymentFrequency" data-id="${company.id}">
+                                <option value="">Select Frequency</option>
+                                <option value="Weekly" ${company.paymentFrequency === 'Weekly' ? 'selected' : ''}>Weekly</option>
+                                <option value="Monthly" ${company.paymentFrequency === 'Monthly' ? 'selected' : ''}>Monthly</option>
+                                <option value="Quarterly" ${company.paymentFrequency === 'Quarterly' ? 'selected' : ''}>Quarterly</option>
+                                <option value="Yearly" ${company.paymentFrequency === 'Yearly' ? 'selected' : ''}>Yearly</option>
+                            </select>
+                        </div>
+                        
+                        <div class="company-form-group">
+                            <label>Payment Amount: £</label>
                             <div class="currency-wrapper">
                                 <span class="currency-symbol">£</span>
                                 <input type="text" class="company-input" data-field="paymentAmount" data-id="${company.id}" 
                                        value="${company.paymentAmount || ''}" placeholder="0.00">
                             </div>
+                        </div>
+                        
+                        <div class="company-form-group full-width">
+                            <label>Comments:</label>
+                            <textarea class="company-input" data-field="comments" data-id="${company.id}" 
+                                      placeholder="Additional notes or comments" rows="3">${company.comments || ''}</textarea>
                         </div>
                     </div>
                 `;
@@ -2533,18 +2580,23 @@
             attachCompanyEventListeners();
         }
 
-        // NEW FUNCTION: Attach event listeners to company inputs
+        // UPDATED: Attach event listeners to company inputs
         function attachCompanyEventListeners() {
             // Input event listeners
             document.querySelectorAll('.company-input').forEach(input => {
                 input.addEventListener('blur', function() {
                     const companyId = parseInt(this.dataset.id);
                     const field = this.dataset.field;
-                    const value = this.value;
+                    let value = this.value;
                     
                     const company = companies.find(c => c.id === companyId);
                     if (company) {
-                        company[field] = value;
+                        // Handle textarea separately
+                        if (this.tagName === 'TEXTAREA') {
+                            company[field] = value;
+                        } else {
+                            company[field] = value;
+                        }
                         
                         // Update card title if company name or type changes
                         if (field === 'companyName' || field === 'type') {
@@ -2558,13 +2610,15 @@
                     }
                 });
                 
-                // Update on Enter key
-                input.addEventListener('keypress', function(e) {
-                    if (e.key === 'Enter') {
-                        e.preventDefault();
-                        this.blur();
-                    }
-                });
+                // Update on Enter key (for inputs, not textareas)
+                if (input.tagName !== 'TEXTAREA') {
+                    input.addEventListener('keypress', function(e) {
+                        if (e.key === 'Enter') {
+                            e.preventDefault();
+                            this.blur();
+                        }
+                    });
+                }
             });
             
             // Delete button listeners
@@ -2576,7 +2630,7 @@
             });
         }
 
-        // NEW FUNCTION: Add a new company
+        // UPDATED: Add a new company
         function addNewCompany() {
             const newCompany = {
                 id: companies.length > 0 ? Math.max(...companies.map(c => c.id)) + 1 : 1,
@@ -2584,6 +2638,9 @@
                 companyName: "",
                 accountNumber: "",
                 contactName: "",
+                personTitle: "",
+                sortCode: "",
+                refInvoiceNo: "",
                 address1: "",
                 address2: "",
                 town: "",
@@ -2595,7 +2652,9 @@
                 website: "",
                 username: "",
                 password: "",
-                paymentAmount: ""
+                paymentAmount: "",
+                paymentFrequency: "",
+                comments: ""
             };
             
             companies.push(newCompany);
@@ -2603,7 +2662,7 @@
             autoSave();
         }
 
-        // NEW FUNCTION: Delete a company
+        // UPDATED: Delete a company
         function deleteCompany(companyId) {
             if (companies.length <= 1) {
                 alert('You must have at least one company record.');
@@ -2620,7 +2679,7 @@
             }
         }
 
-        // NEW FUNCTION: Export all company information to PDF
+        // UPDATED: Export all company information to PDF with new fields
         function exportCompaniesToPDF() {
             if (companies.length === 0) {
                 alert('No company information to export.');
@@ -2678,12 +2737,15 @@
                     const col2X = margin + contentWidth / 2 + 5;
                     let colY = yPos;
                     
-                    // Company details in two columns
+                    // Company details in two columns - UPDATED with new fields
                     const details = [
                         { label: 'Type:', value: company.type || 'Not specified' },
                         { label: 'Company Name:', value: company.companyName || 'Not specified' },
                         { label: 'Account Number:', value: company.accountNumber || 'Not specified' },
                         { label: 'Contact Name:', value: company.contactName || 'Not specified' },
+                        { label: 'Person Title:', value: company.personTitle || 'Not specified' },
+                        { label: 'Sort Code:', value: company.sortCode || 'Not specified' },
+                        { label: 'Ref/Invoice No:', value: company.refInvoiceNo || 'Not specified' },
                         { label: 'Address Line 1:', value: company.address1 || 'Not specified' },
                         { label: 'Address Line 2:', value: company.address2 || 'Not specified' },
                         { label: 'Town:', value: company.town || 'Not specified' },
@@ -2695,7 +2757,9 @@
                         { label: 'Website:', value: company.website || 'Not specified' },
                         { label: 'Username:', value: company.username || 'Not specified' },
                         { label: 'Password:', value: company.password ? '********' : 'Not specified' },
-                        { label: 'M/Q/Y Payments:', value: company.paymentAmount ? `£${company.paymentAmount}` : 'Not specified' }
+                        { label: 'Payment Frequency:', value: company.paymentFrequency || 'Not specified' },
+                        { label: 'Payment Amount:', value: company.paymentAmount ? `£${company.paymentAmount}` : 'Not specified' },
+                        { label: 'Comments:', value: company.comments || 'Not specified' }
                     ];
                     
                     // Split details into two columns
