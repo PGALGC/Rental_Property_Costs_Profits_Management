@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Costs & Profits Management | 17 Schoolfields SG6 2TZ</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
     <style>
         * {
             box-sizing: border-box;
@@ -1085,6 +1087,196 @@
             z-index: 2001;
         }
         
+        /* NEW: Information Tab Styles */
+        .information-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .information-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        
+        .information-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .information-header h3 {
+            color: var(--primary-color);
+            font-size: 13px;
+            font-weight: 600;
+            margin: 0;
+            cursor: pointer;
+            padding: 5px 8px;
+            border-radius: 3px;
+            transition: background-color 0.2s;
+        }
+        
+        .information-header h3:hover {
+            background-color: color-mix(in srgb, var(--secondary-color) 10%, transparent);
+        }
+        
+        .information-header-edit {
+            display: none;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .information-header-edit input {
+            padding: 4px 8px;
+            border: 1px solid var(--secondary-color);
+            border-radius: 3px;
+            font-size: 12px;
+            min-width: 200px;
+        }
+        
+        .information-header-edit button {
+            padding: 4px 8px;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 10px;
+        }
+        
+        .information-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 10px;
+        }
+        
+        .company-card {
+            background-color: var(--card-bg);
+            border-radius: 4px;
+            padding: 12px;
+            box-shadow: 0 1px 4px var(--shadow-color);
+            border-left: 3px solid var(--secondary-color);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .company-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px var(--shadow-hover);
+        }
+        
+        .company-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .company-card-header h3 {
+            color: var(--primary-color);
+            font-size: 13px;
+            font-weight: 600;
+            margin: 0;
+        }
+        
+        .company-delete-btn {
+            background-color: transparent;
+            border: none;
+            color: var(--accent-color);
+            cursor: pointer;
+            font-size: 12px;
+            padding: 2px 6px;
+            border-radius: 3px;
+            transition: background-color 0.2s;
+        }
+        
+        .company-delete-btn:hover {
+            background-color: color-mix(in srgb, var(--accent-color) 10%, transparent);
+        }
+        
+        .company-form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+        
+        .company-form-group {
+            margin-bottom: 6px;
+        }
+        
+        .company-form-group.full-width {
+            grid-column: 1 / -1;
+        }
+        
+        .company-form-group label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 2px;
+            color: var(--text-color);
+            font-size: 10px;
+        }
+        
+        .company-form-group input,
+        .company-form-group select {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid var(--border-color);
+            border-radius: 3px;
+            font-size: 10px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: border-color 0.2s;
+        }
+        
+        .company-form-group input:focus,
+        .company-form-group select:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 2px color-mix(in srgb, var(--secondary-color) 15%, transparent);
+        }
+        
+        .company-form-group input[type="password"] {
+            font-family: 'Courier New', monospace;
+            letter-spacing: 1px;
+        }
+        
+        .currency-wrapper {
+            position: relative;
+        }
+        
+        .currency-wrapper input {
+            padding-left: 25px !important;
+        }
+        
+        .currency-symbol {
+            position: absolute;
+            left: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--secondary-color);
+            font-weight: 500;
+            font-size: 12px;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 30px;
+            color: var(--secondary-color);
+            font-style: italic;
+            background-color: var(--header-bg);
+            border-radius: 4px;
+            border: 1px dashed var(--border-color);
+        }
+        
+        .empty-state i {
+            font-size: 24px;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
         /* Responsive */
         @media (max-width: 768px) {
             .container {
@@ -1113,6 +1305,14 @@
             }
             
             .personnel-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .information-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .company-form-grid {
                 grid-template-columns: 1fr;
             }
             
@@ -1150,6 +1350,16 @@
                 right: 0;
                 justify-content: center;
                 margin-bottom: 20px;
+            }
+            
+            .information-controls {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .information-header-edit input {
+                min-width: 150px;
             }
         }
         
@@ -1397,6 +1607,9 @@
             <div class="tab" data-tab="personnel">
                 <i class="fas fa-users"></i> Personnel
             </div>
+            <div class="tab" data-tab="information">
+                <i class="fas fa-info-circle"></i> Information
+            </div>
             <div class="tab" data-tab="summary">
                 <i class="fas fa-chart-bar"></i> Summary
             </div>
@@ -1422,6 +1635,34 @@
         <div class="tab-content" id="personnel">
             <div class="personnel-grid" id="personnelGrid">
                 <!-- Personnel cards will be populated by JavaScript -->
+            </div>
+        </div>
+        
+        <!-- NEW: Information Tab -->
+        <div class="tab-content" id="information">
+            <div class="information-container">
+                <div class="information-controls">
+                    <div class="information-header">
+                        <h3 id="informationTitle" title="Click to edit title">Company Information</h3>
+                        <div class="information-header-edit" id="informationTitleEdit">
+                            <input type="text" id="informationTitleInput" value="Company Information">
+                            <button id="informationTitleSave">Save</button>
+                            <button id="informationTitleCancel">Cancel</button>
+                        </div>
+                    </div>
+                    <div class="information-buttons">
+                        <button class="btn btn-primary" id="addCompanyBtn">
+                            <i class="fas fa-plus"></i> Add Company
+                        </button>
+                        <button class="btn btn-success" id="exportCompaniesPdfBtn">
+                            <i class="fas fa-file-pdf"></i> Export PDF
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="information-grid" id="companyGrid">
+                    <!-- Company cards will be populated by JavaScript -->
+                </div>
             </div>
         </div>
         
@@ -1690,9 +1931,33 @@
             }
         ];
 
+        // NEW: Empty company information data structure
+        const EMPTY_COMPANY_DATA = [
+            {
+                id: 1,
+                type: "",
+                companyName: "",
+                accountNumber: "",
+                contactName: "",
+                address1: "",
+                address2: "",
+                town: "",
+                county: "",
+                postcode: "",
+                telephone: "",
+                mobile: "",
+                email: "",
+                website: "",
+                username: "",
+                password: "",
+                paymentAmount: ""
+            }
+        ];
+
         // State management
         let appData = deepClone(EMPTY_DATA);
         let personnel = deepClone(EMPTY_PERSONNEL_DATA);
+        let companies = deepClone(EMPTY_COMPANY_DATA);
         let nextRowId = 1;
         let editingHeaderId = null;
         let selectedFile = null;
@@ -1700,6 +1965,9 @@
             address: '17 Schoolfields, SG6 2TZ',
             period: 'Apr 2025 - Apr 2026'
         };
+        
+        // NEW: Information tab title
+        let informationTitle = 'Company Information';
 
         // Helper function for deep cloning
         function deepClone(obj) {
@@ -1712,16 +1980,20 @@
                 const dataToSave = {
                     appData: appData,
                     personnel: personnel,
+                    companies: companies,
                     nextRowId: nextRowId,
                     propertyInfo: propertyInfo,
+                    informationTitle: informationTitle,
                     savedAt: new Date().toISOString()
                 };
                 localStorage.setItem('costsProfitsData', JSON.stringify(dataToSave));
                 
                 localStorage.setItem('appData', JSON.stringify(appData));
                 localStorage.setItem('personnelData', JSON.stringify(personnel));
+                localStorage.setItem('companyData', JSON.stringify(companies));
                 localStorage.setItem('nextRowId', nextRowId.toString());
                 localStorage.setItem('propertyInfo', JSON.stringify(propertyInfo));
+                localStorage.setItem('informationTitle', informationTitle);
                 
                 console.log('Data saved to localStorage');
             } catch (error) {
@@ -1737,16 +2009,20 @@
                     const parsedData = JSON.parse(savedData);
                     appData = parsedData.appData || deepClone(EMPTY_DATA);
                     personnel = parsedData.personnel || deepClone(EMPTY_PERSONNEL_DATA);
+                    companies = parsedData.companies || deepClone(EMPTY_COMPANY_DATA);
                     nextRowId = parsedData.nextRowId || 1;
                     propertyInfo = parsedData.propertyInfo || { address: '17 Schoolfields, SG6 2TZ', period: 'Apr 2025 - Apr 2026' };
+                    informationTitle = parsedData.informationTitle || 'Company Information';
                     console.log('Data loaded from main storage key');
                     return;
                 }
                 
                 const savedAppData = localStorage.getItem('appData');
                 const savedPersonnel = localStorage.getItem('personnelData');
+                const savedCompanyData = localStorage.getItem('companyData');
                 const savedNextRowId = localStorage.getItem('nextRowId');
                 const savedPropertyInfo = localStorage.getItem('propertyInfo');
+                const savedInformationTitle = localStorage.getItem('informationTitle');
                 
                 if (savedAppData) {
                     appData = JSON.parse(savedAppData);
@@ -1754,6 +2030,10 @@
                 
                 if (savedPersonnel) {
                     personnel = JSON.parse(savedPersonnel);
+                }
+                
+                if (savedCompanyData) {
+                    companies = JSON.parse(savedCompanyData);
                 }
                 
                 if (savedNextRowId) {
@@ -1764,16 +2044,24 @@
                     propertyInfo = JSON.parse(savedPropertyInfo);
                 }
                 
+                if (savedInformationTitle) {
+                    informationTitle = savedInformationTitle;
+                }
+                
                 console.log('Data loaded from individual storage keys');
             } catch (error) {
                 console.error('Error loading data from localStorage:', error);
                 appData = deepClone(EMPTY_DATA);
                 personnel = deepClone(EMPTY_PERSONNEL_DATA);
+                companies = deepClone(EMPTY_COMPANY_DATA);
                 nextRowId = 1;
+                informationTitle = 'Company Information';
             }
             
             // Update header with loaded property info
             updatePropertyHeader();
+            // Update information title
+            updateInformationTitle();
         }
 
         // Auto-save function
@@ -1785,6 +2073,7 @@
         const tableHeader = document.getElementById('tableHeader');
         const tableBody = document.getElementById('tableBody');
         const personnelGrid = document.getElementById('personnelGrid');
+        const companyGrid = document.getElementById('companyGrid');
         const statsBar = document.getElementById('statsBar');
         const themeToggle = document.getElementById('themeToggle');
         const themeDropdown = document.getElementById('themeDropdown');
@@ -1813,11 +2102,23 @@
         const printReportBtn = document.getElementById('printReportBtn');
         const reportDate = document.getElementById('reportDate');
         const reportTimestamp = document.getElementById('reportTimestamp');
+        const addCompanyBtn = document.getElementById('addCompanyBtn');
+        const exportCompaniesPdfBtn = document.getElementById('exportCompaniesPdfBtn');
+        const informationTitleElement = document.getElementById('informationTitle');
+        const informationTitleEdit = document.getElementById('informationTitleEdit');
+        const informationTitleInput = document.getElementById('informationTitleInput');
+        const informationTitleSave = document.getElementById('informationTitleSave');
+        const informationTitleCancel = document.getElementById('informationTitleCancel');
 
         // Update property header display
         function updatePropertyHeader() {
             document.getElementById('propertyAddress').textContent = propertyInfo.address;
             document.getElementById('periodDates').textContent = propertyInfo.period;
+        }
+        
+        // Update information title display
+        function updateInformationTitle() {
+            informationTitleElement.textContent = informationTitle;
         }
         
         // Make property info editable
@@ -1842,6 +2143,7 @@
             
             renderTable();
             renderPersonnel();
+            renderCompanyGrid();
             renderStatsBar();
             renderSummaryTab();
             populateColumnPositionOptions();
@@ -1853,6 +2155,10 @@
             
             if (appData.rows.length > 0) {
                 console.log(`Loaded ${appData.rows.length} rows from saved data`);
+            }
+            
+            if (companies.length > 0) {
+                console.log(`Loaded ${companies.length} company records`);
             }
         }
 
@@ -2081,7 +2387,437 @@
             attachRowActionListeners();
         }
 
-        // NEW FUNCTION: Render just the summary rows - FIXED for proper column alignment
+        // NEW FUNCTION: Render company information grid
+        function renderCompanyGrid() {
+            companyGrid.innerHTML = '';
+            
+            if (companies.length === 0) {
+                companyGrid.innerHTML = `
+                    <div class="empty-state" style="grid-column: 1 / -1;">
+                        <i class="fas fa-building"></i>
+                        <p>No company information added yet.</p>
+                        <p>Click "Add Company" to get started.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            companies.forEach(company => {
+                const card = document.createElement('div');
+                card.className = 'company-card';
+                card.dataset.id = company.id;
+                
+                const title = company.companyName || company.type || `Company ${company.id}`;
+                
+                card.innerHTML = `
+                    <div class="company-card-header">
+                        <h3>${title}</h3>
+                        <button class="company-delete-btn" data-id="${company.id}" title="Delete Company">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                    <div class="company-form-grid">
+                        <div class="company-form-group">
+                            <label>Type of Company:</label>
+                            <select class="company-input" data-field="type" data-id="${company.id}">
+                                <option value="">Select Type</option>
+                                <option value="Broadband" ${company.type === 'Supplier' ? 'selected' : ''}>Broadband</option>
+                                <option value="Service Provider" ${company.type === 'Service Provider' ? 'selected' : ''}>Service Provider</option>
+                                <option value="Council Tax" ${company.type === 'Contractor' ? 'selected' : ''}>Council Tax</option>
+                                <option value="Utilities" ${company.type === 'Utilities' ? 'selected' : ''}>Utilities</option>
+                                <option value="Insurance" ${company.type === 'Insurance' ? 'selected' : ''}>Insurance</option>
+                                <option value="Management Company" ${company.type === 'Financial' ? 'selected' : ''}>Management Company</option>
+                                <option value="Government" ${company.type === 'Government' ? 'selected' : ''}>HMRC</option>
+                                <option value="Other" ${company.type === 'Other' ? 'selected' : ''}>Other</option>
+                            </select>
+                        </div>
+                        
+                        <div class="company-form-group full-width">
+                            <label>Company Name:</label>
+                            <input type="text" class="company-input" data-field="companyName" data-id="${company.id}" 
+                                   value="${company.companyName || ''}" placeholder="Enter company name">
+                        </div>
+                        
+                        <div class="company-form-group">
+                            <label>Account Number:</label>
+                            <input type="text" class="company-input" data-field="accountNumber" data-id="${company.id}" 
+                                   value="${company.accountNumber || ''}" placeholder="Account number">
+                        </div>
+                        
+                        <div class="company-form-group">
+                            <label>Contact Name:</label>
+                            <input type="text" class="company-input" data-field="contactName" data-id="${company.id}" 
+                                   value="${company.contactName || ''}" placeholder="Contact person">
+                        </div>
+                        
+                        <div class="company-form-group full-width">
+                            <label>Address Line 1:</label>
+                            <input type="text" class="company-input" data-field="address1" data-id="${company.id}" 
+                                   value="${company.address1 || ''}" placeholder="Street address">
+                        </div>
+                        
+                        <div class="company-form-group full-width">
+                            <label>Address Line 2:</label>
+                            <input type="text" class="company-input" data-field="address2" data-id="${company.id}" 
+                                   value="${company.address2 || ''}" placeholder="Apartment, suite, etc.">
+                        </div>
+                        
+                        <div class="company-form-group">
+                            <label>Town:</label>
+                            <input type="text" class="company-input" data-field="town" data-id="${company.id}" 
+                                   value="${company.town || ''}" placeholder="Town">
+                        </div>
+                        
+                        <div class="company-form-group">
+                            <label>County:</label>
+                            <input type="text" class="company-input" data-field="county" data-id="${company.id}" 
+                                   value="${company.county || ''}" placeholder="County">
+                        </div>
+                        
+                        <div class="company-form-group">
+                            <label>Post Code:</label>
+                            <input type="text" class="company-input" data-field="postcode" data-id="${company.id}" 
+                                   value="${company.postcode || ''}" placeholder="Postal code">
+                        </div>
+                        
+                        <div class="company-form-group">
+                            <label>Telephone No:</label>
+                            <input type="tel" class="company-input" data-field="telephone" data-id="${company.id}" 
+                                   value="${company.telephone || ''}" placeholder="Landline">
+                        </div>
+                        
+                        <div class="company-form-group">
+                            <label>Mobile No:</label>
+                            <input type="tel" class="company-input" data-field="mobile" data-id="${company.id}" 
+                                   value="${company.mobile || ''}" placeholder="Mobile">
+                        </div>
+                        
+                        <div class="company-form-group full-width">
+                            <label>Email:</label>
+                            <input type="email" class="company-input" data-field="email" data-id="${company.id}" 
+                                   value="${company.email || ''}" placeholder="Email address">
+                        </div>
+                        
+                        <div class="company-form-group full-width">
+                            <label>Website:</label>
+                            <input type="url" class="company-input" data-field="website" data-id="${company.id}" 
+                                   value="${company.website || ''}" placeholder="https://example.com">
+                        </div>
+                        
+                        <div class="company-form-group">
+                            <label>Username to Website:</label>
+                            <input type="text" class="company-input" data-field="username" data-id="${company.id}" 
+                                   value="${company.username || ''}" placeholder="Login username">
+                        </div>
+                        
+                        <div class="company-form-group">
+                            <label>Password to Website:</label>
+                            <input type="password" class="company-input" data-field="password" data-id="${company.id}" 
+                                   value="${company.password || ''}" placeholder="Login password">
+                        </div>
+                        
+                        <div class="company-form-group">
+                            <label>W/M/Q/Y Payments: £</label>
+                            <div class="currency-wrapper">
+                                <span class="currency-symbol">£</span>
+                                <input type="text" class="company-input" data-field="paymentAmount" data-id="${company.id}" 
+                                       value="${company.paymentAmount || ''}" placeholder="0.00">
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                companyGrid.appendChild(card);
+            });
+            
+            attachCompanyEventListeners();
+        }
+
+        // NEW FUNCTION: Attach event listeners to company inputs
+        function attachCompanyEventListeners() {
+            // Input event listeners
+            document.querySelectorAll('.company-input').forEach(input => {
+                input.addEventListener('blur', function() {
+                    const companyId = parseInt(this.dataset.id);
+                    const field = this.dataset.field;
+                    const value = this.value;
+                    
+                    const company = companies.find(c => c.id === companyId);
+                    if (company) {
+                        company[field] = value;
+                        
+                        // Update card title if company name or type changes
+                        if (field === 'companyName' || field === 'type') {
+                            const card = this.closest('.company-card');
+                            const header = card.querySelector('.company-card-header h3');
+                            const title = company.companyName || company.type || `Company ${company.id}`;
+                            header.textContent = title;
+                        }
+                        
+                        autoSave();
+                    }
+                });
+                
+                // Update on Enter key
+                input.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        this.blur();
+                    }
+                });
+            });
+            
+            // Delete button listeners
+            document.querySelectorAll('.company-delete-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const companyId = parseInt(this.dataset.id);
+                    deleteCompany(companyId);
+                });
+            });
+        }
+
+        // NEW FUNCTION: Add a new company
+        function addNewCompany() {
+            const newCompany = {
+                id: companies.length > 0 ? Math.max(...companies.map(c => c.id)) + 1 : 1,
+                type: "",
+                companyName: "",
+                accountNumber: "",
+                contactName: "",
+                address1: "",
+                address2: "",
+                town: "",
+                county: "",
+                postcode: "",
+                telephone: "",
+                mobile: "",
+                email: "",
+                website: "",
+                username: "",
+                password: "",
+                paymentAmount: ""
+            };
+            
+            companies.push(newCompany);
+            renderCompanyGrid();
+            autoSave();
+        }
+
+        // NEW FUNCTION: Delete a company
+        function deleteCompany(companyId) {
+            if (companies.length <= 1) {
+                alert('You must have at least one company record.');
+                return;
+            }
+            
+            if (confirm('Delete this company record?')) {
+                const index = companies.findIndex(c => c.id === companyId);
+                if (index !== -1) {
+                    companies.splice(index, 1);
+                    renderCompanyGrid();
+                    autoSave();
+                }
+            }
+        }
+
+        // NEW FUNCTION: Export all company information to PDF
+        function exportCompaniesToPDF() {
+            if (companies.length === 0) {
+                alert('No company information to export.');
+                return;
+            }
+            
+            try {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF('p', 'mm', 'a4');
+                
+                const pageWidth = doc.internal.pageSize.width;
+                const pageHeight = doc.internal.pageSize.height;
+                const margin = 10;
+                const contentWidth = pageWidth - (margin * 2);
+                
+                // Title
+                doc.setFontSize(18);
+                doc.setTextColor(30, 58, 138);
+                doc.text(informationTitle, margin, margin + 10);
+                
+                // Subtitle
+                doc.setFontSize(10);
+                doc.setTextColor(100, 116, 139);
+                doc.text(`Generated: ${new Date().toLocaleDateString('en-GB')}`, margin, margin + 18);
+                doc.text(`Property: ${propertyInfo.address}`, margin, margin + 23);
+                
+                let yPos = margin + 30;
+                
+                // Loop through each company
+                companies.forEach((company, index) => {
+                    // Check if we need a new page
+                    if (yPos > pageHeight - margin - 50) {
+                        doc.addPage();
+                        yPos = margin;
+                    }
+                    
+                    // Company header
+                    const title = company.companyName || company.type || `Company ${company.id}`;
+                    doc.setFontSize(14);
+                    doc.setTextColor(30, 58, 138);
+                    doc.text(`${index + 1}. ${title}`, margin, yPos);
+                    yPos += 8;
+                    
+                    // Draw a line under the title
+                    doc.setDrawColor(200, 200, 200);
+                    doc.line(margin, yPos - 2, pageWidth - margin, yPos - 2);
+                    yPos += 5;
+                    
+                    // Reset font for details
+                    doc.setFontSize(10);
+                    doc.setTextColor(0, 0, 0);
+                    
+                    // Define column positions for two-column layout
+                    const col1X = margin;
+                    const col2X = margin + contentWidth / 2 + 5;
+                    let colY = yPos;
+                    
+                    // Company details in two columns
+                    const details = [
+                        { label: 'Type:', value: company.type || 'Not specified' },
+                        { label: 'Company Name:', value: company.companyName || 'Not specified' },
+                        { label: 'Account Number:', value: company.accountNumber || 'Not specified' },
+                        { label: 'Contact Name:', value: company.contactName || 'Not specified' },
+                        { label: 'Address Line 1:', value: company.address1 || 'Not specified' },
+                        { label: 'Address Line 2:', value: company.address2 || 'Not specified' },
+                        { label: 'Town:', value: company.town || 'Not specified' },
+                        { label: 'County:', value: company.county || 'Not specified' },
+                        { label: 'Post Code:', value: company.postcode || 'Not specified' },
+                        { label: 'Telephone:', value: company.telephone || 'Not specified' },
+                        { label: 'Mobile:', value: company.mobile || 'Not specified' },
+                        { label: 'Email:', value: company.email || 'Not specified' },
+                        { label: 'Website:', value: company.website || 'Not specified' },
+                        { label: 'Username:', value: company.username || 'Not specified' },
+                        { label: 'Password:', value: company.password ? '********' : 'Not specified' },
+                        { label: 'M/Q/Y Payments:', value: company.paymentAmount ? `£${company.paymentAmount}` : 'Not specified' }
+                    ];
+                    
+                    // Split details into two columns
+                    const midPoint = Math.ceil(details.length / 2);
+                    const col1Details = details.slice(0, midPoint);
+                    const col2Details = details.slice(midPoint);
+                    
+                    // Draw first column
+                    let currentY = colY;
+                    col1Details.forEach(detail => {
+                        doc.setFont('helvetica', 'bold');
+                        doc.text(detail.label, col1X, currentY);
+                        doc.setFont('helvetica', 'normal');
+                        
+                        // Handle long values by splitting into multiple lines
+                        const maxLineLength = 35;
+                        const valueLines = [];
+                        let remainingText = detail.value;
+                        
+                        while (remainingText.length > 0) {
+                            if (remainingText.length <= maxLineLength) {
+                                valueLines.push(remainingText);
+                                break;
+                            }
+                            
+                            // Find the last space within the max length
+                            let breakIndex = maxLineLength;
+                            while (breakIndex > 0 && remainingText[breakIndex] !== ' ') {
+                                breakIndex--;
+                            }
+                            
+                            if (breakIndex === 0) {
+                                // No space found, force break
+                                breakIndex = maxLineLength;
+                            }
+                            
+                            valueLines.push(remainingText.substring(0, breakIndex));
+                            remainingText = remainingText.substring(breakIndex + 1);
+                        }
+                        
+                        // Draw each line
+                        valueLines.forEach((line, lineIndex) => {
+                            doc.text(line, col1X + 40, currentY + (lineIndex * 4));
+                        });
+                        
+                        currentY += Math.max(valueLines.length, 1) * 4 + 2;
+                    });
+                    
+                    // Draw second column
+                    currentY = colY;
+                    col2Details.forEach(detail => {
+                        doc.setFont('helvetica', 'bold');
+                        doc.text(detail.label, col2X, currentY);
+                        doc.setFont('helvetica', 'normal');
+                        
+                        // Handle long values by splitting into multiple lines
+                        const maxLineLength = 35;
+                        const valueLines = [];
+                        let remainingText = detail.value;
+                        
+                        while (remainingText.length > 0) {
+                            if (remainingText.length <= maxLineLength) {
+                                valueLines.push(remainingText);
+                                break;
+                            }
+                            
+                            // Find the last space within the max length
+                            let breakIndex = maxLineLength;
+                            while (breakIndex > 0 && remainingText[breakIndex] !== ' ') {
+                                breakIndex--;
+                            }
+                            
+                            if (breakIndex === 0) {
+                                // No space found, force break
+                                breakIndex = maxLineLength;
+                            }
+                            
+                            valueLines.push(remainingText.substring(0, breakIndex));
+                            remainingText = remainingText.substring(breakIndex + 1);
+                        }
+                        
+                        // Draw each line
+                        valueLines.forEach((line, lineIndex) => {
+                            doc.text(line, col2X + 40, currentY + (lineIndex * 4));
+                        });
+                        
+                        currentY += Math.max(valueLines.length, 1) * 4 + 2;
+                    });
+                    
+                    // Update yPos to the maximum of both columns
+                    yPos = Math.max(
+                        colY + col1Details.reduce((acc, detail) => {
+                            const lines = Math.ceil((detail.value || '').length / 35) || 1;
+                            return acc + (lines * 4 + 2);
+                        }, 0),
+                        colY + col2Details.reduce((acc, detail) => {
+                            const lines = Math.ceil((detail.value || '').length / 35) || 1;
+                            return acc + (lines * 4 + 2);
+                        }, 0)
+                    ) + 10;
+                    
+                    // Add some space between companies
+                    yPos += 5;
+                });
+                
+                // Footer
+                doc.setFontSize(8);
+                doc.setTextColor(100, 116, 139);
+                doc.text(`Costs & Profits Management System | ${informationTitle} | Page 1`, margin, pageHeight - margin);
+                doc.text(`Generated on: ${new Date().toLocaleString('en-GB')}`, pageWidth - margin - 60, pageHeight - margin);
+                
+                // Save the PDF
+                const fileName = `${informationTitle.toLowerCase().replace(/ /g, '-')}-${new Date().toISOString().split('T')[0]}.pdf`;
+                doc.save(fileName);
+                
+            } catch (error) {
+                console.error('Error generating PDF:', error);
+                alert('Error generating PDF. Please try again.');
+            }
+        }
+
+        // Render just the summary rows - FIXED for proper column alignment
         function renderSummaryRows() {
             // Remove existing summary rows
             const existingSummaryRows = document.querySelectorAll('.summary-row');
@@ -3263,20 +3999,72 @@
                 window.print();
             });
             
+            // Add Company button
+            addCompanyBtn.addEventListener('click', addNewCompany);
+            
+            // Export Companies PDF button
+            exportCompaniesPdfBtn.addEventListener('click', exportCompaniesToPDF);
+            
+            // Information title editing
+            informationTitleElement.addEventListener('click', function() {
+                informationTitleElement.style.display = 'none';
+                informationTitleEdit.style.display = 'flex';
+                informationTitleInput.value = informationTitle;
+                informationTitleInput.focus();
+                informationTitleInput.select();
+            });
+            
+            informationTitleSave.addEventListener('click', function() {
+                const newTitle = informationTitleInput.value.trim();
+                if (newTitle) {
+                    informationTitle = newTitle;
+                    updateInformationTitle();
+                    autoSave();
+                }
+                informationTitleEdit.style.display = 'none';
+                informationTitleElement.style.display = 'block';
+            });
+            
+            informationTitleCancel.addEventListener('click', function() {
+                informationTitleEdit.style.display = 'none';
+                informationTitleElement.style.display = 'block';
+            });
+            
+            informationTitleInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    informationTitleSave.click();
+                }
+                if (e.key === 'Escape') {
+                    informationTitleCancel.click();
+                }
+            });
+            
+            informationTitleInput.addEventListener('blur', function() {
+                setTimeout(() => {
+                    if (informationTitleEdit.style.display === 'flex') {
+                        informationTitleCancel.click();
+                    }
+                }, 200);
+            });
+            
             // Clear All Data button
             clearDataBtn.addEventListener('click', function() {
                 if (confirm('Clear all data? This cannot be undone.')) {
                     appData = deepClone(EMPTY_DATA);
                     personnel = deepClone(EMPTY_PERSONNEL_DATA);
+                    companies = deepClone(EMPTY_COMPANY_DATA);
                     nextRowId = 1;
+                    informationTitle = 'Company Information';
                     editingHeaderId = null;
                     
+                    updateInformationTitle();
                     addColumnModal.classList.remove('show');
                     importModal.classList.remove('show');
                     reportPreview.classList.remove('show');
                     
                     renderTable();
                     renderPersonnel();
+                    renderCompanyGrid();
                     renderStatsBar();
                     renderSummaryTab();
                     populateColumnPositionOptions();
@@ -3284,7 +4072,9 @@
                     localStorage.removeItem('costsProfitsData');
                     localStorage.removeItem('appData');
                     localStorage.removeItem('personnelData');
+                    localStorage.removeItem('companyData');
                     localStorage.removeItem('nextRowId');
+                    localStorage.removeItem('informationTitle');
                     
                     alert('All data cleared.');
                 }
@@ -3764,8 +4554,10 @@
                 timestamp: new Date().toISOString(),
                 appData: appData,
                 personnel: personnel,
+                companies: companies,
                 nextRowId: nextRowId,
-                propertyInfo: propertyInfo
+                propertyInfo: propertyInfo,
+                informationTitle: informationTitle
             };
             
             const jsonString = JSON.stringify(backupData, null, 2);
@@ -3802,8 +4594,10 @@
                         // Restore data
                         appData = backupData.appData;
                         personnel = backupData.personnel;
+                        companies = backupData.companies || deepClone(EMPTY_COMPANY_DATA);
                         nextRowId = backupData.nextRowId || 1;
                         propertyInfo = backupData.propertyInfo;
+                        informationTitle = backupData.informationTitle || 'Company Information';
                         
                         // Save to localStorage
                         autoSave();
@@ -3811,10 +4605,12 @@
                         // Refresh UI
                         renderTable();
                         renderPersonnel();
+                        renderCompanyGrid();
                         renderStatsBar();
                         renderSummaryTab();
                         populateColumnPositionOptions();
                         updatePropertyHeader();
+                        updateInformationTitle();
                         
                         alert('Data restored successfully!');
                     } catch (error) {
