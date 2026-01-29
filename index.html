@@ -1087,7 +1087,7 @@
             z-index: 2001;
         }
         
-        /* NEW: Information Tab Styles */
+        /* UPDATED: Information Tab Styles with 3-column header grid */
         .information-container {
             display: flex;
             flex-direction: column;
@@ -1146,65 +1146,177 @@
             font-size: 10px;
         }
         
-        .information-grid {
+        /* ENHANCED: Company headers grid (3 columns) with numbered tiles */
+        .company-headers-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 10px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-bottom: 10px;
         }
         
-        .company-card {
+        .company-header-card {
             background-color: var(--card-bg);
             border-radius: 4px;
-            padding: 12px;
-            box-shadow: 0 1px 4px var(--shadow-color);
+            padding: 8px 12px;
+            box-shadow: 0 1px 3px var(--shadow-color);
             border-left: 3px solid var(--secondary-color);
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        
-        .company-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px var(--shadow-hover);
-        }
-        
-        .company-card-header {
+            cursor: pointer;
+            transition: all 0.2s;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 10px;
-            padding-bottom: 6px;
-            border-bottom: 1px solid var(--border-color);
+            min-height: 40px;
+            position: relative;
         }
         
-        .company-card-header h3 {
-            color: var(--primary-color);
-            font-size: 13px;
+        .company-header-card:hover {
+            background-color: var(--header-bg);
+            transform: translateY(-2px);
+            box-shadow: 0 2px 6px var(--shadow-hover);
+        }
+        
+        .company-header-card.active {
+            background-color: color-mix(in srgb, var(--secondary-color) 10%, transparent);
+            border-left-color: var(--primary-color);
+        }
+        
+        .company-header-content {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex: 1;
+        }
+        
+        /* ENHANCED: Company number badge - editable */
+        .company-number-badge {
+            background-color: var(--secondary-color);
+            color: white;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
             font-weight: 600;
-            margin: 0;
+            flex-shrink: 0;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: 1px solid transparent;
         }
         
-        .company-delete-btn {
+        .company-number-badge:hover {
+            background-color: var(--primary-color);
+            transform: scale(1.1);
+        }
+        
+        .company-number-badge.editing {
+            background-color: var(--card-bg);
+            border: 1px solid var(--secondary-color);
+        }
+        
+        .company-number-input {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: transparent;
+            color: var(--text-color);
+            text-align: center;
+            font-size: 10px;
+            font-weight: 600;
+            padding: 0;
+            outline: none;
+        }
+        
+        .company-header-icon {
+            font-size: 10px;
+            color: var(--secondary-color);
+            transition: transform 0.2s;
+        }
+        
+        .company-header-card.active .company-header-icon {
+            transform: rotate(90deg);
+            color: var(--primary-color);
+        }
+        
+        .company-header-title {
+            color: var(--primary-color);
+            font-size: 11px;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            flex: 1;
+        }
+        
+        .company-header-delete-btn {
             background-color: transparent;
             border: none;
             color: var(--accent-color);
             cursor: pointer;
-            font-size: 12px;
-            padding: 2px 6px;
+            font-size: 10px;
+            padding: 2px 5px;
             border-radius: 3px;
             transition: background-color 0.2s;
+            opacity: 0.7;
         }
         
-        .company-delete-btn:hover {
+        .company-header-delete-btn:hover {
             background-color: color-mix(in srgb, var(--accent-color) 10%, transparent);
+            opacity: 1;
+        }
+        
+        /* ENHANCED: Sort controls */
+        .information-sort-controls {
+            display: flex;
+            gap: 5px;
+            align-items: center;
+            margin-left: auto;
+        }
+        
+        .sort-btn {
+            padding: 3px 6px;
+            background-color: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 9px;
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            transition: all 0.2s;
+        }
+        
+        .sort-btn:hover {
+            background-color: var(--header-bg);
+            border-color: var(--secondary-color);
+        }
+        
+        /* UPDATED: Company content area */
+        .company-content-container {
+            display: none;
+            background-color: var(--card-bg);
+            border-radius: 4px;
+            padding: 15px;
+            box-shadow: 0 1px 4px var(--shadow-color);
+            border: 1px solid var(--border-color);
+            margin-bottom: 10px;
+            animation: fadeIn 0.2s ease;
+        }
+        
+        .company-content-container.show {
+            display: block;
         }
         
         .company-form-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 8px;
+            gap: 10px;
         }
         
         .company-form-group {
-            margin-bottom: 6px;
+            margin-bottom: 8px;
         }
         
         .company-form-group.full-width {
@@ -1214,7 +1326,7 @@
         .company-form-group label {
             display: block;
             font-weight: 500;
-            margin-bottom: 2px;
+            margin-bottom: 3px;
             color: var(--text-color);
             font-size: 10px;
         }
@@ -1223,7 +1335,7 @@
         .company-form-group select,
         .company-form-group textarea {
             width: 100%;
-            padding: 5px;
+            padding: 6px 8px;
             border: 1px solid var(--border-color);
             border-radius: 3px;
             font-size: 10px;
@@ -1276,6 +1388,7 @@
             background-color: var(--header-bg);
             border-radius: 4px;
             border: 1px dashed var(--border-color);
+            grid-column: 1 / -1;
         }
         
         .empty-state i {
@@ -1312,10 +1425,6 @@
             }
             
             .personnel-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .information-grid {
                 grid-template-columns: 1fr;
             }
             
@@ -1367,6 +1476,17 @@
             
             .information-header-edit input {
                 min-width: 150px;
+            }
+            
+            /* Responsive for company headers grid */
+            .company-headers-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            @media (max-width: 480px) {
+                .company-headers-grid {
+                    grid-template-columns: 1fr;
+                }
             }
         }
         
@@ -1645,7 +1765,7 @@
             </div>
         </div>
         
-        <!-- NEW: Information Tab -->
+        <!-- ENHANCED: Information Tab with 3-column header grid and sort controls -->
         <div class="tab-content" id="information">
             <div class="information-container">
                 <div class="information-controls">
@@ -1658,6 +1778,18 @@
                         </div>
                     </div>
                     <div class="information-buttons">
+                        <!-- ENHANCED: Added sort controls -->
+                        <div class="information-sort-controls">
+                            <button class="sort-btn" id="sortByNameBtn" title="Sort by name">
+                                <i class="fas fa-sort-alpha-down"></i> Name
+                            </button>
+                            <button class="sort-btn" id="sortByNumberBtn" title="Sort by number">
+                                <i class="fas fa-sort-numeric-down"></i> Number
+                            </button>
+                            <button class="sort-btn" id="sortByTypeBtn" title="Sort by type">
+                                <i class="fas fa-sort"></i> Type
+                            </button>
+                        </div>
                         <button class="btn btn-primary" id="addCompanyBtn">
                             <i class="fas fa-plus"></i> Add Company
                         </button>
@@ -1667,8 +1799,14 @@
                     </div>
                 </div>
                 
-                <div class="information-grid" id="companyGrid">
-                    <!-- Company cards will be populated by JavaScript -->
+                <!-- ENHANCED: Company headers grid (3 columns) with numbered tiles -->
+                <div class="company-headers-grid" id="companyHeadersGrid">
+                    <!-- Company header cards will be populated by JavaScript -->
+                </div>
+                
+                <!-- ENHANCED: Single content container that shows for active company -->
+                <div class="company-content-container" id="companyContentContainer">
+                    <!-- Company form will be populated by JavaScript -->
                 </div>
             </div>
         </div>
@@ -1938,10 +2076,11 @@
             }
         ];
 
-        // UPDATED: Empty company information data structure with new fields
+        // UPDATED: Empty company information data structure with new fields and numbering
         const EMPTY_COMPANY_DATA = [
             {
                 id: 1,
+                displayNumber: 1,
                 type: "",
                 companyName: "",
                 accountNumber: "",
@@ -1980,6 +2119,12 @@
         
         // NEW: Information tab title
         let informationTitle = 'Company Information';
+        
+        // NEW: Track which company is currently expanded
+        let activeCompanyId = null;
+        
+        // NEW: Track which company number is being edited
+        let editingCompanyNumberId = null;
 
         // Helper function for deep cloning
         function deepClone(obj) {
@@ -2085,7 +2230,8 @@
         const tableHeader = document.getElementById('tableHeader');
         const tableBody = document.getElementById('tableBody');
         const personnelGrid = document.getElementById('personnelGrid');
-        const companyGrid = document.getElementById('companyGrid');
+        const companyHeadersGrid = document.getElementById('companyHeadersGrid'); // UPDATED: Changed from companyAccordion
+        const companyContentContainer = document.getElementById('companyContentContainer'); // NEW
         const statsBar = document.getElementById('statsBar');
         const themeToggle = document.getElementById('themeToggle');
         const themeDropdown = document.getElementById('themeDropdown');
@@ -2121,6 +2267,11 @@
         const informationTitleInput = document.getElementById('informationTitleInput');
         const informationTitleSave = document.getElementById('informationTitleSave');
         const informationTitleCancel = document.getElementById('informationTitleCancel');
+        
+        // ENHANCED: Sort buttons
+        const sortByNameBtn = document.getElementById('sortByNameBtn');
+        const sortByNumberBtn = document.getElementById('sortByNumberBtn');
+        const sortByTypeBtn = document.getElementById('sortByTypeBtn');
 
         // Update property header display
         function updatePropertyHeader() {
@@ -2155,7 +2306,8 @@
             
             renderTable();
             renderPersonnel();
-            renderCompanyGrid();
+            renderCompanyHeadersGrid(); // UPDATED: Changed from renderCompanyAccordion
+            renderCompanyContent(); // NEW: Render empty content container initially
             renderStatsBar();
             renderSummaryTab();
             populateColumnPositionOptions();
@@ -2399,13 +2551,13 @@
             attachRowActionListeners();
         }
 
-        // UPDATED: Render company information grid with new fields
-        function renderCompanyGrid() {
-            companyGrid.innerHTML = '';
+        // ENHANCED: Render company headers grid (3 columns) with numbered tiles
+        function renderCompanyHeadersGrid() {
+            companyHeadersGrid.innerHTML = '';
             
             if (companies.length === 0) {
-                companyGrid.innerHTML = `
-                    <div class="empty-state" style="grid-column: 1 / -1;">
+                companyHeadersGrid.innerHTML = `
+                    <div class="empty-state">
                         <i class="fas fa-building"></i>
                         <p>No company information added yet.</p>
                         <p>Click "Add Company" to get started.</p>
@@ -2415,175 +2567,322 @@
             }
             
             companies.forEach(company => {
-                const card = document.createElement('div');
-                card.className = 'company-card';
-                card.dataset.id = company.id;
+                const headerCard = document.createElement('div');
+                headerCard.className = `company-header-card ${company.id === activeCompanyId ? 'active' : ''}`;
+                headerCard.dataset.id = company.id;
                 
                 const title = company.companyName || company.type || `Company ${company.id}`;
                 
-                card.innerHTML = `
-                    <div class="company-card-header">
-                        <h3>${title}</h3>
-                        <button class="company-delete-btn" data-id="${company.id}" title="Delete Company">
-                            <i class="fas fa-trash"></i>
-                        </button>
+                // Create number badge
+                const numberBadge = document.createElement('div');
+                numberBadge.className = `company-number-badge ${company.id === editingCompanyNumberId ? 'editing' : ''}`;
+                numberBadge.dataset.id = company.id;
+                numberBadge.title = "Click to edit number";
+                
+                if (company.id === editingCompanyNumberId) {
+                    const numberInput = document.createElement('input');
+                    numberInput.type = 'text';
+                    numberInput.className = 'company-number-input';
+                    numberInput.value = company.displayNumber || '';
+                    numberInput.maxLength = 3;
+                    numberInput.dataset.id = company.id;
+                    
+                    numberBadge.appendChild(numberInput);
+                    
+                    // Focus and select text when editing
+                    setTimeout(() => {
+                        numberInput.focus();
+                        numberInput.select();
+                    }, 10);
+                } else {
+                    numberBadge.textContent = company.displayNumber || company.id;
+                }
+                
+                headerCard.innerHTML = `
+                    <div class="company-header-content">
+                        ${numberBadge.outerHTML}
+                        <i class="fas fa-chevron-right company-header-icon"></i>
+                        <div class="company-header-title">${title}</div>
                     </div>
-                    <div class="company-form-grid">
-                        <div class="company-form-group">
-                            <label>Type of Company:</label>
-                            <select class="company-input" data-field="type" data-id="${company.id}">
-                                <option value="">Misc</option>
-                                <option value="Broadband" ${company.type === 'Broadband' ? 'selected' : ''}>Broadband</option>
-                                <option value="Friend" ${company.type === 'Friend' ? 'selected' : ''}>Friend</option>
-                                <option value="Service Provider" ${company.type === 'Service Provider' ? 'selected' : ''}>Service Provider</option>
-                                <option value="Council Tax" ${company.type === 'Council Tax' ? 'selected' : ''}>Council Tax</option>
-                                <option value="Utilities" ${company.type === 'Utilities' ? 'selected' : ''}>Utilities</option>
-                                <option value="Insurance" ${company.type === 'Insurance' ? 'selected' : ''}>Insurance</option>
-                                <option value="Management Company" ${company.type === 'Management Company' ? 'selected' : ''}>Management Company</option>
-                                <option value="Government" ${company.type === 'Government' ? 'selected' : ''}>HMRC</option>
-                                <option value="Other" ${company.type === 'Other' ? 'selected' : ''}>Other</option>
-                            </select>
-                        </div>
-                        
-                        <div class="company-form-group full-width">
-                            <label>Company Name:</label>
-                            <input type="text" class="company-input" data-field="companyName" data-id="${company.id}" 
-                                   value="${company.companyName || ''}" placeholder="Enter company name">
-                        </div>
-                        
-                        <div class="company-form-group">
-                            <label>Account Number:</label>
-                            <input type="text" class="company-input" data-field="accountNumber" data-id="${company.id}" 
-                                   value="${company.accountNumber || ''}" placeholder="Account number">
-                        </div>
-                        
-                        <div class="company-form-group">
-                            <label>Contact Name:</label>
-                            <input type="text" class="company-input" data-field="contactName" data-id="${company.id}" 
-                                   value="${company.contactName || ''}" placeholder="Contact person">
-                        </div>
-                        
-                        <div class="company-form-group">
-                            <label>Person Title/Job Role:</label>
-                            <input type="text" class="company-input" data-field="personTitle" data-id="${company.id}" 
-                                   value="${company.personTitle || ''}" placeholder="e.g., Manager, Director">
-                        </div>
-                        
-                        <div class="company-form-group">
-                            <label>Sort Code:</label>
-                            <input type="text" class="company-input" data-field="sortCode" data-id="${company.id}" 
-                                   value="${company.sortCode || ''}" placeholder="e.g., 12-34-56">
-                        </div>
-                        
-                        <div class="company-form-group">
-                            <label>Ref/Invoice No:</label>
-                            <input type="text" class="company-input" data-field="refInvoiceNo" data-id="${company.id}" 
-                                   value="${company.refInvoiceNo || ''}" placeholder="Reference or invoice number">
-                        </div>
-                        
-                        <div class="company-form-group full-width">
-                            <label>Address Line 1:</label>
-                            <input type="text" class="company-input" data-field="address1" data-id="${company.id}" 
-                                   value="${company.address1 || ''}" placeholder="Street address">
-                        </div>
-                        
-                        <div class="company-form-group full-width">
-                            <label>Address Line 2:</label>
-                            <input type="text" class="company-input" data-field="address2" data-id="${company.id}" 
-                                   value="${company.address2 || ''}" placeholder="Apartment, suite, etc.">
-                        </div>
-                        
-                        <div class="company-form-group">
-                            <label>Town:</label>
-                            <input type="text" class="company-input" data-field="town" data-id="${company.id}" 
-                                   value="${company.town || ''}" placeholder="Town">
-                        </div>
-                        
-                        <div class="company-form-group">
-                            <label>County:</label>
-                            <input type="text" class="company-input" data-field="county" data-id="${company.id}" 
-                                   value="${company.county || ''}" placeholder="County">
-                        </div>
-                        
-                        <div class="company-form-group">
-                            <label>Post Code:</label>
-                            <input type="text" class="company-input" data-field="postcode" data-id="${company.id}" 
-                                   value="${company.postcode || ''}" placeholder="Postal code">
-                        </div>
-                        
-                        <div class="company-form-group">
-                            <label>Telephone No:</label>
-                            <input type="tel" class="company-input" data-field="telephone" data-id="${company.id}" 
-                                   value="${company.telephone || ''}" placeholder="Landline">
-                        </div>
-                        
-                        <div class="company-form-group">
-                            <label>Mobile No:</label>
-                            <input type="tel" class="company-input" data-field="mobile" data-id="${company.id}" 
-                                   value="${company.mobile || ''}" placeholder="Mobile">
-                        </div>
-                        
-                        <div class="company-form-group full-width">
-                            <label>Email:</label>
-                            <input type="email" class="company-input" data-field="email" data-id="${company.id}" 
-                                   value="${company.email || ''}" placeholder="Email address">
-                        </div>
-                        
-                        <div class="company-form-group full-width">
-                            <label>Website:</label>
-                            <input type="url" class="company-input" data-field="website" data-id="${company.id}" 
-                                   value="${company.website || ''}" placeholder="https://example.com">
-                        </div>
-                        
-                        <div class="company-form-group">
-                            <label>Username to Website:</label>
-                            <input type="text" class="company-input" data-field="username" data-id="${company.id}" 
-                                   value="${company.username || ''}" placeholder="Login username">
-                        </div>
-                        
-                        <div class="company-form-group">
-                            <label>Password to Website:</label>
-                            <input type="text" class="company-input" data-field="password" data-id="${company.id}" 
-                                   value="${company.password || ''}" placeholder="Login password">
-                        </div>
-                        
-                        <div class="company-form-group">
-                            <label>W/M/Q/6M/Y Payments:</label>
-                            <select class="company-input" data-field="paymentFrequency" data-id="${company.id}">
-                                <option value="">Select Frequency</option>
-                                <option value="Weekly" ${company.paymentFrequency === 'Weekly' ? 'selected' : ''}>Weekly</option>
-                                <option value="Monthly" ${company.paymentFrequency === 'Monthly' ? 'selected' : ''}>Monthly</option>
-                                <option value="Quarterly" ${company.paymentFrequency === 'Quarterly' ? 'selected' : ''}>Quarterly</option>
-                                <option value="6 Months" ${company.paymentFrequency === '6 Months' ? 'selected' : ''}>6 Months</option>
-                                <option value="Yearly" ${company.paymentFrequency === 'Yearly' ? 'selected' : ''}>Yearly</option>
-                            </select>
-                        </div>
-                        
-                        <div class="company-form-group">
-                            <label>Payment Amount: £</label>
-                            <div class="currency-wrapper">
-                                <span class="currency-symbol">£</span>
-                                <input type="text" class="company-input" data-field="paymentAmount" data-id="${company.id}" 
-                                       value="${company.paymentAmount || ''}" placeholder="0.00">
-                            </div>
-                        </div>
-                        
-                        <div class="company-form-group full-width">
-                            <label>Comments:</label>
-                            <textarea class="company-input" data-field="comments" data-id="${company.id}" 
-                                      placeholder="Additional notes or comments" rows="3">${company.comments || ''}</textarea>
-                        </div>
-                    </div>
+                    <button class="company-header-delete-btn" data-id="${company.id}" title="Delete Company">
+                        <i class="fas fa-trash"></i>
+                    </button>
                 `;
                 
-                companyGrid.appendChild(card);
+                companyHeadersGrid.appendChild(headerCard);
             });
             
-            attachCompanyEventListeners();
+            attachCompanyHeaderEventListeners();
         }
 
-        // UPDATED: Attach event listeners to company inputs
-        function attachCompanyEventListeners() {
+        // UPDATED: Render company content for the active company
+        function renderCompanyContent() {
+            companyContentContainer.innerHTML = '';
+            
+            if (!activeCompanyId) {
+                companyContentContainer.style.display = 'none';
+                return;
+            }
+            
+            const company = companies.find(c => c.id === activeCompanyId);
+            if (!company) {
+                companyContentContainer.style.display = 'none';
+                return;
+            }
+            
+            companyContentContainer.innerHTML = `
+                <div class="company-form-grid">
+                    <div class="company-form-group">
+                        <label>Type of Company:</label>
+                        <select class="company-input" data-field="type" data-id="${company.id}">
+                            <option value="">Misc</option>
+                            <option value="Broadband">Broadband</option>
+                            <option value="Friend">Friend</option>
+                            <option value="Service Provider">Service Provider</option>
+                            <option value="Council Tax">Council Tax</option>
+                            <option value="Utilities">Utilities</option>
+                            <option value="Insurance">Insurance</option>
+                            <option value="Management Company">Management Company</option>
+                            <option value="Government">HMRC</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="company-form-group full-width">
+                        <label>Company Name:</label>
+                        <input type="text" class="company-input" data-field="companyName" data-id="${company.id}" 
+                               value="${company.companyName || ''}" placeholder="Enter company name">
+                    </div>
+                    
+                    <div class="company-form-group">
+                        <label>Account Number:</label>
+                        <input type="text" class="company-input" data-field="accountNumber" data-id="${company.id}" 
+                               value="${company.accountNumber || ''}" placeholder="Account number">
+                    </div>
+                    
+                    <div class="company-form-group">
+                        <label>Contact Name:</label>
+                        <input type="text" class="company-input" data-field="contactName" data-id="${company.id}" 
+                               value="${company.contactName || ''}" placeholder="Contact person">
+                    </div>
+                    
+                    <div class="company-form-group">
+                        <label>Person Title/Job Role:</label>
+                        <input type="text" class="company-input" data-field="personTitle" data-id="${company.id}" 
+                               value="${company.personTitle || ''}" placeholder="e.g., Manager, Director">
+                    </div>
+                    
+                    <div class="company-form-group">
+                        <label>Sort Code:</label>
+                        <input type="text" class="company-input" data-field="sortCode" data-id="${company.id}" 
+                               value="${company.sortCode || ''}" placeholder="e.g., 12-34-56">
+                    </div>
+                    
+                    <div class="company-form-group">
+                        <label>Ref/Invoice No:</label>
+                        <input type="text" class="company-input" data-field="refInvoiceNo" data-id="${company.id}" 
+                               value="${company.refInvoiceNo || ''}" placeholder="Reference or invoice number">
+                    </div>
+                    
+                    <div class="company-form-group full-width">
+                        <label>Address Line 1:</label>
+                        <input type="text" class="company-input" data-field="address1" data-id="${company.id}" 
+                               value="${company.address1 || ''}" placeholder="Street address">
+                    </div>
+                    
+                    <div class="company-form-group full-width">
+                        <label>Address Line 2:</label>
+                        <input type="text" class="company-input" data-field="address2" data-id="${company.id}" 
+                               value="${company.address2 || ''}" placeholder="Apartment, suite, etc.">
+                    </div>
+                    
+                    <div class="company-form-group">
+                        <label>Town:</label>
+                        <input type="text" class="company-input" data-field="town" data-id="${company.id}" 
+                               value="${company.town || ''}" placeholder="Town">
+                    </div>
+                    
+                    <div class="company-form-group">
+                        <label>County:</label>
+                        <input type="text" class="company-input" data-field="county" data-id="${company.id}" 
+                               value="${company.county || ''}" placeholder="County">
+                    </div>
+                    
+                    <div class="company-form-group">
+                        <label>Post Code:</label>
+                        <input type="text" class="company-input" data-field="postcode" data-id="${company.id}" 
+                               value="${company.postcode || ''}" placeholder="Postal code">
+                    </div>
+                    
+                    <div class="company-form-group">
+                        <label>Telephone No:</label>
+                        <input type="tel" class="company-input" data-field="telephone" data-id="${company.id}" 
+                               value="${company.telephone || ''}" placeholder="Landline">
+                    </div>
+                    
+                    <div class="company-form-group">
+                        <label>Mobile No:</label>
+                        <input type="tel" class="company-input" data-field="mobile" data-id="${company.id}" 
+                               value="${company.mobile || ''}" placeholder="Mobile">
+                    </div>
+                    
+                    <div class="company-form-group full-width">
+                        <label>Email:</label>
+                        <input type="email" class="company-input" data-field="email" data-id="${company.id}" 
+                               value="${company.email || ''}" placeholder="Email address">
+                    </div>
+                    
+                    <div class="company-form-group full-width">
+                        <label>Website:</label>
+                        <input type="url" class="company-input" data-field="website" data-id="${company.id}" 
+                               value="${company.website || ''}" placeholder="https://example.com">
+                    </div>
+                    
+                    <div class="company-form-group">
+                        <label>Username to Website:</label>
+                        <input type="text" class="company-input" data-field="username" data-id="${company.id}" 
+                               value="${company.username || ''}" placeholder="Login username">
+                    </div>
+                    
+                    <div class="company-form-group">
+                        <label>Password to Website:</label>
+                        <input type="text" class="company-input" data-field="password" data-id="${company.id}" 
+                               value="${company.password || ''}" placeholder="Login password">
+                    </div>
+                    
+                    <div class="company-form-group">
+                        <label>W/M/Q/6M/Y Payments:</label>
+                        <select class="company-input" data-field="paymentFrequency" data-id="${company.id}">
+                            <option value="">Select Frequency</option>
+                            <option value="Weekly">Weekly</option>
+                            <option value="Monthly">Monthly</option>
+                            <option value="Quarterly">Quarterly</option>
+                            <option value="6 Months">6 Months</option>
+                            <option value="Yearly">Yearly</option>
+                        </select>
+                    </div>
+                    
+                    <div class="company-form-group">
+                        <label>Payment Amount: £</label>
+                        <div class="currency-wrapper">
+                            <span class="currency-symbol">£</span>
+                            <input type="text" class="company-input" data-field="paymentAmount" data-id="${company.id}" 
+                                   value="${company.paymentAmount || ''}" placeholder="0.00">
+                        </div>
+                    </div>
+                    
+                    <div class="company-form-group full-width">
+                        <label>Comments:</label>
+                        <textarea class="company-input" data-field="comments" data-id="${company.id}" 
+                                  placeholder="Additional notes or comments" rows="3">${company.comments || ''}</textarea>
+                    </div>
+                </div>
+            `;
+            
+            // Set the dropdown values for this specific company
+            const typeSelect = companyContentContainer.querySelector(`select[data-field="type"]`);
+            const frequencySelect = companyContentContainer.querySelector(`select[data-field="paymentFrequency"]`);
+            
+            if (typeSelect && company.type) {
+                typeSelect.value = company.type;
+            }
+            
+            if (frequencySelect && company.paymentFrequency) {
+                frequencySelect.value = company.paymentFrequency;
+            }
+            
+            companyContentContainer.classList.add('show');
+            companyContentContainer.style.display = 'block';
+            
+            attachCompanyInputEventListeners();
+        }
+
+        // ENHANCED: Attach event listeners to company header cards (including number badges)
+        function attachCompanyHeaderEventListeners() {
+            // Header click event listeners
+            document.querySelectorAll('.company-header-card').forEach(headerCard => {
+                headerCard.addEventListener('click', function(e) {
+                    // Don't trigger if clicking the delete button or number badge
+                    if (e.target.closest('.company-header-delete-btn') || e.target.closest('.company-number-badge')) {
+                        return;
+                    }
+                    
+                    const companyId = parseInt(this.dataset.id);
+                    
+                    // If already active, close it
+                    if (activeCompanyId === companyId) {
+                        activeCompanyId = null;
+                        renderCompanyHeadersGrid();
+                        renderCompanyContent();
+                    } else {
+                        // Set as active and show content
+                        activeCompanyId = companyId;
+                        renderCompanyHeadersGrid();
+                        renderCompanyContent();
+                    }
+                });
+            });
+            
+            // Delete button listeners
+            document.querySelectorAll('.company-header-delete-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const companyId = parseInt(this.dataset.id);
+                    deleteCompany(companyId);
+                });
+            });
+            
+            // Number badge click listeners
+            document.querySelectorAll('.company-number-badge:not(.editing)').forEach(badge => {
+                badge.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const companyId = parseInt(this.dataset.id);
+                    editingCompanyNumberId = companyId;
+                    renderCompanyHeadersGrid();
+                });
+            });
+            
+            // Number input listeners (for editing mode)
+            document.querySelectorAll('.company-number-input').forEach(input => {
+                input.addEventListener('blur', function() {
+                    saveCompanyNumber(this);
+                });
+                
+                input.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        saveCompanyNumber(this);
+                    }
+                    
+                    if (e.key === 'Escape') {
+                        editingCompanyNumberId = null;
+                        renderCompanyHeadersGrid();
+                    }
+                });
+                
+                // Only allow numbers
+                input.addEventListener('input', function() {
+                    this.value = this.value.replace(/[^0-9]/g, '');
+                });
+            });
+        }
+        
+        // Save company number after editing
+        function saveCompanyNumber(inputElement) {
+            const companyId = parseInt(inputElement.dataset.id);
+            const newNumber = parseInt(inputElement.value) || 1;
+            
+            const company = companies.find(c => c.id === companyId);
+            if (company) {
+                company.displayNumber = newNumber;
+                editingCompanyNumberId = null;
+                renderCompanyHeadersGrid();
+                autoSave();
+            }
+        }
+
+        // UPDATED: Attach event listeners to company form inputs
+        function attachCompanyInputEventListeners() {
             // Input event listeners
             document.querySelectorAll('.company-input').forEach(input => {
                 input.addEventListener('blur', function() {
@@ -2600,12 +2899,9 @@
                             company[field] = value;
                         }
                         
-                        // Update card title if company name or type changes
+                        // Update header title if company name or type changes
                         if (field === 'companyName' || field === 'type') {
-                            const card = this.closest('.company-card');
-                            const header = card.querySelector('.company-card-header h3');
-                            const title = company.companyName || company.type || `Company ${company.id}`;
-                            header.textContent = title;
+                            renderCompanyHeadersGrid();
                         }
                         
                         autoSave();
@@ -2622,20 +2918,76 @@
                     });
                 }
             });
-            
-            // Delete button listeners
-            document.querySelectorAll('.company-delete-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const companyId = parseInt(this.dataset.id);
-                    deleteCompany(companyId);
-                });
+        }
+
+        // ENHANCED: Sort companies by name
+        function sortCompaniesByName() {
+            companies.sort((a, b) => {
+                const nameA = (a.companyName || a.type || '').toLowerCase();
+                const nameB = (b.companyName || b.type || '').toLowerCase();
+                return nameA.localeCompare(nameB);
             });
+            
+            renderCompanyHeadersGrid();
+            if (activeCompanyId) {
+                // Re-open the active company if it exists
+                const companyExists = companies.find(c => c.id === activeCompanyId);
+                if (!companyExists) {
+                    activeCompanyId = null;
+                }
+                renderCompanyContent();
+            }
+            autoSave();
+        }
+        
+        // ENHANCED: Sort companies by number
+        function sortCompaniesByNumber() {
+            companies.sort((a, b) => {
+                const numA = a.displayNumber || a.id;
+                const numB = b.displayNumber || b.id;
+                return numA - numB;
+            });
+            
+            renderCompanyHeadersGrid();
+            if (activeCompanyId) {
+                // Re-open the active company if it exists
+                const companyExists = companies.find(c => c.id === activeCompanyId);
+                if (!companyExists) {
+                    activeCompanyId = null;
+                }
+                renderCompanyContent();
+            }
+            autoSave();
+        }
+        
+        // ENHANCED: Sort companies by type
+        function sortCompaniesByType() {
+            companies.sort((a, b) => {
+                const typeA = (a.type || 'ZZZ').toLowerCase(); // 'ZZZ' puts empty types at the end
+                const typeB = (b.type || 'ZZZ').toLowerCase();
+                return typeA.localeCompare(typeB);
+            });
+            
+            renderCompanyHeadersGrid();
+            if (activeCompanyId) {
+                // Re-open the active company if it exists
+                const companyExists = companies.find(c => c.id === activeCompanyId);
+                if (!companyExists) {
+                    activeCompanyId = null;
+                }
+                renderCompanyContent();
+            }
+            autoSave();
         }
 
         // UPDATED: Add a new company
         function addNewCompany() {
+            const maxId = companies.length > 0 ? Math.max(...companies.map(c => c.id)) : 0;
+            const maxNumber = companies.length > 0 ? Math.max(...companies.map(c => c.displayNumber || 0)) : 0;
+            
             const newCompany = {
-                id: companies.length > 0 ? Math.max(...companies.map(c => c.id)) + 1 : 1,
+                id: maxId + 1,
+                displayNumber: maxNumber + 1,
                 type: "",
                 companyName: "",
                 accountNumber: "",
@@ -2660,7 +3012,12 @@
             };
             
             companies.push(newCompany);
-            renderCompanyGrid();
+            
+            // Set as active and show content
+            activeCompanyId = newCompany.id;
+            
+            renderCompanyHeadersGrid();
+            renderCompanyContent();
             autoSave();
         }
 
@@ -2675,13 +3032,20 @@
                 const index = companies.findIndex(c => c.id === companyId);
                 if (index !== -1) {
                     companies.splice(index, 1);
-                    renderCompanyGrid();
+                    
+                    // If deleting the active company, clear active
+                    if (activeCompanyId === companyId) {
+                        activeCompanyId = null;
+                    }
+                    
+                    renderCompanyHeadersGrid();
+                    renderCompanyContent();
                     autoSave();
                 }
             }
         }
 
-        // UPDATED: Export all company information to PDF with new fields
+        // UPDATED: Export all company information to PDF with new fields - FIXED: Empty fields show as blank
         function exportCompaniesToPDF() {
             if (companies.length === 0) {
                 alert('No company information to export.');
@@ -2710,19 +3074,27 @@
                 
                 let yPos = margin + 30;
                 
+                // Sort companies by number for PDF export
+                const sortedCompanies = [...companies].sort((a, b) => {
+                    const numA = a.displayNumber || a.id;
+                    const numB = b.displayNumber || b.id;
+                    return numA - numB;
+                });
+                
                 // Loop through each company
-                companies.forEach((company, index) => {
+                sortedCompanies.forEach((company, index) => {
                     // Check if we need a new page
                     if (yPos > pageHeight - margin - 50) {
                         doc.addPage();
                         yPos = margin;
                     }
                     
-                    // Company header
+                    // Company header with number
                     const title = company.companyName || company.type || `Company ${company.id}`;
+                    const number = company.displayNumber || company.id;
                     doc.setFontSize(14);
                     doc.setTextColor(30, 58, 138);
-                    doc.text(`${index + 1}. ${title}`, margin, yPos);
+                    doc.text(`${number}. ${title}`, margin, yPos);
                     yPos += 8;
                     
                     // Draw a line under the title
@@ -2741,27 +3113,27 @@
                     
                     // Company details in two columns - UPDATED with new fields
                     const details = [
-                        { label: 'Type:', value: company.type || 'Not specified' },
-                        { label: 'Company Name:', value: company.companyName || 'Not specified' },
-                        { label: 'Account Number:', value: company.accountNumber || 'Not specified' },
-                        { label: 'Contact Name:', value: company.contactName || 'Not specified' },
-                        { label: 'Person Title:', value: company.personTitle || 'Not specified' },
-                        { label: 'Sort Code:', value: company.sortCode || 'Not specified' },
-                        { label: 'Ref/Invoice No:', value: company.refInvoiceNo || 'Not specified' },
-                        { label: 'Address Line 1:', value: company.address1 || 'Not specified' },
-                        { label: 'Address Line 2:', value: company.address2 || 'Not specified' },
-                        { label: 'Town:', value: company.town || 'Not specified' },
-                        { label: 'County:', value: company.county || 'Not specified' },
-                        { label: 'Post Code:', value: company.postcode || 'Not specified' },
-                        { label: 'Telephone:', value: company.telephone || 'Not specified' },
-                        { label: 'Mobile:', value: company.mobile || 'Not specified' },
-                        { label: 'Email:', value: company.email || 'Not specified' },
-                        { label: 'Website:', value: company.website || 'Not specified' },
-                        { label: 'Username:', value: company.username || 'Not specified' },
-                        { label: 'Password:', value: company.password ? '********' : 'Not specified' },
-                        { label: 'Payment Frequency:', value: company.paymentFrequency || 'Not specified' },
-                        { label: 'Payment Amount:', value: company.paymentAmount ? `£${company.paymentAmount}` : 'Not specified' },
-                        { label: 'Comments:', value: company.comments || 'Not specified' }
+                        { label: 'Type:', value: company.type || '' }, // CHANGED: Empty instead of "Not specified"
+                        { label: 'Company Name:', value: company.companyName || '' },
+                        { label: 'Account Number:', value: company.accountNumber || '' },
+                        { label: 'Contact Name:', value: company.contactName || '' },
+                        { label: 'Person Title:', value: company.personTitle || '' },
+                        { label: 'Sort Code:', value: company.sortCode || '' },
+                        { label: 'Ref/Invoice No:', value: company.refInvoiceNo || '' },
+                        { label: 'Address Line 1:', value: company.address1 || '' },
+                        { label: 'Address Line 2:', value: company.address2 || '' },
+                        { label: 'Town:', value: company.town || '' },
+                        { label: 'County:', value: company.county || '' },
+                        { label: 'Post Code:', value: company.postcode || '' },
+                        { label: 'Telephone:', value: company.telephone || '' },
+                        { label: 'Mobile:', value: company.mobile || '' },
+                        { label: 'Email:', value: company.email || '' },
+                        { label: 'Website:', value: company.website || '' },
+                        { label: 'Username:', value: company.username || '' },
+                        { label: 'Password:', value: company.password ? '********' : '' }, // CHANGED: Empty instead of "Not specified"
+                        { label: 'Payment Frequency:', value: company.paymentFrequency || '' },
+                        { label: 'Payment Amount:', value: company.paymentAmount ? `£${company.paymentAmount}` : '' },
+                        { label: 'Comments:', value: company.comments || '' }
                     ];
                     
                     // Split details into two columns
@@ -2776,38 +3148,44 @@
                         doc.text(detail.label, col1X, currentY);
                         doc.setFont('helvetica', 'normal');
                         
-                        // Handle long values by splitting into multiple lines
-                        const maxLineLength = 35;
-                        const valueLines = [];
-                        let remainingText = detail.value;
-                        
-                        while (remainingText.length > 0) {
-                            if (remainingText.length <= maxLineLength) {
-                                valueLines.push(remainingText);
-                                break;
+                        // Only draw value if it exists
+                        if (detail.value) {
+                            // Handle long values by splitting into multiple lines
+                            const maxLineLength = 35;
+                            const valueLines = [];
+                            let remainingText = detail.value;
+                            
+                            while (remainingText.length > 0) {
+                                if (remainingText.length <= maxLineLength) {
+                                    valueLines.push(remainingText);
+                                    break;
+                                }
+                                
+                                // Find the last space within the max length
+                                let breakIndex = maxLineLength;
+                                while (breakIndex > 0 && remainingText[breakIndex] !== ' ') {
+                                    breakIndex--;
+                                }
+                                
+                                if (breakIndex === 0) {
+                                    // No space found, force break
+                                    breakIndex = maxLineLength;
+                                }
+                                
+                                valueLines.push(remainingText.substring(0, breakIndex));
+                                remainingText = remainingText.substring(breakIndex + 1);
                             }
                             
-                            // Find the last space within the max length
-                            let breakIndex = maxLineLength;
-                            while (breakIndex > 0 && remainingText[breakIndex] !== ' ') {
-                                breakIndex--;
-                            }
+                            // Draw each line
+                            valueLines.forEach((line, lineIndex) => {
+                                doc.text(line, col1X + 40, currentY + (lineIndex * 4));
+                            });
                             
-                            if (breakIndex === 0) {
-                                // No space found, force break
-                                breakIndex = maxLineLength;
-                            }
-                            
-                            valueLines.push(remainingText.substring(0, breakIndex));
-                            remainingText = remainingText.substring(breakIndex + 1);
+                            currentY += Math.max(valueLines.length, 1) * 4 + 2;
+                        } else {
+                            // Just move to next line without drawing anything
+                            currentY += 6;
                         }
-                        
-                        // Draw each line
-                        valueLines.forEach((line, lineIndex) => {
-                            doc.text(line, col1X + 40, currentY + (lineIndex * 4));
-                        });
-                        
-                        currentY += Math.max(valueLines.length, 1) * 4 + 2;
                     });
                     
                     // Draw second column
@@ -2817,49 +3195,61 @@
                         doc.text(detail.label, col2X, currentY);
                         doc.setFont('helvetica', 'normal');
                         
-                        // Handle long values by splitting into multiple lines
-                        const maxLineLength = 35;
-                        const valueLines = [];
-                        let remainingText = detail.value;
-                        
-                        while (remainingText.length > 0) {
-                            if (remainingText.length <= maxLineLength) {
-                                valueLines.push(remainingText);
-                                break;
+                        // Only draw value if it exists
+                        if (detail.value) {
+                            // Handle long values by splitting into multiple lines
+                            const maxLineLength = 35;
+                            const valueLines = [];
+                            let remainingText = detail.value;
+                            
+                            while (remainingText.length > 0) {
+                                if (remainingText.length <= maxLineLength) {
+                                    valueLines.push(remainingText);
+                                    break;
+                                }
+                                
+                                // Find the last space within the max length
+                                let breakIndex = maxLineLength;
+                                while (breakIndex > 0 && remainingText[breakIndex] !== ' ') {
+                                    breakIndex--;
+                                }
+                                
+                                if (breakIndex === 0) {
+                                    // No space found, force break
+                                    breakIndex = maxLineLength;
+                                }
+                                
+                                valueLines.push(remainingText.substring(0, breakIndex));
+                                remainingText = remainingText.substring(breakIndex + 1);
                             }
                             
-                            // Find the last space within the max length
-                            let breakIndex = maxLineLength;
-                            while (breakIndex > 0 && remainingText[breakIndex] !== ' ') {
-                                breakIndex--;
-                            }
+                            // Draw each line
+                            valueLines.forEach((line, lineIndex) => {
+                                doc.text(line, col2X + 40, currentY + (lineIndex * 4));
+                            });
                             
-                            if (breakIndex === 0) {
-                                // No space found, force break
-                                breakIndex = maxLineLength;
-                            }
-                            
-                            valueLines.push(remainingText.substring(0, breakIndex));
-                            remainingText = remainingText.substring(breakIndex + 1);
+                            currentY += Math.max(valueLines.length, 1) * 4 + 2;
+                        } else {
+                            // Just move to next line without drawing anything
+                            currentY += 6;
                         }
-                        
-                        // Draw each line
-                        valueLines.forEach((line, lineIndex) => {
-                            doc.text(line, col2X + 40, currentY + (lineIndex * 4));
-                        });
-                        
-                        currentY += Math.max(valueLines.length, 1) * 4 + 2;
                     });
                     
                     // Update yPos to the maximum of both columns
                     yPos = Math.max(
                         colY + col1Details.reduce((acc, detail) => {
-                            const lines = Math.ceil((detail.value || '').length / 35) || 1;
-                            return acc + (lines * 4 + 2);
+                            if (detail.value) {
+                                const lines = Math.ceil((detail.value || '').length / 35) || 1;
+                                return acc + (lines * 4 + 2);
+                            }
+                            return acc + 6;
                         }, 0),
                         colY + col2Details.reduce((acc, detail) => {
-                            const lines = Math.ceil((detail.value || '').length / 35) || 1;
-                            return acc + (lines * 4 + 2);
+                            if (detail.value) {
+                                const lines = Math.ceil((detail.value || '').length / 35) || 1;
+                                return acc + (lines * 4 + 2);
+                            }
+                            return acc + 6;
                         }, 0)
                     ) + 10;
                     
@@ -3122,7 +3512,7 @@
                                 <td style="font-size: 10px;">${row.company || '-'}</td>
                                 <td style="font-size: 10px;">${row.description || '-'}</td>
                                 <td style="font-weight: 500; font-size: 10px;">£${expenseAmount.toFixed(2)}</td>
-                            </tr>
+                        </tr>
                         `;
                     }
                 });
@@ -3759,43 +4149,43 @@
                                     <h4>Accountant Details</h4>
                                     <div class="personnel-detail">
                                         <div class="personnel-label">Accountant Name:</div>
-                                        <div class="personnel-value">${person.name || 'Not specified'}</div>
+                                        <div class="personnel-value">${person.name || ''}</div>
                                     </div>
                                     <div class="personnel-detail">
                                         <div class="personnel-label">Company Name:</div>
-                                        <div class="personnel-value">${person.companyName || 'Not specified'}</div>
+                                        <div class="personnel-value">${person.companyName || ''}</div>
                                     </div>
                                     <div class="personnel-detail">
                                         <div class="personnel-label">Address Line 1:</div>
-                                        <div class="personnel-value">${person.address1 || 'Not specified'}</div>
+                                        <div class="personnel-value">${person.address1 || ''}</div>
                                     </div>
                                     <div class="personnel-detail">
                                         <div class="personnel-label">Address Line 2:</div>
-                                        <div class="personnel-value">${person.address2 || 'Not specified'}</div>
+                                        <div class="personnel-value">${person.address2 || ''}</div>
                                     </div>
                                     <div class="personnel-detail">
                                         <div class="personnel-label">Town/City:</div>
-                                        <div class="personnel-value">${person.town || 'Not specified'}</div>
+                                        <div class="personnel-value">${person.town || ''}</div>
                                     </div>
                                     <div class="personnel-detail">
                                         <div class="personnel-label">County:</div>
-                                        <div class="personnel-value">${person.county || 'Not specified'}</div>
+                                        <div class="personnel-value">${person.county || ''}</div>
                                     </div>
                                     <div class="personnel-detail">
                                         <div class="personnel-label">Postcode:</div>
-                                        <div class="personnel-value">${person.postcode || 'Not specified'}</div>
+                                        <div class="personnel-value">${person.postcode || ''}</div>
                                     </div>
                                     <div class="personnel-detail">
                                         <div class="personnel-label">Phone:</div>
-                                        <div class="personnel-value">${person.phone || 'Not specified'}</div>
+                                        <div class="personnel-value">${person.phone || ''}</div>
                                     </div>
                                     <div class="personnel-detail">
                                         <div class="personnel-label">Email:</div>
-                                        <div class="personnel-value">${person.email || 'Not specified'}</div>
+                                        <div class="personnel-value">${person.email || ''}</div>
                                     </div>
                                     <div class="personnel-detail">
                                         <div class="personnel-label">Account Number:</div>
-                                        <div class="personnel-value">${person.accountNumber || 'Not specified'}</div>
+                                        <div class="personnel-value">${person.accountNumber || ''}</div>
                                     </div>
                                 </div>
                             `;
@@ -3808,43 +4198,43 @@
                                     <h4>${person.name}</h4>
                                     <div class="personnel-detail">
                                         <div class="personnel-label">Date of Birth:</div>
-                                        <div class="personnel-value">${person.dob ? formatDate(person.dob) : 'Not specified'}</div>
+                                        <div class="personnel-value">${person.dob ? formatDate(person.dob) : ''}</div>
                                     </div>
                                     <div class="personnel-detail">
                                         <div class="personnel-label">Address Line 1:</div>
-                                        <div class="personnel-value">${person.address1 || 'Not specified'}</div>
+                                        <div class="personnel-value">${person.address1 || ''}</div>
                                     </div>
                                     <div class="personnel-detail">
                                         <div class="personnel-label">Address Line 2:</div>
-                                        <div class="personnel-value">${person.address2 || 'Not specified'}</div>
+                                        <div class="personnel-value">${person.address2 || ''}</div>
                                     </div>
                                     <div class="personnel-detail">
                                         <div class="personnel-label">Town/City:</div>
-                                        <div class="personnel-value">${person.town || 'Not specified'}</div>
+                                        <div class="personnel-value">${person.town || ''}</div>
                                     </div>
                                     <div class="personnel-detail">
                                         <div class="personnel-label">County:</div>
-                                        <div class="personnel-value">${person.county || 'Not specified'}</div>
+                                        <div class="personnel-value">${person.county || ''}</div>
                                     </div>
                                     <div class="personnel-detail">
                                         <div class="personnel-label">Postcode:</div>
-                                        <div class="personnel-value">${person.postcode || 'Not specified'}</div>
+                                        <div class="personnel-value">${person.postcode || ''}</div>
                                     </div>
                                     <div class="personnel-detail">
                                         <div class="personnel-label">Phone:</div>
-                                        <div class="personnel-value">${person.phone || 'Not specified'}</div>
+                                        <div class="personnel-value">${person.phone || ''}</div>
                                     </div>
                                     <div class="personnel-detail">
                                         <div class="personnel-label">Email:</div>
-                                        <div class="personnel-value">${person.email || 'Not specified'}</div>
+                                        <div class="personnel-value">${person.email || ''}</div>
                                     </div>
                                     <div class="personnel-detail">
                                         <div class="personnel-label">National Insurance No:</div>
-                                        <div class="personnel-value">${person.nationalInsurance || 'Not specified'}</div>
+                                        <div class="personnel-value">${person.nationalInsurance || ''}</div>
                                     </div>
                                     <div class="personnel-detail">
                                         <div class="personnel-label">UTR (Tax Reference):</div>
-                                        <div class="personnel-value">${person.utr || 'Not specified'}</div>
+                                        <div class="personnel-value">${person.utr || ''}</div>
                                     </div>
                                 </div>
                             `;
@@ -3875,12 +4265,12 @@
             if (person.county) parts.push(person.county);
             if (person.postcode) parts.push(person.postcode);
             
-            return parts.length > 0 ? parts.join(', ') : 'Not specified';
+            return parts.length > 0 ? parts.join(', ') : '';
         }
         
         // Helper function to format date
         function formatDate(dateString) {
-            if (!dateString) return 'Not specified';
+            if (!dateString) return '';
             
             // If date is in YYYY-MM-DD format, convert to DD/MM/YYYY
             const date = new Date(dateString);
@@ -4071,6 +4461,11 @@
             // Export Companies PDF button
             exportCompaniesPdfBtn.addEventListener('click', exportCompaniesToPDF);
             
+            // ENHANCED: Sort buttons
+            sortByNameBtn.addEventListener('click', sortCompaniesByName);
+            sortByNumberBtn.addEventListener('click', sortCompaniesByNumber);
+            sortByTypeBtn.addEventListener('click', sortCompaniesByType);
+            
             // Information title editing
             informationTitleElement.addEventListener('click', function() {
                 informationTitleElement.style.display = 'none';
@@ -4122,6 +4517,8 @@
                     nextRowId = 1;
                     informationTitle = 'Company Information';
                     editingHeaderId = null;
+                    activeCompanyId = null;
+                    editingCompanyNumberId = null;
                     
                     updateInformationTitle();
                     addColumnModal.classList.remove('show');
@@ -4130,7 +4527,8 @@
                     
                     renderTable();
                     renderPersonnel();
-                    renderCompanyGrid();
+                    renderCompanyHeadersGrid();
+                    renderCompanyContent();
                     renderStatsBar();
                     renderSummaryTab();
                     populateColumnPositionOptions();
@@ -4570,11 +4968,11 @@
                     if (person.id === 3) {
                         if (person.name || person.companyName) {
                             csvContent.push('Accountant Details');
-                            csvContent.push('Name,' + (person.name || 'Not specified'));
-                            csvContent.push('Company,' + (person.companyName || 'Not specified'));
+                            csvContent.push('Name,' + (person.name || ''));
+                            csvContent.push('Company,' + (person.companyName || ''));
                             csvContent.push('Address,"' + formatAddress(person) + '"');
-                            csvContent.push('Phone,' + (person.phone || 'Not specified'));
-                            csvContent.push('Email,' + (person.email || 'Not specified'));
+                            csvContent.push('Phone,' + (person.phone || ''));
+                            csvContent.push('Email,' + (person.email || ''));
                             if (person.accountNumber) {
                                 csvContent.push('Account No,' + person.accountNumber);
                             }
@@ -4584,8 +4982,8 @@
                         if (person.name) {
                             csvContent.push(person.name);
                             csvContent.push('Address,"' + formatAddress(person) + '"');
-                            csvContent.push('Phone,' + (person.phone || 'Not specified'));
-                            csvContent.push('Email,' + (person.email || 'Not specified'));
+                            csvContent.push('Phone,' + (person.phone || ''));
+                            csvContent.push('Email,' + (person.email || ''));
                             if (person.nationalInsurance) {
                                 csvContent.push('National Insurance,' + person.nationalInsurance);
                             }
@@ -4671,7 +5069,8 @@
                         // Refresh UI
                         renderTable();
                         renderPersonnel();
-                        renderCompanyGrid();
+                        renderCompanyHeadersGrid();
+                        renderCompanyContent();
                         renderStatsBar();
                         renderSummaryTab();
                         populateColumnPositionOptions();
