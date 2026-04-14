@@ -1687,7 +1687,7 @@
                 <button class="btn btn-warning" id="generateReportBtn">
                     <i class="fas fa-file-alt"></i> Generate Report
                 </button>
-                <button class="btn btn-outline" onclick="window.print()">
+                <button class="btn btn-outline" id="headerPrintBtn">
                     <i class="fas fa-print"></i> Print
                 </button>
             </div>
@@ -3974,69 +3974,141 @@
             const netProfit = totalIncome - totalExpenses;
             const totalHrmc = totalKamal + totalMeena;
             
-            // Executive Summary
+            // Executive Summary - mirror the Summary tab layout exactly
             const executiveSummary = document.getElementById('executiveSummary');
             let summaryHtml = '';
             
-            if (totalIncome === 0 && totalExpenses === 0) {
-                summaryHtml = '<p style="text-align: center; color: #666; font-style: italic;">No financial data available for this period.</p>';
+            // Build a table matching the Summary tab structure
+            summaryHtml += `<table style="width:100%; border-collapse:collapse; font-size:10px;">
+                <thead>
+                    <tr>
+                        <th style="background:#f1f5f9; padding:6px 4px; text-align:left; font-weight:600; color:#1e3a8a; border-bottom:1px solid #e2e8f0;">Date</th>
+                        <th style="background:#f1f5f9; padding:6px 4px; text-align:left; font-weight:600; color:#1e3a8a; border-bottom:1px solid #e2e8f0;">Company</th>
+                        <th style="background:#f1f5f9; padding:6px 4px; text-align:left; font-weight:600; color:#1e3a8a; border-bottom:1px solid #e2e8f0;">Description</th>
+                        <th style="background:#f1f5f9; padding:6px 4px; text-align:left; font-weight:600; color:#1e3a8a; border-bottom:1px solid #e2e8f0;">Amount</th>
+                    </tr>
+                </thead>
+                <tbody>`;
+
+            // RENTAL INCOME SECTION
+            summaryHtml += `<tr><td colspan="4" style="background:#f1f5f9; font-weight:600; padding:6px; border-bottom:1px solid #e2e8f0;">RENTAL INCOME</td></tr>`;
+            const rentalRows = appData.rows.filter(row => parseFloat(row.rent) > 0);
+            const totalRentalIncome = totalRent;
+            if (rentalRows.length > 0) {
+                rentalRows.forEach(row => {
+                    summaryHtml += `<tr>
+                        <td style="padding:4px; border-bottom:1px solid #e2e8f0;">${row.date || '-'}</td>
+                        <td style="padding:4px; border-bottom:1px solid #e2e8f0;">${row.company || '-'}</td>
+                        <td style="padding:4px; border-bottom:1px solid #e2e8f0;">${row.description || '-'}</td>
+                        <td style="padding:4px; border-bottom:1px solid #e2e8f0; font-weight:500;">£${parseFloat(row.rent).toFixed(2)}</td>
+                    </tr>`;
+                });
+                summaryHtml += `<tr style="background:#dbeafe;">
+                    <td colspan="3" style="font-weight:600; padding:6px; border-bottom:1px solid #e2e8f0;">Total Rental Income</td>
+                    <td style="font-weight:600; padding:6px; border-bottom:1px solid #e2e8f0;">£${totalRentalIncome.toFixed(2)}</td>
+                </tr>`;
             } else {
-                summaryHtml = `
-                    <div class="financial-row" style="display: table; width: 100%; table-layout: fixed;">
-                        <div class="financial-label" style="display: table-cell; text-align: left; width: 70%;">Total Rental Income:</div>
-                        <div class="financial-value" style="display: table-cell; text-align: right; width: 30%;">£${totalRent.toFixed(2)}</div>
-                    </div>
-                    <div class="financial-row" style="display: table; width: 100%; table-layout: fixed;">
-                        <div class="financial-label" style="display: table-cell; text-align: left; width: 70%;">Total Other Income:</div>
-                        <div class="financial-value" style="display: table-cell; text-align: right; width: 30%;">£${totalOther.toFixed(2)}</div>
-                    </div>
-                    <div class="financial-row total" style="display: table; width: 100%; table-layout: fixed;">
-                        <div class="financial-label" style="display: table-cell; text-align: left; width: 70%;">Total Income:</div>
-                        <div class="financial-value" style="display: table-cell; text-align: right; width: 30%;">£${totalIncome.toFixed(2)}</div>
-                    </div>
-                    
-                    <div style="height: 8px;"></div>
-                    
-                    <div class="financial-row" style="display: table; width: 100%; table-layout: fixed;">
-                        <div class="financial-label" style="display: table-cell; text-align: left; width: 70%;">Repairs & Maintenance:</div>
-                        <div class="financial-value" style="display: table-cell; text-align: right; width: 30%;">£${totalRepairs.toFixed(2)}</div>
-                    </div>
-                    <div class="financial-row" style="display: table; width: 100%; table-layout: fixed;">
-                        <div class="financial-label" style="display: table-cell; text-align: left; width: 70%;">Insurance:</div>
-                        <div class="financial-value" style="display: table-cell; text-align: right; width: 30%;">£${totalInsurance.toFixed(2)}</div>
-                    </div>
-                    <div class="financial-row" style="display: table; width: 100%; table-layout: fixed;">
-                        <div class="financial-label" style="display: table-cell; text-align: left; width: 70%;">Management Fees:</div>
-                        <div class="financial-value" style="display: table-cell; text-align: right; width: 30%;">£${totalKeyo.toFixed(2)}</div>
-                    </div>
-                    <div class="financial-row total" style="display: table; width: 100%; table-layout: fixed;">
-                        <div class="financial-label" style="display: table-cell; text-align: left; width: 70%;">Total Operating Expenses:</div>
-                        <div class="financial-value" style="display: table-cell; text-align: right; width: 30%;">£${totalExpenses.toFixed(2)}</div>
-                    </div>
-                    
-                    <div style="height: 8px;"></div>
-                    
-                    <div class="financial-row total" style="display: table; width: 100%; table-layout: fixed; background-color: ${netProfit >= 0 ? '#d1fae5' : '#fee2e2'}; padding: 8px; border-radius: 4px;">
-                        <div class="financial-label" style="display: table-cell; text-align: left; width: 70%;">Net Profit/Loss (Excl. HRMC):</div>
-                        <div class="financial-value ${netProfit >= 0 ? 'profit' : 'loss'}" style="display: table-cell; text-align: right; width: 30%; font-size: 16px;">£${netProfit.toFixed(2)}</div>
-                    </div>
-                    
-                    <div style="height: 8px;"></div>
-                    
-                    <div class="financial-row excluded" style="display: table; width: 100%; table-layout: fixed;">
-                        <div class="financial-label" style="display: table-cell; text-align: left; width: 70%;">Kamal HRMC (Excluded):</div>
-                        <div class="financial-value" style="display: table-cell; text-align: right; width: 30%;">£${totalKamal.toFixed(2)}</div>
-                    </div>
-                    <div class="financial-row excluded" style="display: table; width: 100%; table-layout: fixed;">
-                        <div class="financial-label" style="display: table-cell; text-align: left; width: 70%;">Meena HRMC (Excluded):</div>
-                        <div class="financial-value" style="display: table-cell; text-align: right; width: 30%;">£${totalMeena.toFixed(2)}</div>
-                    </div>
-                    <div class="financial-row excluded total" style="display: table; width: 100%; table-layout: fixed;">
-                        <div class="financial-label" style="display: table-cell; text-align: left; width: 70%;">Total HRMC Payments:</div>
-                        <div class="financial-value" style="display: table-cell; text-align: right; width: 30%;">£${totalHrmc.toFixed(2)}</div>
-                    </div>
-                `;
+                summaryHtml += `<tr><td colspan="4" style="text-align:center; color:#666; padding:6px; font-style:italic; border-bottom:1px solid #e2e8f0;">No rental income</td></tr>`;
             }
+
+            // OTHER INCOME SECTION
+            summaryHtml += `<tr><td colspan="4" style="background:#f1f5f9; font-weight:600; padding:6px; border-bottom:1px solid #e2e8f0;">OTHER INCOME</td></tr>`;
+            const otherIncomeRows = appData.rows.filter(row => parseFloat(row.other) > 0);
+            const totalOtherIncome = totalOther;
+            if (otherIncomeRows.length > 0) {
+                otherIncomeRows.forEach(row => {
+                    summaryHtml += `<tr>
+                        <td style="padding:4px; border-bottom:1px solid #e2e8f0;">${row.date || '-'}</td>
+                        <td style="padding:4px; border-bottom:1px solid #e2e8f0;">${row.company || '-'}</td>
+                        <td style="padding:4px; border-bottom:1px solid #e2e8f0;">${row.description || '-'}</td>
+                        <td style="padding:4px; border-bottom:1px solid #e2e8f0; font-weight:500;">£${parseFloat(row.other).toFixed(2)}</td>
+                    </tr>`;
+                });
+                summaryHtml += `<tr style="background:#dbeafe;">
+                    <td colspan="3" style="font-weight:600; padding:6px; border-bottom:1px solid #e2e8f0;">Total Other Income</td>
+                    <td style="font-weight:600; padding:6px; border-bottom:1px solid #e2e8f0;">£${totalOtherIncome.toFixed(2)}</td>
+                </tr>`;
+            } else {
+                summaryHtml += `<tr><td colspan="4" style="text-align:center; color:#666; padding:6px; font-style:italic; border-bottom:1px solid #e2e8f0;">No other income</td></tr>`;
+            }
+
+            // EXPENSES SECTION
+            summaryHtml += `<tr><td colspan="4" style="background:#f1f5f9; font-weight:600; padding:6px; border-bottom:1px solid #e2e8f0;">EXPENSES</td></tr>`;
+            const expenseRows = appData.rows.filter(row =>
+                parseFloat(row.repairs) > 0 || parseFloat(row.insurance) > 0 || parseFloat(row.keyo) > 0
+            );
+            if (expenseRows.length > 0) {
+                expenseRows.forEach(row => {
+                    const expenseAmount = (parseFloat(row.repairs) || 0) + (parseFloat(row.insurance) || 0) + (parseFloat(row.keyo) || 0);
+                    if (expenseAmount > 0) {
+                        summaryHtml += `<tr>
+                            <td style="padding:4px; border-bottom:1px solid #e2e8f0;">${row.date || '-'}</td>
+                            <td style="padding:4px; border-bottom:1px solid #e2e8f0;">${row.company || '-'}</td>
+                            <td style="padding:4px; border-bottom:1px solid #e2e8f0;">${row.description || '-'}</td>
+                            <td style="padding:4px; border-bottom:1px solid #e2e8f0; font-weight:500;">£${expenseAmount.toFixed(2)}</td>
+                        </tr>`;
+                    }
+                });
+                summaryHtml += `<tr style="background:#dbeafe;">
+                    <td colspan="3" style="font-weight:600; padding:6px; border-bottom:1px solid #e2e8f0;">Total Expenses</td>
+                    <td style="font-weight:600; padding:6px; border-bottom:1px solid #e2e8f0;">£${totalExpenses.toFixed(2)}</td>
+                </tr>`;
+            } else {
+                summaryHtml += `<tr><td colspan="4" style="text-align:center; color:#666; padding:6px; font-style:italic; border-bottom:1px solid #e2e8f0;">No expenses</td></tr>`;
+            }
+
+            // HRMC PAYMENTS SECTION
+            summaryHtml += `<tr><td colspan="4" style="background:#fee2e2; font-weight:600; padding:6px; color:#dc2626; border-bottom:1px solid #e2e8f0;">HRMC PAYMENTS (Excluded from Calculations)</td></tr>`;
+            const kamalRows = appData.rows.filter(row => parseFloat(row.kamal) > 0);
+            const meenaRows = appData.rows.filter(row => parseFloat(row.meena) > 0);
+            const totalHRMC = totalKamal + totalMeena;
+            if (kamalRows.length > 0 || meenaRows.length > 0) {
+                kamalRows.forEach(row => {
+                    summaryHtml += `<tr>
+                        <td style="padding:4px; border-bottom:1px solid #e2e8f0;">${row.date || '-'}</td>
+                        <td style="padding:4px; border-bottom:1px solid #e2e8f0;">${row.company || 'Kamal HRMC'}</td>
+                        <td style="padding:4px; border-bottom:1px solid #e2e8f0;">${row.description || '-'}</td>
+                        <td style="padding:4px; border-bottom:1px solid #e2e8f0; font-weight:500; color:#dc2626;">£${parseFloat(row.kamal).toFixed(2)}</td>
+                    </tr>`;
+                });
+                meenaRows.forEach(row => {
+                    summaryHtml += `<tr>
+                        <td style="padding:4px; border-bottom:1px solid #e2e8f0;">${row.date || '-'}</td>
+                        <td style="padding:4px; border-bottom:1px solid #e2e8f0;">${row.company || 'Meena HRMC'}</td>
+                        <td style="padding:4px; border-bottom:1px solid #e2e8f0;">${row.description || '-'}</td>
+                        <td style="padding:4px; border-bottom:1px solid #e2e8f0; font-weight:500; color:#dc2626;">£${parseFloat(row.meena).toFixed(2)}</td>
+                    </tr>`;
+                });
+                summaryHtml += `<tr style="background:#fecaca;">
+                    <td colspan="3" style="font-weight:600; padding:6px; color:#dc2626; border-bottom:1px solid #e2e8f0;">Total HRMC Payments</td>
+                    <td style="font-weight:600; padding:6px; color:#dc2626; border-bottom:1px solid #e2e8f0;">£${totalHRMC.toFixed(2)}</td>
+                </tr>`;
+            } else {
+                summaryHtml += `<tr><td colspan="4" style="text-align:center; color:#666; padding:6px; font-style:italic; border-bottom:1px solid #e2e8f0;">No HRMC payments</td></tr>`;
+            }
+
+            // TOTALS SECTION
+            summaryHtml += `<tr><td colspan="4" style="border-top:2px solid #334155; padding:0;"></td></tr>`;
+            summaryHtml += `
+                <tr style="background:#f8fafc;">
+                    <td colspan="3" style="padding:6px; font-weight:600; font-size:11px; border-bottom:1px solid #e2e8f0;">Total Income</td>
+                    <td style="padding:6px; font-weight:600; font-size:11px; border-bottom:1px solid #e2e8f0;">£${totalIncome.toFixed(2)}</td>
+                </tr>
+                <tr style="background:#f8fafc;">
+                    <td colspan="3" style="padding:6px; font-weight:600; font-size:11px; border-bottom:1px solid #e2e8f0;">Total Expenses</td>
+                    <td style="padding:6px; font-weight:600; font-size:11px; border-bottom:1px solid #e2e8f0;">£${totalExpenses.toFixed(2)}</td>
+                </tr>
+                <tr style="background:${netProfit >= 0 ? '#d1fae5' : '#fee2e2'};">
+                    <td colspan="3" style="padding:6px; font-weight:700; font-size:12px; border-bottom:1px solid #e2e8f0;">Net Profit/Loss</td>
+                    <td style="padding:6px; font-weight:700; font-size:12px; color:${netProfit >= 0 ? '#059669' : '#dc2626'}; border-bottom:1px solid #e2e8f0;">£${netProfit.toFixed(2)}</td>
+                </tr>
+                <tr style="background:#fff7ed;">
+                    <td colspan="3" style="padding:6px; font-weight:600; font-size:11px; color:#dc2626;">Total HRMC Payments (Excluded)</td>
+                    <td style="padding:6px; font-weight:600; font-size:11px; color:#dc2626;">£${totalHRMC.toFixed(2)}</td>
+                </tr>
+            `;
+
+            summaryHtml += '</tbody></table>';
             
             executiveSummary.innerHTML = summaryHtml;
             
@@ -4443,6 +4515,13 @@
             
             // Generate Report button
             generateReportBtn.addEventListener('click', generateProfessionalReport);
+            
+            // Header Print button - generate report then print
+            const headerPrintBtn = document.getElementById('headerPrintBtn');
+            headerPrintBtn.addEventListener('click', function() {
+                generateProfessionalReport();
+                setTimeout(function() { window.print(); }, 300);
+            });
             
             // Close Report button
             closeReportBtn.addEventListener('click', function() {
