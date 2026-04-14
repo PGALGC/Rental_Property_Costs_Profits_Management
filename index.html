@@ -1653,7 +1653,7 @@
             <div class="header-left">
                 <h1>Costs & Profits Management</h1>
                 <div class="header-subtitle" id="headerSubtitle" style="cursor: pointer;" title="Click to edit">
-                    <span id="propertyAddress">17 Schoolfields, SG6 2TZ</span> | Period: <span id="periodDates">Apr 2025 - Apr 2026</span>
+                    <span id="propertyAddress">17 Schoolfields, SG6 2TZ</span> | Period: <span id="periodDates">Apr 2026 - Apr 2027</span>
                 </div>
             </div>
             <div class="header-right">
@@ -2114,7 +2114,7 @@
         let selectedFile = null;
         let propertyInfo = {
             address: '17 Schoolfields, SG6 2TZ',
-            period: 'Apr 2025 - Apr 2026'
+            period: 'Apr 2026 - Apr 2027'
         };
         
         // NEW: Information tab title
@@ -2168,7 +2168,7 @@
                     personnel = parsedData.personnel || deepClone(EMPTY_PERSONNEL_DATA);
                     companies = parsedData.companies || deepClone(EMPTY_COMPANY_DATA);
                     nextRowId = parsedData.nextRowId || 1;
-                    propertyInfo = parsedData.propertyInfo || { address: '17 Schoolfields, SG6 2TZ', period: 'Apr 2025 - Apr 2026' };
+                    propertyInfo = parsedData.propertyInfo || { address: '17 Schoolfields, SG6 2TZ', period: 'Apr 2026 - Apr 2027' };
                     informationTitle = parsedData.informationTitle || 'Company Information';
                     console.log('Data loaded from main storage key');
                     return;
@@ -2291,7 +2291,7 @@
                 propertyInfo.address = newAddress.trim();
             }
             
-            const newPeriod = prompt('Enter period (e.g., Apr 2025 - Apr 2026):', propertyInfo.period);
+            const newPeriod = prompt('Enter period (e.g., Apr 2026 - Apr 2027):', propertyInfo.period);
             if (newPeriod !== null && newPeriod.trim() !== '') {
                 propertyInfo.period = newPeriod.trim();
             }
